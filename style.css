@@ -1,0 +1,83 @@
+:root{
+  --green:#16a085;
+  --blue:#3498db;
+  --ink:#0b1220;
+  --text:#162032;
+  --muted:#506079;
+  --white:#fff;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--text);
+  background: linear-gradient(120deg, #f7fafc 40%, rgba(22,160,133,.08)), 
+              radial-gradient(1200px 800px at 80% 40%, rgba(52,152,219,.20), transparent 60%),
+              radial-gradient(900px 600px at 70% 80%, rgba(22,160,133,.18), transparent 60%);
+  background-blend-mode: normal, screen, screen;
+  animation:bgMove 18s ease-in-out infinite alternate;
+}
+
+@keyframes bgMove{
+  0%{ background-position: 0 0, 70% 30%, 60% 80%; }
+  100%{ background-position: 0 0, 85% 35%, 75% 85%; }
+}
+
+/* Layout commun */
+.wrapper{min-height:100dvh; display:flex; flex-direction:column}
+.container{width:min(1200px, 92%); margin-inline:auto}
+
+/* Header/Nav */
+header{
+  position:sticky; top:0; z-index:10;
+  backdrop-filter:saturate(180%) blur(10px);
+  background:rgba(255,255,255,.7);
+  border-bottom:1px solid rgba(15,23,42,.06);
+}
+.nav{display:flex; align-items:center; gap:28px; padding:14px 0;}
+.brand{display:flex; align-items:center; gap:10px; font-weight:700; color:var(--ink)}
+.brand .logo{
+  width:28px; height:28px; display:grid; place-items:center;
+  border-radius:50%; color:var(--white);
+  background:linear-gradient(135deg, var(--green), var(--blue));
+  font-weight:800;
+}
+.nav a{color:var(--muted); text-decoration:none; font-weight:600}
+.nav a:hover{color:var(--ink)}
+
+/* Hero 2 colonnes */
+.hero{
+  display:grid; grid-template-columns: 1.1fr 1fr; gap:50px;
+  align-items:center; padding:70px 0 90px;
+}
+h1{font-size:clamp(2rem, 3.8vw, 3rem); line-height:1.1; margin:.2rem 0 1rem}
+p.lead{color:var(--muted); font-size:1.05rem; line-height:1.6; margin:0 0 1.5rem}
+
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  background:linear-gradient(135deg, var(--green), var(--blue));
+  color:#fff; border:0; padding:12px 18px; border-radius:10px; font-weight:700;
+  box-shadow:0 8px 30px rgba(22,160,133,.25);
+  cursor:pointer; transition:transform .15s ease;
+}
+.btn:hover{transform:translateY(-2px)}
+
+/* Panneau d’animation à droite (on y mettra Lottie demain) */
+.stage{
+  aspect-ratio: 4 / 3;
+  width:100%; border-radius:16px;
+  background:rgba(255,255,255,.65);
+  box-shadow:0 20px 60px rgba(15,23,42,.08);
+  display:grid; place-items:center; overflow:hidden;
+}
+
+/* Footer */
+footer{margin-top:auto; border-top:1px solid rgba(15,23,42,.06); background:rgba(255,255,255,.6)}
+footer .foot{display:flex; justify-content:space-between; padding:18px 0; color:var(--muted); font-size:.95rem}
+
+/* Responsive */
+@media (max-width: 920px){
+  .hero{grid-template-columns: 1fr; padding:42px 0 70px}
+}
