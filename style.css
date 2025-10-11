@@ -8,18 +8,21 @@
 }
 * { box-sizing: border-box; margin:0; padding:0; font-family:'Inter',sans-serif; }
 
-body{
-  background: linear-gradient(120deg, var(--orange), var(--green), var(--violet));
-  background-size: 300% 300%;
-  animation: gradientShift 12s ease infinite;
+body {
+  background: linear-gradient(-45deg, #ff7a00, #ffb347, #00b87c, #8b5cf6);
+  background-size: 400% 400%;
+  animation: gradientShift 10s ease infinite;
   color: var(--text-light);
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
+
 @keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50%{ background-position:100% 50%; }
-  100%{ background-position:0% 50%; }
+  0%   { background-position: 0% 50%; }
+  25%  { background-position: 50% 100%; }
+  50%  { background-position: 100% 50%; }
+  75%  { background-position: 50% 0%; }
+  100% { background-position: 0% 50%; }
 }
 
 header{
