@@ -6,31 +6,30 @@
   <title>KwikLink – L’infrastructure des paiements digitaux africains</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --orange: #ff7a00;
-      --green: #00b87c;
-      --violet: #8b5cf6;
-      --text-light: #f8f8f8;
-      --text-dim: #cccccc;
-      --bg-dark: #0b0b0f;
-    }
+<style>
+:root {
+  --orange: #ff7a00;
+  --green: #00b87c;
+  --violet: #8b5cf6;
+  --text-light: #f8f8f8;
+  --text-dim: #cccccc;
+  --bg-dark: #0b0b0f;
+}
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
 
     /* Correction forcée du fond dynamique CodePen */
 body {
-  background: linear-gradient(-45deg, #ff7a00, #ffb347, #00b87c, #8b5cf6) !important;
-  background-size: 400% 400% !important;
-  animation: gradientShift 10s ease infinite !important;
-  color: #f8f8f8;
+  background: linear-gradient(120deg, var(--orange), var(--green), var(--violet));
+  background-size: 300% 300%;
+  animation: gradientShift 12s ease infinite;
+  color: var(--text-light);
+  overflow-x: hidden;
 }
 
 @keyframes gradientShift {
-  0%   { background-position: 0% 50%; }
-  25%  { background-position: 50% 100%; }
-  50%  { background-position: 100% 50%; }
-  75%  { background-position: 50% 0%; }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
