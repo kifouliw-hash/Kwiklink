@@ -1,83 +1,66 @@
-:root{
-  --green:#16a085;
-  --blue:#3498db;
-  --ink:#0b1220;
-  --text:#162032;
-  --muted:#506079;
-  --white:#fff;
+:root {
+  --orange: #ff7a00;
+  --green:  #00b87c;
+  --violet: #8b5cf6;
+  --text-light: #f8f8f8;
+  --text-dim:  #cccccc;
+  --bg-dark:   #0b0b0f;
 }
+* { box-sizing: border-box; margin:0; padding:0; font-family:'Inter',sans-serif; }
 
-*{box-sizing:border-box}
-html,body{height:100%}
 body{
-  margin:0;
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color:var(--text);
-  background: linear-gradient(120deg, #f7fafc 40%, rgba(22,160,133,.08)), 
-              radial-gradient(1200px 800px at 80% 40%, rgba(52,152,219,.20), transparent 60%),
-              radial-gradient(900px 600px at 70% 80%, rgba(22,160,133,.18), transparent 60%);
-  background-blend-mode: normal, screen, screen;
-  animation:bgMove 18s ease-in-out infinite alternate;
+  background: linear-gradient(120deg, var(--orange), var(--green), var(--violet));
+  background-size: 300% 300%;
+  animation: gradientShift 12s ease infinite;
+  color: var(--text-light);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50%{ background-position:100% 50%; }
+  100%{ background-position:0% 50%; }
 }
 
-@keyframes bgMove{
-  0%{ background-position: 0 0, 70% 30%, 60% 80%; }
-  100%{ background-position: 0 0, 85% 35%, 75% 85%; }
-}
-
-/* Layout commun */
-.wrapper{min-height:100dvh; display:flex; flex-direction:column}
-.container{width:min(1200px, 92%); margin-inline:auto}
-
-/* Header/Nav */
 header{
-  position:sticky; top:0; z-index:10;
-  backdrop-filter:saturate(180%) blur(10px);
-  background:rgba(255,255,255,.7);
-  border-bottom:1px solid rgba(15,23,42,.06);
+  position: fixed; top:0; left:0; width:100%; height:70px;
+  background: rgba(0,0,0,0.3); backdrop-filter: blur(8px);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 60px; z-index:10;
 }
-.nav{display:flex; align-items:center; gap:28px; padding:14px 0;}
-.brand{display:flex; align-items:center; gap:10px; font-weight:700; color:var(--ink)}
-.brand .logo{
-  width:28px; height:28px; display:grid; place-items:center;
-  border-radius:50%; color:var(--white);
-  background:linear-gradient(135deg, var(--green), var(--blue));
-  font-weight:800;
-}
-.nav a{color:var(--muted); text-decoration:none; font-weight:600}
-.nav a:hover{color:var(--ink)}
+header h1{ font-weight:800; font-size:1.4rem; color:#fff; }
+nav a{ color:var(--text-light); text-decoration:none; margin:0 20px; font-weight:600; transition:opacity .3s; }
+nav a:hover{ opacity:.7; }
 
-/* Hero 2 colonnes */
-.hero{
-  display:grid; grid-template-columns: 1.1fr 1fr; gap:50px;
-  align-items:center; padding:70px 0 90px;
+section{
+  min-height:100vh; padding:140px 8%;
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
+  opacity:0; transform:translateY(60px); transition:all 1s ease;
 }
-h1{font-size:clamp(2rem, 3.8vw, 3rem); line-height:1.1; margin:.2rem 0 1rem}
-p.lead{color:var(--muted); font-size:1.05rem; line-height:1.6; margin:0 0 1.5rem}
+section.visible{ opacity:1; transform:translateY(0); }
 
-.btn{
-  display:inline-flex; align-items:center; gap:10px;
-  background:linear-gradient(135deg, var(--green), var(--blue));
-  color:#fff; border:0; padding:12px 18px; border-radius:10px; font-weight:700;
-  box-shadow:0 8px 30px rgba(22,160,133,.25);
-  cursor:pointer; transition:transform .15s ease;
+.text{ flex:1 1 45%; color:var(--text-light); }
+.text h2{ font-size:2.8rem; margin-bottom:20px; line-height:1.1; }
+.text p{ font-size:1.1rem; line-height:1.6; max-width:550px; color:var(--text-dim); }
+
+.visual{ flex:1 1 45%; display:flex; justify-content:center; align-items:center; }
+
+.visual-placeholder{
+  width:420px; height:260px; border-radius:16px;
+  background:rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.12);
+  backdrop-filter:blur(10px); color:#fff; font-weight:600;
+  display:flex; align-items:center; justify-content:center; text-transform:uppercase;
+  animation: float 6s ease-in-out infinite alternate;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.35);
 }
-.btn:hover{transform:translateY(-2px)}
-
-/* Panneau d’animation à droite (on y mettra Lottie demain) */
-.stage{
-  aspect-ratio: 4 / 3;
-  width:100%; border-radius:16px;
-  background:rgba(255,255,255,.65);
-  box-shadow:0 20px 60px rgba(15,23,42,.08);
-  display:grid; place-items:center; overflow:hidden;
+@keyframes float{
+  from{ transform:translateY(0px) rotateY(3deg); }
+  to  { transform:translateY(-10px) rotateY(-3deg); }
 }
 
-/* Footer */
-footer{margin-top:auto; border-top:1px solid rgba(15,23,42,.06); background:rgba(255,255,255,.6)}
-footer .foot{display:flex; justify-content:space-between; padding:18px 0; color:var(--muted); font-size:.95rem}
+footer{ background:rgba(0,0,0,0.4); text-align:center; padding:40px 0; color:#eee; font-size:.9rem; }
 
-/* Responsive */
-@media (max-width: 920px){
-  .hero{grid-template-columns: 1fr; padding:42px 0 70px}
+@media (max-width:900px){
+  section{ flex-direction:column; text-align:center; }
+  .visual-placeholder{ width:90%; height:220px; margin-top:2rem; animation:none; transform:none; }
 }
