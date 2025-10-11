@@ -3,26 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KwikLink - Infrastructure de paiement digital</title>
+  <title>KwikLink – L’infrastructure des paiements digitaux africains</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-      font-family: 'Inter', sans-serif;
+    :root {
+      --orange: #ff7a00;
+      --green: #00b87c;
+      --violet: #8b5cf6;
+      --text-light: #f8f8f8;
+      --text-dim: #cccccc;
+      --bg-dark: #0b0b0f;
     }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
 
     body {
-      background: linear-gradient(120deg, #00b894, #0984e3, #6c5ce7, #00cec9);
-      background-size: 400% 400%;
-      animation: gradient 12s ease infinite;
-      color: #fff;
+      background: linear-gradient(120deg, var(--orange), var(--green), var(--violet));
+      background-size: 300% 300%;
+      animation: gradientShift 12s ease infinite;
+      color: var(--text-light);
       overflow-x: hidden;
+      scroll-behavior: smooth;
     }
 
-    @keyframes gradient {
+    @keyframes gradientShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
@@ -30,9 +35,7 @@
 
     header {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
+      top: 0; left: 0; width: 100%;
       height: 70px;
       background: rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(8px);
@@ -43,27 +46,20 @@
       z-index: 10;
     }
 
-    header h1 {
-      font-weight: 800;
-      font-size: 1.4rem;
-      color: #fff;
-    }
+    header h1 { font-weight: 800; font-size: 1.4rem; color: #fff; }
 
     nav a {
-      color: #fff;
+      color: var(--text-light);
       text-decoration: none;
       margin: 0 20px;
       font-weight: 600;
-      transition: color 0.3s;
+      transition: opacity .3s;
     }
-
-    nav a:hover {
-      color: #00cec9;
-    }
+    nav a:hover { opacity: .7; }
 
     section {
       min-height: 100vh;
-      padding: 140px 10%;
+      padding: 140px 8%;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -80,18 +76,20 @@
 
     .text {
       flex: 1 1 45%;
-      color: #fff;
+      color: var(--text-light);
     }
 
     .text h2 {
       font-size: 2.8rem;
       margin-bottom: 20px;
+      line-height: 1.1;
     }
 
     .text p {
       font-size: 1.1rem;
       line-height: 1.6;
       max-width: 550px;
+      color: var(--text-dim);
     }
 
     .visual {
@@ -105,14 +103,20 @@
       width: 400px;
       height: 250px;
       border-radius: 15px;
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(8px);
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
       font-weight: 600;
       text-transform: uppercase;
+      animation: float 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0px) rotateY(3deg); }
+      to { transform: translateY(-10px) rotateY(-3deg); }
     }
 
     footer {
@@ -122,8 +126,14 @@
       color: #eee;
       font-size: 0.9rem;
     }
+
+    @media (max-width: 900px) {
+      section { flex-direction: column; text-align: center; }
+      .visual-placeholder { width: 90%; height: 200px; margin-top: 2rem; }
+    }
   </style>
 </head>
+
 <body>
 
   <header>
@@ -140,21 +150,20 @@
     </nav>
   </header>
 
-  <!-- Section 1 -->
   <section id="hero">
     <div class="text">
-      <h2>L’infrastructure des paiements digitaux africains</h2>
-      <p>KwikLink réunit les paiements Mobile Money, cartes et virements dans une seule infrastructure fiable et instantanée. Réduisez vos coûts, accélérez vos revenus et gardez une traçabilité professionnelle.</p>
+      <h2>KwikLink — L’infrastructure des paiements digitaux africains</h2>
+      <p>Une solution fluide, rapide et unifiée pour accepter tous les paiements :
+      Mobile Money, cartes bancaires et virements — sur une seule API.</p>
     </div>
     <div class="visual">
-      <div class="visual-placeholder">Animation Hero</div>
+      <div class="visual-placeholder">HERO</div>
     </div>
   </section>
 
-  <!-- Section 2 -->
   <section id="solutions">
     <div class="text">
-      <h2>Des solutions de paiement illimitées entre tous les continents</h2>
+      <h2>Des solutions de paiement illimitées entre continents</h2>
       <p>KwikLink connecte l’Afrique au monde avec une infrastructure rapide, fluide et alimentée par l’intelligence artificielle.</p>
     </div>
     <div class="visual">
@@ -162,7 +171,6 @@
     </div>
   </section>
 
-  <!-- Section 3 -->
   <section id="api">
     <div class="text">
       <h2>Des API performantes et intuitives</h2>
@@ -173,55 +181,50 @@
     </div>
   </section>
 
-  <!-- Section 4 -->
   <section id="paiements">
     <div class="text">
       <h2>Prenez en charge les paiements à plusieurs bénéficiaires</h2>
       <p>Offrez des expériences de paiement de bout en bout grâce à notre plateforme connectée entre clients, marchands et banques partenaires.</p>
     </div>
     <div class="visual">
-      <div class="visual-placeholder">Flux paiement</div>
+      <div class="visual-placeholder">Flux Paiement</div>
     </div>
   </section>
 
-  <!-- Section 5 -->
   <section id="tarifs">
     <div class="text">
       <h2>Des tarifs simples et transparents</h2>
       <p>Une tarification claire, sans frais cachés. Payez uniquement ce que vous utilisez, sans surprises.</p>
     </div>
     <div class="visual">
-      <div class="visual-placeholder">Tableau tarifs</div>
+      <div class="visual-placeholder">Tableau Tarifs</div>
     </div>
   </section>
 
-  <!-- Section 6 -->
   <section id="commerce">
     <div class="text">
       <h2>La solution idéale pour le commerce mondial</h2>
       <p>Programmez et réalisez des transferts de fonds à l’échelle mondiale avec une précision et une rapidité inégalées.</p>
     </div>
     <div class="visual">
-      <div class="visual-placeholder">🌍 Globe animé</div>
+      <div class="visual-placeholder">🌍 Globe 3D</div>
     </div>
   </section>
 
-  <!-- Section 7 -->
   <section id="entreprises">
     <div class="text">
       <h2>Boostez l’agilité de votre entreprise</h2>
       <p>Explorez de nouveaux marchés, améliorez vos performances et fidélisez vos clients avec des paiements automatisés et intelligents.</p>
     </div>
     <div class="visual">
-      <div class="visual-placeholder">Image partenaire</div>
+      <div class="visual-placeholder">Partenaires</div>
     </div>
   </section>
 
-  <!-- Section 8 -->
   <section id="contact">
     <div class="text">
-      <h2>Obtenez de l’aide en français</h2>
-      <p>Notre équipe est à votre disposition pour vous accompagner dans votre intégration ou vos besoins spécifiques.</p>
+      <h2>Envie de vous lancer ?</h2>
+      <p>Inscrivez-vous dès aujourd’hui pour commencer, ou échangez avec notre équipe afin de bâtir une solution personnalisée à votre activité.</p>
     </div>
     <div class="visual">
       <div class="visual-placeholder">Formulaire Contact</div>
@@ -244,6 +247,5 @@
     window.addEventListener("scroll", revealOnScroll);
     revealOnScroll();
   </script>
-
 </body>
 </html>
