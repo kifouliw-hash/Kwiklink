@@ -1,12 +1,10 @@
-// server.js
 const express = require("express");
 const app = express();
 
-// On rend le dossier "public" visible depuis le navigateur
-app.use(express.static("public"));
+// ✅ Permet d'accéder aux fichiers du dossier "public"
+app.use(express.static(__dirname + "/public"));
 
-// Démarrer le serveur sur le port 3000
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`✅ KwikLink est en ligne sur http://localhost:${PORT}`);
+  console.log(`✅ KwikLink en ligne sur http://localhost:${PORT}`);
 });
