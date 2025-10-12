@@ -186,20 +186,25 @@ footer {
 /* === HERO IMAGES === */
 .hero-images {
   position: relative;
-  width: 450px;
-  height: 300px;
-  border-radius: 20px;
+  width: 600px;     /* Taille normale sur PC */
+  height: 400px;
+  border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;   /* Centre le bloc horizontalement */
   animation: float 6s ease-in-out infinite alternate;
 }
 
 .hero-images img {
   position: absolute;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;  /* ✅ évite de couper les images */
   opacity: 0;
   transition: opacity 1.2s ease-in-out;
 }
@@ -208,16 +213,58 @@ footer {
   opacity: 1;
 }
 
-/* Animation automatique entre les deux images */
-@keyframes fadeHero {
-  0%, 45% { opacity: 1; }
-  55%, 100% { opacity: 0; }
+/* === Animation douce de flottement === */
+@keyframes float {
+  from { transform: translateY(0px); }
+  to { transform: translateY(-10px); }
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 900px) {
-  section { flex-direction: column; text-align: center; }
-  .visual-placeholder { width: 90%; height: 220px; margin-top: 2rem; }
+/* === RESPONSIVE (mobile & tablette) === */
+@media (max-width: 1024px) {
+  .hero-images {
+    width: 90%;
+    height: auto;
+    max-width: 480px;
+    aspect-ratio: 3 / 2; /* garde un bon format d’écran */
+  }
+}
+
+@media (max-width: 700px) {
+  section {
+    flex-direction: column;
+    text-align: center;
+    padding: 120px 5% 60px;
+  }
+
+  .text {
+    max-width: 100%;
+  }
+
+  .hero-images {
+    width: 95%;
+    max-width: 400px;
+    margin-top: 2rem;
+  }
+
+  .hero-images img {
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-images {
+    width: 100%;
+    max-width: 340px;
+    border-radius: 16px;
+  }
+
+  .text h2 {
+    font-size: 2rem;
+  }
+
+  .text p {
+    font-size: 1rem;
+  }
 }
 </style>
 </head>
@@ -249,8 +296,8 @@ footer {
 
   <div class="visual">
     <div class="hero-images">
-<img src="hero-dashboard.png" alt="Dashboard paiement" class="active">
-<img src="hero-checkout.png" alt="Paiement mobile">
+<img src="/hero-dashboard.png" alt="Dashboard paiement" class="active">
+<img src="/hero-checkout.png" alt="Paiement mobile">
     </div>
   </div>
 </section>
@@ -348,5 +395,18 @@ footer {
     window.addEventListener("scroll", revealOnScroll);
     revealOnScroll();
   </script>
+  <script>
+  // === Animation changement d'image ===
+  const images = document.querySelectorAll('.hero-images img');
+  let current = 0;
+
+  function switchImage() {
+    images[current].classList.remove('active');
+    current = (current + 1) % images.length;
+    images[current].classList.add('active');
+  }
+
+  setInterval(switchImage, 4000); // 4 secondes
+</script>
 </body>
 </html>
