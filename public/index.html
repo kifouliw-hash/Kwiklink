@@ -219,52 +219,49 @@ footer {
   to { transform: translateY(-10px); }
 }
 
-/* === RESPONSIVE (mobile & tablette) === */
-@media (max-width: 1024px) {
-  .hero-images {
-    width: 90%;
-    height: auto;
-    max-width: 480px;
-    aspect-ratio: 3 / 2; /* garde un bon format d’écran */
-  }
-}
+/* ====== RESPONSIVE MOBILE ====== */
+@media (max-width: 768px) {
 
-@media (max-width: 700px) {
-  section {
+  nav ul {
+    display: none;
+    flex-direction: column;
+    background: white;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  nav.active ul {
+    display: flex;
+  }
+
+  .burger {
+    display: block;
+    font-size: 24px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  /* Ajuster le hero */
+  #hero {
     flex-direction: column;
     text-align: center;
-    padding: 120px 5% 60px;
+    padding: 2rem 1rem;
   }
 
-  .text {
-    max-width: 100%;
-  }
-
-  .hero-images {
-    width: 95%;
-    max-width: 400px;
-    margin-top: 2rem;
-  }
-
-  .hero-images img {
-    object-fit: contain;
+  #hero .visual img {
+    width: 100%;
+    max-width: 350px;
+    margin-top: 1.5rem;
   }
 }
 
-@media (max-width: 480px) {
-  .hero-images {
-    width: 100%;
-    max-width: 340px;
-    border-radius: 16px;
-  }
-
-  .text h2 {
-    font-size: 2rem;
-  }
-
-  .text p {
-    font-size: 1rem;
-  }
+/* ====== DESKTOP ====== */
+.burger {
+  display: none;
 }
 </style>
 </head>
@@ -275,15 +272,19 @@ footer {
   <header>
     <h1>KwikLink</h1>
     <nav>
-      <a href="#hero">Accueil</a>
-      <a href="#solutions">Solutions</a>
-      <a href="#api">API</a>
-      <a href="#paiements">Paiements</a>
-      <a href="#tarifs">Tarifs</a>
-      <a href="#commerce">Commerce mondial</a>
-      <a href="#entreprises">Entreprises</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  <div class="logo">KwikLink</div>
+  <ul>
+    <li><a href="#">Accueil</a></li>
+    <li><a href="#">Solutions</a></li>
+    <li><a href="#">API</a></li>
+    <li><a href="#">Paiements</a></li>
+    <li><a href="#">Tarifs</a></li>
+    <li><a href="#">Commerce mondial</a></li>
+    <li><a href="#">Entreprises</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="burger">☰</div>
+</nav>
   </header>
 
   <!-- 1. Hero -->
@@ -407,6 +408,14 @@ footer {
   }
 
   setInterval(switchImage, 4000); // 4 secondes
+</script>
+<script>
+  const burger = document.querySelector('.burger');
+  const nav = document.querySelector('nav');
+
+  burger.addEventListener('click', () => {
+    nav.classList.toggle('active');
+  });
 </script>
 </body>
 </html>
