@@ -81,57 +81,58 @@ header {
   top: 0; left: 0;
   width: 100%;
   height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(12px);
   box-shadow: 0 1px 10px rgba(0,0,0,0.05);
   z-index: 10;
 }
 
-nav {
-  max-width: 1200px;
-  margin: 0 auto;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 6%;
-}
-
-.logo {
+header .logo {
   font-weight: 800;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-nav ul {
+header nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+header nav ul {
   display: flex;
   list-style: none;
   gap: 1.5rem;
 }
 
-nav a {
+header nav a {
   color: var(--text-dark);
   text-decoration: none;
   font-weight: 600;
   transition: color .3s;
 }
 
-nav a:hover {
+header nav a:hover {
   color: var(--orange);
 }
 
+/* === BURGER === */
 .burger {
   display: none;
-  font-size: 28px;
+  font-size: 26px;
   cursor: pointer;
   user-select: none;
 }
 
-/* === HERO === */
-#hero {
-  min-height: 90vh;
+/* === SECTION === */
+section {
+  min-height: 100vh;
   padding: 140px 8% 80px;
   display: flex;
   align-items: center;
@@ -139,15 +140,14 @@ nav a:hover {
   flex-wrap: wrap;
   position: relative;
   z-index: 1;
-  gap: 2rem;
 }
 
-#hero .text {
+.text {
   flex: 1 1 45%;
   max-width: 600px;
 }
 
-#hero .text h2 {
+.text h2 {
   font-size: 2.8rem;
   line-height: 1.1;
   margin-bottom: 20px;
@@ -163,16 +163,39 @@ nav a:hover {
   100% { background-position: 100% 50%; }
 }
 
-#hero .text p {
+.text p {
   font-size: 1.1rem;
   line-height: 1.7;
   color: var(--text-dim);
 }
 
+/* === VISUAL PLACEHOLDER === */
+.visual {
+  flex: 1 1 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.visual-placeholder {
+  width: 420px;
+  height: 260px;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.07);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-dim);
+  font-weight: 600;
+  animation: float 6s ease-in-out infinite alternate;
+}
+
+/* === HERO IMAGES === */
 .hero-images {
   position: relative;
-  width: 100%;
-  max-width: 520px;
+  width: 550px;
+  height: 380px;
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1);
@@ -184,17 +207,14 @@ nav a:hover {
 }
 
 .hero-images img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
   position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   opacity: 0;
   transition: opacity 1.2s ease-in-out;
 }
-
-.hero-images img.active {
-  opacity: 1;
-}
+.hero-images img.active { opacity: 1; }
 
 /* === FOOTER === */
 footer {
@@ -206,14 +226,19 @@ footer {
   border-top: 1px solid rgba(0,0,0,0.05);
 }
 
+/* === Animation douce === */
 @keyframes float {
   from { transform: translateY(0px); }
   to { transform: translateY(-10px); }
 }
 
-/* === RESPONSIVE === */
+/* ====== RESPONSIVE MOBILE ====== */
 @media (max-width: 900px) {
-  nav ul {
+  header {
+    padding: 0 1.5rem;
+  }
+
+  header nav ul {
     display: none;
     flex-direction: column;
     background: white;
@@ -226,65 +251,80 @@ footer {
     padding: 1rem 0;
   }
 
-  nav.active ul {
+  header nav.active ul {
     display: flex;
   }
 
-  .burger { display: block; }
+  .burger {
+    display: block;
+  }
 
   #hero {
     flex-direction: column;
     text-align: center;
-    padding: 100px 1.5rem 40px;
+    padding: 3rem 1.5rem;
   }
-
-  #hero .text h2 { font-size: 2rem; }
-  #hero .text p { font-size: 1rem; }
 
   .hero-images {
-    max-width: 90%;
-    margin-top: 1.5rem;
-    border-radius: 18px;
+    width: 90%;
+    height: auto;
   }
 
-  .hero-images img { width: 100%; height: auto; object-fit: contain; }
+  .hero-images img {
+    position: relative;
+    width: 100%;
+    height: auto;
+    opacity: 1;
+  }
+
+  section {
+    padding: 100px 1.5rem;
+    flex-direction: column;
+  }
+
+  .text, .visual {
+    flex: 1 1 100%;
+    text-align: center;
+  }
 }
 </style>
 </head>
 <body>
-  <div class="bg-animation"></div>
+  <div class="bg-animation"></div> <!-- ✅ Animation de fond -->
   <div class="top-gradient-bar"></div>
 
   <header>
     <nav>
-      <div class="logo">KwikLink</div>
-      <ul>
-        <li><a href="#">Accueil</a></li>
-        <li><a href="#">Solutions</a></li>
-        <li><a href="#">API</a></li>
-        <li><a href="#">Paiements</a></li>
-        <li><a href="#">Tarifs</a></li>
-        <li><a href="#">Commerce mondial</a></li>
-        <li><a href="#">Entreprises</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-      <div class="burger">&#9776;</div>
-    </nav>
+  <div class="logo">KwikLink</div>
+  <ul>
+    <li><a href="#">Accueil</a></li>
+    <li><a href="#">Solutions</a></li>
+    <li><a href="#">API</a></li>
+    <li><a href="#">Paiements</a></li>
+    <li><a href="#">Tarifs</a></li>
+    <li><a href="#">Commerce mondial</a></li>
+    <li><a href="#">Entreprises</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="burger">☰</div>
+</nav>
   </header>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="text">
-      <h2>KwikLink — L’infrastructure des paiements digitaux africains</h2>
-      <p>Une solution fluide, rapide et unifiée pour accepter tous les paiements :
-      Mobile Money, cartes bancaires et virements — sur une seule API.</p>
-    </div>
+  <!-- 1. Hero -->
+<section id="hero">
+  <div class="text">
+    <h2>KwikLink — L’infrastructure des paiements digitaux africains</h2>
+    <p>Une solution fluide, rapide et unifiée pour accepter tous les paiements :
+    Mobile Money, cartes bancaires et virements — sur une seule API.</p>
+  </div>
 
+  <div class="visual">
     <div class="hero-images">
-      <img src="/hero-dashboard.png" alt="Dashboard paiement" class="active">
-      <img src="/hero-checkout.png" alt="Paiement mobile">
+<img src="/hero-dashboard.png" alt="Dashboard paiement" class="active">
+<img src="/hero-checkout.png" alt="Paiement mobile">
     </div>
-  </section>
+  </div>
+</section>
   <!-- 2. Solutions -->
   <section id="solutions">
     <div class="text">
@@ -366,7 +406,7 @@ footer {
     © 2025 KwikLink — Afrique & Europe | Tous droits réservés
   </footer>
 
-  <script>
+  <<script>
   // === Apparition douce au scroll ===
   const sections = document.querySelectorAll("section");
   const revealOnScroll = () => {
