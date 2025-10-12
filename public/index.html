@@ -32,7 +32,7 @@ body {
   min-height: 100vh;
 }
 
-/* === FOND ANIMÉ (vagues colorées façon Stripe) === */
+/* === FOND ANIMÉ === */
 .bg-animation {
   position: fixed;
   top: -10%;
@@ -54,18 +54,19 @@ body {
   50% { background-position: 100% 50%; transform: scale(1.05); }
   100% { background-position: 0% 50%; transform: scale(1); }
 }
-/* === BARRE DÉGRADÉE ANIMÉE FAÇON STRIPE === */
+
+/* === BARRE DÉGRADÉE STRIPE === */
 .top-gradient-bar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 140px; /* épaisseur visible comme Stripe */
+  height: 140px;
   background: linear-gradient(100deg, #ff7a00, #00b87c, #8b5cf6, #ff7a00);
   background-size: 300% 300%;
   animation: moveStripeBar 10s ease-in-out infinite alternate;
   z-index: 0;
-  opacity: 0.35; /* rendu doux et pro */
+  opacity: 0.35;
   filter: blur(30px);
 }
 
@@ -90,7 +91,7 @@ header {
   z-index: 10;
 }
 
-header h1 {
+header .logo {
   font-weight: 800;
   font-size: 1.5rem;
   background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
@@ -98,14 +99,36 @@ header h1 {
   -webkit-text-fill-color: transparent;
 }
 
+header nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+header nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
 header nav a {
   color: var(--text-dark);
   text-decoration: none;
   font-weight: 600;
-  margin-left: 1.5rem;
   transition: color .3s;
 }
-header nav a:hover { color: var(--orange); }
+
+header nav a:hover {
+  color: var(--orange);
+}
+
+/* === BURGER === */
+.burger {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+  user-select: none;
+}
 
 /* === SECTION === */
 section {
@@ -168,10 +191,30 @@ section {
   animation: float 6s ease-in-out infinite alternate;
 }
 
-@keyframes float {
-  from { transform: translateY(0px); }
-  to { transform: translateY(-10px); }
+/* === HERO IMAGES === */
+.hero-images {
+  position: relative;
+  width: 550px;
+  height: 380px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  animation: float 6s ease-in-out infinite alternate;
 }
+
+.hero-images img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+.hero-images img.active { opacity: 1; }
 
 /* === FOOTER === */
 footer {
@@ -183,85 +226,66 @@ footer {
   border-top: 1px solid rgba(0,0,0,0.05);
 }
 
-/* === HERO IMAGES === */
-.hero-images {
-  position: relative;
-  width: 600px;     /* Taille normale sur PC */
-  height: 400px;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;   /* Centre le bloc horizontalement */
-  animation: float 6s ease-in-out infinite alternate;
-}
-
-.hero-images img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;  /* ✅ évite de couper les images */
-  opacity: 0;
-  transition: opacity 1.2s ease-in-out;
-}
-
-.hero-images img.active {
-  opacity: 1;
-}
-
-/* === Animation douce de flottement === */
+/* === Animation douce === */
 @keyframes float {
   from { transform: translateY(0px); }
   to { transform: translateY(-10px); }
 }
 
 /* ====== RESPONSIVE MOBILE ====== */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  header {
+    padding: 0 1.5rem;
+  }
 
-  nav ul {
+  header nav ul {
     display: none;
     flex-direction: column;
     background: white;
     position: absolute;
-    top: 60px;
-    right: 10px;
-    width: 200px;
+    top: 70px;
+    right: 15px;
+    width: 220px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    padding: 1rem 0;
   }
 
-  nav.active ul {
+  header nav.active ul {
     display: flex;
   }
 
   .burger {
     display: block;
-    font-size: 24px;
-    cursor: pointer;
-    user-select: none;
   }
 
-  /* Ajuster le hero */
   #hero {
     flex-direction: column;
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 3rem 1.5rem;
   }
 
-  #hero .visual img {
+  .hero-images {
+    width: 90%;
+    height: auto;
+  }
+
+  .hero-images img {
+    position: relative;
     width: 100%;
-    max-width: 350px;
-    margin-top: 1.5rem;
+    height: auto;
+    opacity: 1;
   }
-}
 
-/* ====== DESKTOP ====== */
-.burger {
-  display: none;
+  section {
+    padding: 100px 1.5rem;
+    flex-direction: column;
+  }
+
+  .text, .visual {
+    flex: 1 1 100%;
+    text-align: center;
+  }
 }
 </style>
 </head>
@@ -383,36 +407,36 @@ footer {
     © 2025 KwikLink — Afrique & Europe | Tous droits réservés
   </footer>
 
-  <script>
-    // Apparition douce au scroll
-    const sections = document.querySelectorAll("section");
-    const revealOnScroll = () => {
-      const trigger = window.innerHeight * 0.8;
-      sections.forEach(sec => {
-        const top = sec.getBoundingClientRect().top;
-        if (top < trigger) sec.classList.add("visible");
-      });
-    };
-    window.addEventListener("scroll", revealOnScroll);
-    revealOnScroll();
-  </script>
-  <script>
+  <<script>
+  // === Apparition douce au scroll ===
+  const sections = document.querySelectorAll("section");
+  const revealOnScroll = () => {
+    const trigger = window.innerHeight * 0.8;
+    sections.forEach(sec => {
+      const top = sec.getBoundingClientRect().top;
+      if (top < trigger) sec.classList.add("visible");
+    });
+  };
+  window.addEventListener("scroll", revealOnScroll);
+  revealOnScroll();
+</script>
+
+<script>
   // === Animation changement d'image ===
   const images = document.querySelectorAll('.hero-images img');
   let current = 0;
-
   function switchImage() {
     images[current].classList.remove('active');
     current = (current + 1) % images.length;
     images[current].classList.add('active');
   }
-
-  setInterval(switchImage, 4000); // 4 secondes
+  setInterval(switchImage, 4000);
 </script>
-<script>
-  const burger = document.querySelector('.burger');
-  const nav = document.querySelector('nav');
 
+<script>
+  // === Menu Burger ===
+  const burger = document.querySelector('.burger');
+  const nav = document.querySelector('header nav');
   burger.addEventListener('click', () => {
     nav.classList.toggle('active');
   });
