@@ -1,10 +1,13 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 
-// ✅ Permet d'accéder aux fichiers du dossier "public"
-app.use(express.static(__dirname + "/public"));
+// ✅ Rendre le dossier "public" accessible
+app.use(express.static(path.join(__dirname, "public")));
 
-const PORT = 3000;
+// ✅ Render choisit le port automatiquement
+const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
-  console.log(`✅ KwikLink en ligne sur http://localhost:${PORT}`);
+  console.log(`✅ KwikLink en ligne sur le port ${PORT}`);
 });
