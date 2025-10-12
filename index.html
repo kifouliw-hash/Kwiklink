@@ -13,82 +13,89 @@
   --violet: #8b5cf6;
   --text-dark: #111;
   --text-dim: #555;
-  --bg-light: #ffffff;
+  --bg-white: #ffffff;
 }
 
+/* RESET */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family: 'Inter', sans-serif;
 }
 
+/* ==== BODY ==== */
 body {
-  background: radial-gradient(circle at 30% 30%, #ffffff, #fafafa, #f9f9f9);
-  animation: softGlow 15s ease-in-out infinite alternate;
+  background: var(--bg-white);
   color: var(--text-dark);
   overflow-x: hidden;
-  transition: background 2s ease;
+  position: relative;
 }
 
-@keyframes softGlow {
-  0% {
-    background: radial-gradient(circle at 25% 25%, #ffffff, rgba(255, 122, 0, 0.07), #ffffff);
-  }
-  25% {
-    background: radial-gradient(circle at 80% 40%, #ffffff, rgba(139, 92, 246, 0.08), #ffffff);
-  }
-  50% {
-    background: radial-gradient(circle at 50% 70%, #ffffff, rgba(0, 184, 124, 0.06), #ffffff);
-  }
-  75% {
-    background: radial-gradient(circle at 20% 50%, #ffffff, rgba(255, 122, 0, 0.05), #ffffff);
-  }
-  100% {
-    background: radial-gradient(circle at 60% 20%, #ffffff, rgba(139, 92, 246, 0.08), #ffffff);
-  }
+/* ==== BANDE DYNAMIQUE EN HAUT ==== */
+.gradient-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 45vh;
+  background: linear-gradient(120deg, var(--orange), var(--green), var(--violet));
+  background-size: 300% 300%;
+  animation: colorFlow 12s ease-in-out infinite;
+  filter: blur(60px) brightness(1.2);
+  z-index: 0;
+  opacity: 0.55;
 }
 
-/* HEADER */
+@keyframes colorFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ==== HEADER ==== */
 header {
   position: fixed;
-  top: 0; left: 0; width: 100%;
-  background: rgba(255,255,255,0.8);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 1rem 6%;
+  top: 0; left: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 1px 10px rgba(0,0,0,0.04);
   z-index: 10;
 }
 
 header h1 {
   font-weight: 800;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 header nav a {
-  text-decoration: none;
   color: var(--text-dark);
+  text-decoration: none;
   font-weight: 600;
   margin-left: 1.5rem;
   transition: color .3s;
 }
-header nav a:hover {
-  color: var(--orange);
-}
+header nav a:hover { color: var(--orange); }
 
-/* SECTIONS */
+/* ==== SECTION ==== */
 section {
   min-height: 100vh;
-  padding: 140px 8%;
+  padding: 120px 8% 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  border-bottom: 1px solid rgba(0,0,0,0.04);
+  position: relative;
+  z-index: 1;
 }
 
 .text {
@@ -98,8 +105,8 @@ section {
 
 .text h2 {
   font-size: 2.8rem;
+  line-height: 1.1;
   margin-bottom: 20px;
-  line-height: 1.2;
   background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -111,7 +118,7 @@ section {
   color: var(--text-dim);
 }
 
-/* VISUAL */
+/* VISUAL PLACEHOLDER */
 .visual {
   flex: 1 1 45%;
   display: flex;
@@ -120,14 +127,14 @@ section {
 }
 
 .visual-placeholder {
-  width: 400px;
-  height: 250px;
+  width: 420px;
+  height: 260px;
   background: #fff;
   border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.07);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   color: var(--text-dim);
   font-weight: 600;
   animation: float 6s ease-in-out infinite alternate;
@@ -138,20 +145,20 @@ section {
   to { transform: translateY(-10px); }
 }
 
-/* FOOTER */
+/* ==== FOOTER ==== */
 footer {
   background: #fff;
   text-align: center;
-  padding: 50px 0;
+  padding: 60px 0;
   color: var(--text-dim);
   font-size: 0.9rem;
   border-top: 1px solid rgba(0,0,0,0.05);
 }
 
-/* RESPONSIVE */
+/* ==== RESPONSIVE ==== */
 @media (max-width: 900px) {
   section { flex-direction: column; text-align: center; }
-  .visual-placeholder { width: 90%; height: 200px; margin-top: 2rem; }
+  .visual-placeholder { width: 90%; height: 220px; margin-top: 2rem; }
 }
 </style>
 </head>
