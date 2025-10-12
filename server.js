@@ -1,15 +1,17 @@
-const fs = require("fs");
-fs.readdir(path.join(__dirname, "public"), (e, files) =>
-  console.log("📂 public contient :", e || files)
-);const express = require("express");
+const express = require("express");
 const path = require("path");
 const app = express();
 
-app.use(express.static(path.join(__dirname, "public"))); // suffit
+// ✅ Rendre le dossier "public" accessible partout
+app.use("/public", express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/", (req, res) =>
-  res.sendFile(path.join(__dirname, "public", "index2.html"))
-);
+// ✅ Servir la page principale
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index2.html"));
+});
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`✅ KwikLink en ligne sur ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`✅ KwikLink en ligne sur le port ${PORT}`);
+});
