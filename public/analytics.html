@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KwikLink Analytics</title>
+  <style>
+    :root {
+      --orange: #ff7a00;
+      --green: #00b87c;
+      --violet: #8b5cf6;
+      --bg: #f9fafb;
+      --text-dark: #111;
+      --text-dim: #555;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(255,122,0,0.15), rgba(139,92,246,0.1), rgba(0,184,124,0.15));
+      color: var(--text-dark);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 5%;
+    }
+
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    header a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    main {
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 15px;
+    }
+
+    p.subtitle {
+      color: var(--text-dim);
+      margin-bottom: 60px;
+    }
+
+    /* === Grille principale === */
+    .analytics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    .emoji {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      animation: pulse 2.5s infinite ease-in-out;
+    }
+
+    .value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .label {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.15); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.9; }
+    }
+
+    /* === Graphique dynamique === */
+    .chart-container {
+      margin: 80px auto 40px;
+      width: 90%;
+      max-width: 700px;
+      height: 280px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
+      clip-path: polygon(0% 80%, 10% 65%, 20% 70%, 30% 50%, 40% 55%, 50% 35%, 60% 45%, 70% 30%, 80% 40%, 90% 20%, 100% 35%, 100% 100%, 0% 100%);
+      animation: moveGraph 8s linear infinite;
+      opacity: 0.9;
+    }
+
+    @keyframes moveGraph {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .chart-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(to top, rgba(255,255,255,0.9), transparent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">KwikLink</div>
+    <a href="index.html">← Retour à l’accueil</a>
+  </header>
+
+  <main>
+    <h1>Analytics & Statistiques</h1>
+    <p class="subtitle">Suivez vos performances en temps réel avec des données claires et précises.</p>
+
+    <!-- === Cartes statistiques === -->
+    <div class="analytics-grid">
+      <div class="card">
+        <div class="emoji">💰</div>
+        <div class="value">24 980 000 F CFA</div>
+        <div class="label">Volume total des transactions</div>
+      </div>
+
+      <div class="card">
+        <div class="emoji">📊</div>
+        <div class="value">+12%</div>
+        <div class="label">Croissance ce mois</div>
+      </div>
+
+      <div class="card">
+        <div class="emoji">👥</div>
+        <div class="value">1 840</div>
+        <div class="label">Commerçants actifs</div>
+      </div>
+
+      <div class="card">
+        <div class="emoji">🌍</div>
+        <div class="value">8</div>
+        <div class="label">Pays connectés à KwikLink</div>
+      </div>
+    </div>
+
+    <!-- === Graphique dynamique === -->
+    <div class="chart-container">
+      <div class="chart-line"></div>
+      <div class="chart-overlay"></div>
+    </div>
+
+    <p class="subtitle" style="margin-top: 20px;">Tendance hebdomadaire des transactions (en F CFA)</p>
+  </main>
+
+  <footer>
+    © 2025 KwikLink — Tous droits réservés.
+  </footer>
+</body>
+</html>
