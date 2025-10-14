@@ -143,6 +143,63 @@
       font-size: 0.9rem;
       border-top: 1px solid rgba(0,0,0,0.05);
     }
+    /* === Aperçu visuel du portefeuille === */
+.wallet-preview {
+  margin-top: 60px;
+  text-align: center;
+}
+
+.wallet-card {
+  display: inline-block;
+  background: linear-gradient(145deg, #f5faff, #f3f7f7);
+  border-radius: 16px;
+  padding: 30px 60px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+}
+
+.wallet-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #333;
+  font-weight: 600;
+}
+
+.wallet-balance {
+  font-size: 2.8rem;
+  font-weight: bold;
+  color: #00b87c;
+  margin: 10px 0;
+}
+
+.wallet-subtext {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.wallet-stats {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.wallet-stats .stat {
+  text-align: center;
+}
+
+.wallet-stats .label {
+  color: #777;
+  font-size: 0.9rem;
+  display: block;
+}
+
+.wallet-stats .value {
+  font-weight: bold;
+  color: #111;
+  font-size: 1.2rem;
+}
   </style>
 </head>
 <body>
@@ -163,6 +220,32 @@
         <h3>Recharger</h3>
         <p>Ajoutez des fonds depuis Mobile Money, carte bancaire ou virement.</p>
       </div>
+      <!-- === Aperçu visuel du portefeuille === -->
+<section class="wallet-preview">
+  <div class="wallet-card">
+    <div class="wallet-header">
+      <h3>Solde KwikLink Pro</h3>
+      <span class="currency">EUR</span>
+    </div>
+    <div class="wallet-balance">2 435,20 €</div>
+    <div class="wallet-subtext">Dernière mise à jour : il y a 2 min</div>
+  </div>
+
+  <div class="wallet-stats">
+    <div class="stat">
+      <span class="label">Transactions</span>
+      <span class="value">1 245</span>
+    </div>
+    <div class="stat">
+      <span class="label">Revenus ce mois</span>
+      <span class="value">+ 12 430 €</span>
+    </div>
+    <div class="stat">
+      <span class="label">Retraits</span>
+      <span class="value">- 8 100 €</span>
+    </div>
+  </div>
+</section>
 
       <div class="wallet-card">
         <div class="icon">💸</div>
