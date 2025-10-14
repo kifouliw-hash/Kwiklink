@@ -190,6 +190,96 @@ section {
   font-weight: 600;
   animation: float 6s ease-in-out infinite alternate;
 }
+/* === GRILLE DES SOLUTIONS DYNAMIQUES À DROITE (STYLE STRIPE) === */
+.solutions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* === CARTES DES MODULES === */
+.module-card {
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 20px;
+  padding: 24px 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  z-index: 1;
+}
+
+.module-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+}
+
+.module-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, #ff7a00, #00b87c, #8b5cf6);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.module-card:hover::before {
+  opacity: 0.12;
+}
+
+.module-icon {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.module-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+  font-weight: 700;
+  color: #111;
+  position: relative;
+  z-index: 1;
+}
+
+.module-card p {
+  font-size: 0.95rem;
+  color: #555;
+  position: relative;
+  z-index: 1;
+}
+
+/* === TRAITS DE CONNEXION DYNAMIQUES === */
+.solutions-grid::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 122, 0, 0.15),
+    rgba(0, 184, 124, 0.15),
+    rgba(139, 92, 246, 0.15)
+  );
+  mask-image: radial-gradient(circle at 50% 50%, transparent 50%, black 51%);
+  animation: pulseConnections 6s infinite ease-in-out;
+  z-index: 0;
+  border-radius: 20px;
+}
+
+@keyframes pulseConnections {
+  0% { opacity: 0.1; transform: scale(1); }
+  50% { opacity: 0.25; transform: scale(1.02); }
+  100% { opacity: 0.1; transform: scale(1); }
+}
+
 
 /* === HERO IMAGES === */
 .hero-images {
@@ -411,6 +501,13 @@ footer {
   position: relative;
   z-index: 1;
 }
+@media (max-width: 900px) {
+  .solutions-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}
+
 
 </style>
 </head>
@@ -458,49 +555,48 @@ footer {
 </section>
 
   <!-- 2. Solutions -->
-  <section id="solutions">
-    <div class="text">
-      <h2>Des solutions de paiement illimitées entre continents</h2>
-      <p>KwikLink connecte l’Afrique au monde avec une infrastructure rapide, fluide et alimentée par l’intelligence artificielle.</p>
-    </div>
-    <div class="visual">
-      <div class="visual-placeholder">Carte mondiale</div>
-    </div>
-  </section>
-  <!-- === MODULES DYNAMIQUES === -->
-<section id="modules">
-  <div class="modules-grid">
-    <div class="module-card" onclick="window.location.href='/kwikconnect.html'">
-      <div class="module-icon">🔗</div>
-      <h3>KwikConnect</h3>
-      <p>API d’intégration pour commerçants et développeurs</p>
-    </div>
+<section id="solutions">
+  <div class="text">
+    <h2>Des solutions de paiement illimitées entre continents</h2>
+    <p>KwikLink connecte l’Afrique au monde avec une infrastructure rapide, fluide et alimentée par l’intelligence artificielle.</p>
+  </div>
 
-    <div class="module-card" onclick="window.location.href='/paiements.html'">
-      <div class="module-icon">💳</div>
-      <h3>Paiements</h3>
-      <p>Acceptez Mobile Money, cartes et QR Codes.</p>
-    </div>
+  <div class="visual">
+    <!-- === Cartes de solutions dynamiques === -->
+    <div class="solutions-grid">
+      <div class="module-card" onclick="window.location.href='/kwikconnect.html'">
+        <div class="module-icon">🔗</div>
+        <h3>KwikConnect</h3>
+        <p>API d’intégration pour commerçants et développeurs</p>
+      </div>
 
-    <div class="module-card" onclick="window.location.href='/wallet.html'">
-      <div class="module-icon">💼</div>
-      <h3>Portefeuille</h3>
-      <p>Gérez vos soldes et transferts multi-devises.</p>
-    </div>
+      <div class="module-card" onclick="window.location.href='/paiements.html'">
+        <div class="module-icon">💳</div>
+        <h3>Paiements</h3>
+        <p>Acceptez Mobile Money, cartes et QR Codes.</p>
+      </div>
 
-    <div class="module-card" onclick="window.location.href='/analytics.html'">
-      <div class="module-icon">📊</div>
-      <h3>Analytics</h3>
-      <p>Suivi des ventes et rapports automatisés.</p>
-    </div>
+      <div class="module-card" onclick="window.location.href='/wallet.html'">
+        <div class="module-icon">💼</div>
+        <h3>Portefeuille</h3>
+        <p>Gérez vos soldes et transferts multi-devises.</p>
+      </div>
 
-    <div class="module-card" onclick="window.location.href='/entreprises.html'">
-      <div class="module-icon">🏢</div>
-      <h3>Comptes Entreprise</h3>
-      <p>Solutions adaptées aux grands commerçants.</p>
+      <div class="module-card" onclick="window.location.href='/analytics.html'">
+        <div class="module-icon">📊</div>
+        <h3>Analytics</h3>
+        <p>Suivi des ventes et rapports automatisés.</p>
+      </div>
+
+      <div class="module-card" onclick="window.location.href='/entreprises.html'">
+        <div class="module-icon">🏢</div>
+        <h3>Comptes Entreprise</h3>
+        <p>Solutions adaptées aux grands commerçants.</p>
+      </div>
     </div>
   </div>
 </section>
+
 
 
   <!-- 2.5. KwikLink TPE -->
