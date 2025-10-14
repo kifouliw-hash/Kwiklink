@@ -544,6 +544,51 @@ footer {
     margin: 15px 0;
   }
 }
+/* === NOYAU CENTRAL KWIKLINK CORE === */
+.core-center {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 40%, rgba(255,255,255,0.2) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  box-shadow: 0 0 40px rgba(255,122,0,0.25);
+  animation: pulseCore 4s ease-in-out infinite;
+}
+
+.core-label {
+  font-weight: 800;
+  font-size: 1rem;
+  background: linear-gradient(90deg, #ff7a00, #00b87c, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+.core-glow {
+  position: absolute;
+  inset: -30px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #ff7a00, #00b87c, #8b5cf6, #ff7a00);
+  filter: blur(60px);
+  opacity: 0.35;
+  animation: rotateGlowCore 12s linear infinite;
+}
+
+/* === Animations === */
+@keyframes pulseCore {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(255,122,0,0.25); }
+  50% { transform: scale(1.1); box-shadow: 0 0 60px rgba(139,92,246,0.35); }
+}
+
+@keyframes rotateGlowCore {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 
 
 
@@ -613,43 +658,52 @@ footer {
       <div class="module-card" onclick="window.location.href='/paiements.html'">
         <div class="module-icon">💳</div>
         <h3>Paiements</h3>
-
+        
       </div>
 
       <div class="module-card" onclick="window.location.href='/wallet.html'">
         <div class="module-icon">💼</div>
         <h3>Portefeuille</h3>
-        
+
       </div>
 
       <div class="module-card" onclick="window.location.href='/analytics.html'">
         <div class="module-icon">📊</div>
         <h3>Analytics</h3>
-        
+
       </div>
 
       <div class="module-card" onclick="window.location.href='/entreprises.html'">
         <div class="module-icon">🏢</div>
         <h3>Comptes Entreprise</h3>
-        
       </div>
-<!-- Cercles de liaison -->
-  <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <radialGradient id="gradOrbit" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="#ff7a00">
-          <animate attributeName="stop-color" values="#ff7a00;#00b87c;#8b5cf6;#ff7a00" dur="8s" repeatCount="indefinite"/>
-        </stop>
-        <stop offset="100%" stop-color="#8b5cf6">
-          <animate attributeName="stop-color" values="#8b5cf6;#ff7a00;#00b87c;#8b5cf6" dur="8s" repeatCount="indefinite"/>
-        </stop>
-      </radialGradient>
-    </defs>
-    <circle cx="250" cy="250" r="180" stroke="url(#gradOrbit)" stroke-width="2" fill="none" opacity="0.4"/>
-    <circle cx="250" cy="250" r="140" stroke="url(#gradOrbit)" stroke-width="1.5" fill="none" opacity="0.3"/>
-  </svg>
-</div>
+
+      <!-- ✅ NOYAU CENTRAL À L’INTÉRIEUR DU GLOBE -->
+      <div class="core-center">
+        <div class="core-glow"></div>
+        <div class="core-label">KwikLink</div>
+      </div>
+
+      <!-- ✅ TRAITS ET CERCLAGES ANIMÉS -->
+      <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="gradOrbit" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ff7a00">
+              <animate attributeName="stop-color" values="#ff7a00;#00b87c;#8b5cf6;#ff7a00" dur="8s" repeatCount="indefinite"/>
+            </stop>
+            <stop offset="100%" stop-color="#8b5cf6">
+              <animate attributeName="stop-color" values="#8b5cf6;#ff7a00;#00b87c;#8b5cf6" dur="8s" repeatCount="indefinite"/>
+            </stop>
+          </radialGradient>
+        </defs>
+        <circle cx="250" cy="250" r="180" stroke="url(#gradOrbit)" stroke-width="2" fill="none" opacity="0.4"/>
+        <circle cx="250" cy="250" r="140" stroke="url(#gradOrbit)" stroke-width="1.5" fill="none" opacity="0.3"/>
+      </svg>
+
+    </div>
+  </div>
 </section>
+
 
 
 
