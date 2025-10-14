@@ -52,65 +52,43 @@ header a {
   padding: 60px 5%;
 }
 
-/* === LAPTOP PREVIEW === */
+/* === LAPTOP MOCKUP === */
 .laptop {
   width: 420px;
   height: 260px;
   background: #fff;
-  border-radius: 10px 10px 0 0;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.15);
-  position: relative;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
   overflow: hidden;
   animation: float 4s ease-in-out infinite;
 }
 @keyframes float {
-  0% { transform: translateY(0px); }
+  0% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
-  100% { transform: translateY(0px); }
+  100% { transform: translateY(0); }
 }
-.laptop::after {
-  content: '';
-  position: absolute;
-  bottom: -22px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 480px;
-  height: 22px;
-  background: #cfcfcf;
-  border-radius: 0 0 15px 15px;
-}
-
-/* === DASHBOARD MOCKUP === */
-.dashboard {
-  width: 100%;
-  height: 100%;
-  padding: 25px;
-  background: linear-gradient(180deg, #f9fafc, #eef2ff);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-.chart {
-  height: 100px;
-  background: rgba(0,184,124,0.15);
-  border-radius: 10px;
-  position: relative;
-  overflow: hidden;
-}
-.chart::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 60%;
+.laptop-header {
+  height: 30px;
   background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
-  border-radius: 8px 8px 0 0;
-  animation: pulse 3s ease-in-out infinite alternate;
 }
-@keyframes pulse {
-  0% { height: 40%; }
-  100% { height: 75%; }
+.laptop-screen {
+  padding: 20px;
+}
+.stat {
+  background: #f9fafb;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.stat span {
+  font-weight: 600;
+}
+.stat .value {
+  color: var(--green);
 }
 
 /* === TEXT AREA === */
@@ -175,14 +153,19 @@ header a {
   font-size: 1.1rem;
   margin-bottom: 25px;
 }
-.partners img {
+.partner-logos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.partner-logos img {
   height: 30px;
-  margin: 0 10px;
   opacity: 0.9;
   transition: transform 0.3s;
 }
-.partners img:hover {
-  transform: scale(1.05);
+.partner-logos img:hover {
+  transform: scale(1.1);
 }
 
 /* === RESPONSIVE === */
@@ -201,13 +184,12 @@ header a {
 
 <main class="container">
   <div class="laptop">
-    <div class="dashboard">
-      <div class="chart"></div>
-      <div class="chart"></div>
-      <div class="chart"></div>
-      <div class="chart"></div>
-      <div class="chart"></div>
-      <div class="chart"></div>
+    <div class="laptop-header"></div>
+    <div class="laptop-screen">
+      <div class="stat"><span>Volume mensuel</span><span class="value">+24 800 000 F CFA</span></div>
+      <div class="stat"><span>Transactions réussies</span><span class="value">98 %</span></div>
+      <div class="stat"><span>Commissions générées</span><span class="value">+320 000 F CFA</span></div>
+      <div class="stat"><span>Marchés connectés</span><span class="value">8 pays</span></div>
     </div>
   </div>
 
@@ -230,12 +212,14 @@ header a {
 
 <section class="partners">
   <h2>Déjà utilisés par +150 entreprises africaines et européennes</h2>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Orange_Money_logo.svg" alt="Orange Money">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg" alt="MasterCard">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/PayPal.svg" alt="PayPal">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/MTN_Group_Logo.svg" alt="MTN">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Ecobank_logo.svg" alt="Ecobank">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Société_Générale_logo.svg" alt="Société Générale">
+  <div class="partner-logos">
+    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968260.png" alt="Orange Money">
+    <img src="https://cdn-icons-png.flaticon.com/512/196/196566.png" alt="MasterCard">
+    <img src="https://cdn-icons-png.flaticon.com/512/196/196565.png" alt="Visa">
+    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968144.png" alt="PayPal">
+    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968257.png" alt="MTN">
+    <img src="https://cdn-icons-png.flaticon.com/512/825/825535.png" alt="Ecobank">
+  </div>
 </section>
 </body>
 </html>
