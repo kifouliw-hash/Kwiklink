@@ -583,6 +583,32 @@ footer {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+/* === FIX INTERACTIVITÉ & SUPERPOSITION === */
+
+/* SVG du fond : visible mais non interactif */
+.orbit-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* ✅ ne bloque plus les clics */
+  z-index: 1;
+}
+
+/* Cœur central : visible mais en dessous des bulles */
+.core-center {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none; /* ✅ ne bloque plus les clics */
+}
+
+/* Bulles toujours au-dessus de tout */
+.orbit-container .module-card {
+  z-index: 5;
+  pointer-events: auto; /* ✅ clics actifs */
+}
+
 
 </style>
 </head>
