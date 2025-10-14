@@ -443,30 +443,25 @@ footer {
   overflow: visible;
 }
 
-/* === CONTENEUR QUI TOURNE (L'ORBITE) === */
+/* === CONTENEUR D'ORBITE === */
 .orbit-container {
   position: absolute;
   width: 600px;
   height: 600px;
   border-radius: 50%;
   animation: orbitRotation 45s linear infinite;
-}
-
-/* === ANIMATION DE ROTATION === */
-@keyframes orbitRotation {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  pointer-events: none; /* permet aux clics de passer aux cartes */
 }
 
 /* === CARTES RONDES === */
 .module-card {
   position: absolute;
-  width: 130px;
-  height: 130px;
-  background: rgba(255, 255, 255, 0.95);
+  width: 120px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.4);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  border: 1.5px solid rgba(255,255,255,0.5);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -475,37 +470,46 @@ footer {
   padding: 10px;
   cursor: pointer;
   transition: all 0.4s ease;
-  z-index: 2;
+  z-index: 5;
+  pointer-events: auto; /* rend les bulles cliquables */
 }
 
+/* === EFFET SURVOL === */
 .module-card:hover {
-  transform: scale(1.1);
+  background: linear-gradient(145deg, rgba(255,122,0,0.1), rgba(139,92,246,0.15));
+  transform: scale(1.12);
   box-shadow: 0 15px 40px rgba(0,0,0,0.15);
 }
 
-/* === POSITION CIRCULAIRE AUTOUR DU CŒUR === */
+/* === POSITION CIRCULAIRE (plus proche du centre) === */
 .orbit-container .module-card:nth-child(1) {
-  transform: rotate(0deg) translate(170px) rotate(0deg);
+  transform: rotate(0deg) translate(130px) rotate(0deg);
 }
 .orbit-container .module-card:nth-child(2) {
-  transform: rotate(72deg) translate(170px) rotate(-72deg);
+  transform: rotate(72deg) translate(130px) rotate(-72deg);
 }
 .orbit-container .module-card:nth-child(3) {
-  transform: rotate(144deg) translate(170px) rotate(-144deg);
+  transform: rotate(144deg) translate(130px) rotate(-144deg);
 }
 .orbit-container .module-card:nth-child(4) {
-  transform: rotate(216deg) translate(170px) rotate(-216deg);
+  transform: rotate(216deg) translate(130px) rotate(-216deg);
 }
 .orbit-container .module-card:nth-child(5) {
-  transform: rotate(288deg) translate(170px) rotate(-288deg);
+  transform: rotate(288deg) translate(130px) rotate(-288deg);
 }
 
+/* === ANIMATION ROTATION DOUCE === */
+@keyframes orbitRotation {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
 
-/* === ICÔNES ET TITRES === */
+/* === ICÔNES === */
 .module-icon {
-  font-size: 1.8rem;
-  margin-bottom: 6px;
+  font-size: 1.6rem;
+  margin-bottom: 4px;
 }
+
 
 
 .module-card h3 {
