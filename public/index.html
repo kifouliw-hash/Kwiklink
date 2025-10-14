@@ -431,107 +431,88 @@ footer {
 .cta-btn:hover {
   background: #1e293b;
 }
-/* === GRILLE EN CERCLE AVEC CARTES RONDES === */
+/* === GRILLE EN CERCLE (AFFICHAGE FIXÉ ET VISIBLE) === */
 .solutions-grid {
   position: relative;
-  width: 450px;
-  height: 450px;
+  width: 600px;
+  height: 600px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible; /* ✅ permet d'afficher les cartes hors du centre */
+}
+/* === ANIMATION D’ORBITE LENTE AUTOUR DU CŒUR === */
+.solutions-grid {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  animation: orbitRotation 45s linear infinite; /* 🌀 rotation lente et fluide */
 }
 
-/* === CARTES RONDES === */
+@keyframes orbitRotation {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+/* === CARTES RONDES AUTOUR DU CŒUR === */
 .module-card {
   position: absolute;
-  width: 120px;
-  height: 120px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 2px solid rgba(255,255,255,0.3);
+  width: 130px;
+  height: 130px;
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 50%;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  border: 2px solid rgba(255,255,255,0.4);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 12px;
+  padding: 10px;
   cursor: pointer;
   transition: all 0.4s ease;
-  animation: floatMove 8s ease-in-out infinite alternate;
+  animation: floatMove 6s ease-in-out infinite alternate;
   z-index: 2;
 }
 
 .module-card:hover {
   transform: scale(1.1);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
 }
 
-/* === Positionnement circulaire (5 modules autour du noyau) === */
-.module-card:nth-of-type(1) { transform: rotate(0deg) translate(200px) rotate(0deg); }
-.module-card:nth-of-type(2) { transform: rotate(72deg) translate(200px) rotate(-72deg); }
-.module-card:nth-of-type(3) { transform: rotate(144deg) translate(200px) rotate(-144deg); }
-.module-card:nth-of-type(4) { transform: rotate(216deg) translate(200px) rotate(-216deg); }
-.module-card:nth-of-type(5) { transform: rotate(288deg) translate(200px) rotate(-288deg); }
+/* === Position circulaire corrigée === */
+.module-card:nth-of-type(1) { transform: rotate(0deg) translate(230px) rotate(0deg); }
+.module-card:nth-of-type(2) { transform: rotate(72deg) translate(230px) rotate(-72deg); }
+.module-card:nth-of-type(3) { transform: rotate(144deg) translate(230px) rotate(-144deg); }
+.module-card:nth-of-type(4) { transform: rotate(216deg) translate(230px) rotate(-216deg); }
+.module-card:nth-of-type(5) { transform: rotate(288deg) translate(230px) rotate(-288deg); }
 
-/* === Contenu du module === */
 .module-icon {
-  font-size: 1.6rem;
-  margin-bottom: 4px;
+  font-size: 1.8rem;
+  margin-bottom: 6px;
 }
 
 .module-card h3 {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: #111;
-}
-
-.module-card p {
-  font-size: 0.7rem;
-  color: #555;
-  line-height: 1.2;
-}
-
-/* === Effet de fond circulaire === */
-.solutions-grid::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: radial-gradient(circle at center,
-    rgba(255,122,0,0.15),
-    rgba(0,184,124,0.15),
-    rgba(139,92,246,0.15)
-  );
-  filter: blur(80px);
-  z-index: 0;
-  animation: rotateGlow 20s linear infinite;
-}
-
-@keyframes rotateGlow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
 
 /* === Animation flottante === */
 @keyframes floatMove {
   0% { transform: scale(1) translateY(0px); }
-  50% { transform: scale(1.05) translateY(-5px); }
+  50% { transform: scale(1.05) translateY(-6px); }
   100% { transform: scale(1) translateY(0px); }
 }
 
-/* === Lignes de liaison === */
-.solutions-grid svg {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* === Mobile === */
+/* === MOBILE (empilement vertical) === */
 @media (max-width: 900px) {
   .solutions-grid {
     width: 100%;
@@ -544,6 +525,7 @@ footer {
     margin: 15px 0;
   }
 }
+
 /* === NOYAU CENTRAL KWIKLINK CORE === */
 .core-center {
   position: absolute;
