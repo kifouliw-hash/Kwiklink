@@ -200,6 +200,99 @@
   color: #111;
   font-size: 1.2rem;
 }
+/* === Aperçu visuel du portefeuille (version dynamique KwikLink) === */
+.wallet-preview {
+  margin-top: 60px;
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+/* Carte de solde principale */
+.wallet-card {
+  display: inline-block;
+  border-radius: 18px;
+  padding: 35px 70px;
+  background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
+  background-size: 200% 200%;
+  color: #fff;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  animation: gradientFlow 8s ease-in-out infinite alternate;
+  transition: transform 0.3s ease;
+}
+
+.wallet-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* Header et contenu */
+.wallet-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.wallet-balance {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin: 10px 0;
+  background: linear-gradient(90deg, #ffffff, #d1fae5, #ede9fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.wallet-subtext {
+  color: rgba(255,255,255,0.85);
+  font-size: 0.9rem;
+}
+
+/* Petites stats sous la carte */
+.wallet-stats {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.wallet-stats .stat {
+  text-align: center;
+  background: rgba(255,255,255,0.9);
+  border-radius: 14px;
+  padding: 20px 28px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.wallet-stats .stat:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 35px rgba(0,0,0,0.08);
+}
+
+.wallet-stats .label {
+  color: #555;
+  font-size: 0.9rem;
+  display: block;
+}
+
+.wallet-stats .value {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+}
+
+/* Animation du dégradé */
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
   </style>
 </head>
 <body>
@@ -220,14 +313,14 @@
         <h3>Recharger</h3>
         <p>Ajoutez des fonds depuis Mobile Money, carte bancaire ou virement.</p>
       </div>
-      <!-- === Aperçu visuel du portefeuille === -->
+      <!-- === Aperçu visuel du portefeuille KwikLink Pro === -->
 <section class="wallet-preview">
   <div class="wallet-card">
     <div class="wallet-header">
       <h3>Solde KwikLink Pro</h3>
-      <span class="currency">EUR</span>
+      <span class="currency">F CFA</span>
     </div>
-    <div class="wallet-balance">2 435,20 €</div>
+    <div class="wallet-balance">1 595 200 F CFA</div>
     <div class="wallet-subtext">Dernière mise à jour : il y a 2 min</div>
   </div>
 
@@ -238,11 +331,11 @@
     </div>
     <div class="stat">
       <span class="label">Revenus ce mois</span>
-      <span class="value">+ 12 430 €</span>
+      <span class="value">+ 7 380 000 F CFA</span>
     </div>
     <div class="stat">
       <span class="label">Retraits</span>
-      <span class="value">- 8 100 €</span>
+      <span class="value">- 4 280 000 F CFA</span>
     </div>
   </div>
 </section>
