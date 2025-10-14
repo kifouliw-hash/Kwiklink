@@ -169,41 +169,57 @@
     color: var(--text-dim);
   }
 
-  /* === INFO === */
-  .info {
-    background: linear-gradient(135deg, #fff, #f9fafb);
-    padding: 80px 8%;
-    text-align: center;
-  }
-
-  .info h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-  }
-
-  .info p {
-    max-width: 700px;
-    margin: 0 auto 40px;
-    color: var(--text-dim);
-  }
-
-  footer {
-    background: #fff;
-    text-align: center;
-    padding: 50px 0;
-    color: var(--text-dim);
-    font-size: 0.9rem;
-    border-top: 1px solid rgba(0,0,0,0.05);
-  }
-  .info {
+/* === INFO === */
+.info {
+  background: transparent;        /* ❌ plus de fond blanc, on garde le fond général */
+  padding: 80px 8%;
+  text-align: center;
   position: relative;
-  z-index: 5; /* place la section au-dessus du fond animé */
+  z-index: 5;                     /* assure la visibilité au-dessus du fond animé */
+  color: #111;                    /* texte bien lisible */
 }
 
+.info h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.15); /* lisibilité renforcée */
+}
+
+.info p {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  color: var(--text-dim);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Bouton actif et cliquable */
 .cta-btn {
   position: relative;
-  z-index: 6; /* assure que le bouton est cliquable */
-  pointer-events: auto; /* réactive le clic s’il a été bloqué */
+  z-index: 6;
+  pointer-events: auto;
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #ff7a00, #00b87c);
+  color: white;
+  font-weight: 600;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  text-decoration: none;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* Footer inchangé */
+footer {
+  background: #fff;
+  text-align: center;
+  padding: 50px 0;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(0,0,0,0.05);
 }
 
   /* RESPONSIVE */
