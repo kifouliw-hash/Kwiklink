@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KwikPay – Acceptez tous les paiements</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
   :root {
@@ -73,7 +74,7 @@
   }
   header nav a:hover { color: var(--orange); }
 
-  /* === SECTION HERO === */
+  /* === HERO === */
   section {
     min-height: 100vh;
     padding: 140px 8% 80px;
@@ -121,23 +122,24 @@
 
   /* === FONCTIONNALITÉS === */
   .features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
     margin-top: 60px;
   }
 
   .feature {
+    flex: 1 1 280px;
     background: rgba(255,255,255,0.9);
-    border-radius: 20px;
+    border-radius: 18px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     padding: 30px;
     text-align: center;
-    transition: all 0.6s ease;
+    transition: all 0.5s ease;
     opacity: 0;
     transform: translateY(40px);
   }
-
   .feature.visible {
     opacity: 1;
     transform: translateY(0);
@@ -149,32 +151,36 @@
   }
 
   .feature-icon {
-    font-size: 2.5rem;
-    margin-bottom: 12px;
+    font-size: 2.8rem;
+    margin-bottom: 10px;
     background: linear-gradient(120deg, var(--orange), var(--violet));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+
   .feature h3 {
     font-size: 1.2rem;
     color: var(--text-dark);
     margin-bottom: 10px;
   }
+
   .feature p {
     font-size: 0.95rem;
     color: var(--text-dim);
   }
 
-  /* === SECTION INFO === */
+  /* === INFO === */
   .info {
     background: linear-gradient(135deg, #fff, #f9fafb);
     padding: 80px 8%;
     text-align: center;
   }
+
   .info h2 {
     font-size: 2rem;
     margin-bottom: 20px;
   }
+
   .info p {
     max-width: 700px;
     margin: 0 auto 40px;
@@ -190,7 +196,7 @@
     border-top: 1px solid rgba(0,0,0,0.05);
   }
 
-  /* === RESPONSIVE === */
+  /* RESPONSIVE */
   @media (max-width: 900px) {
     section {
       flex-direction: column;
@@ -216,8 +222,8 @@
     </nav>
   </header>
 
-  <!-- === SECTION HERO === -->
-  <section id="hero">
+  <!-- === HERO === -->
+  <section>
     <div class="text">
       <h1>KwikPay — Acceptez tous les paiements</h1>
       <p>KwikPay simplifie la vie des commerçants. Encaissez via Mobile Money, cartes bancaires ou QR Codes — en ligne ou en boutique — avec une seule plateforme fluide et rapide.</p>
@@ -229,33 +235,36 @@
     </div>
   </section>
 
-  <!-- === FONCTIONNALITÉS === -->
-  <section id="features-section">
+  <!-- === FEATURES === -->
+  <section>
     <div class="features">
       <div class="feature">
-        <div class="feature-icon">📱</div>
+        <div class="feature-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
         <h3>Mobile Money</h3>
         <p>Encaissez instantanément via Orange Money, MTN, Wave ou Moov, sans contrainte technique.</p>
       </div>
+
       <div class="feature">
-        <div class="feature-icon">💳</div>
+        <div class="feature-icon"><i class="fa-solid fa-credit-card"></i></div>
         <h3>Cartes bancaires</h3>
         <p>Acceptez toutes les cartes régionales et internationales — Visa, Mastercard et plus.</p>
       </div>
+
       <div class="feature">
-        <div class="feature-icon">🔗</div>
+        <div class="feature-icon"><i class="fa-solid fa-qrcode"></i></div>
         <h3>QR & Liens de paiement</h3>
         <p>Créez des liens ou QR Codes sécurisés pour encaisser à distance ou en face à face.</p>
       </div>
+
       <div class="feature">
-        <div class="feature-icon">⚡</div>
+        <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
         <h3>Paiement instantané</h3>
         <p>Recevez vos paiements en quelques secondes, sans interruption, 24h/24.</p>
       </div>
     </div>
   </section>
 
-  <!-- === SECTION INFO === -->
+  <!-- === INFO === -->
   <div class="info">
     <h2>Une solution prête pour tous les commerçants</h2>
     <p>KwikPay s’adapte à toutes les tailles d’activité : artisans, boutiques, e-commerces ou grandes entreprises. Connectez votre activité à l’économie numérique.</p>
@@ -264,19 +273,14 @@
 
   <footer>© 2025 KwikLink. Tous droits réservés.</footer>
 
-  <!-- === SCRIPT ANIMATIONS === -->
   <script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.2 });
 
-  document.querySelectorAll('.feature').forEach(feature => {
-    observer.observe(feature);
-  });
+  document.querySelectorAll('.feature').forEach(f => observer.observe(f));
   </script>
 </body>
 </html>
