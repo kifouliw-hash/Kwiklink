@@ -431,18 +431,7 @@ footer {
 .cta-btn:hover {
   background: #1e293b;
 }
-/* === GRILLE EN CERCLE (AFFICHAGE FIXÉ ET VISIBLE) === */
-.solutions-grid {
-  position: relative;
-  width: 600px;
-  height: 600px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: visible; /* ✅ permet d'afficher les cartes hors du centre */
-}
-/* === ANIMATION D’ORBITE LENTE AUTOUR DU CŒUR === */
+/* === CONTENEUR GLOBAL === */
 .solutions-grid {
   position: relative;
   width: 600px;
@@ -452,16 +441,24 @@ footer {
   align-items: center;
   justify-content: center;
   overflow: visible;
-  animation: orbitRotation 45s linear infinite; /* 🌀 rotation lente et fluide */
 }
 
+/* === CONTENEUR QUI TOURNE (L'ORBITE) === */
+.orbit-container {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  animation: orbitRotation 45s linear infinite;
+}
+
+/* === ANIMATION DE ROTATION === */
 @keyframes orbitRotation {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
-
-/* === CARTES RONDES AUTOUR DU CŒUR === */
+/* === CARTES RONDES === */
 .module-card {
   position: absolute;
   width: 130px;
@@ -478,26 +475,37 @@ footer {
   padding: 10px;
   cursor: pointer;
   transition: all 0.4s ease;
-  animation: floatMove 6s ease-in-out infinite alternate;
   z-index: 2;
 }
 
 .module-card:hover {
   transform: scale(1.1);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
 }
 
-/* === Position circulaire corrigée === */
-.module-card:nth-of-type(1) { transform: rotate(0deg) translate(230px) rotate(0deg); }
-.module-card:nth-of-type(2) { transform: rotate(72deg) translate(230px) rotate(-72deg); }
-.module-card:nth-of-type(3) { transform: rotate(144deg) translate(230px) rotate(-144deg); }
-.module-card:nth-of-type(4) { transform: rotate(216deg) translate(230px) rotate(-216deg); }
-.module-card:nth-of-type(5) { transform: rotate(288deg) translate(230px) rotate(-288deg); }
+/* === POSITION CIRCULAIRE AUTOUR DU CŒUR === */
+.orbit-container .module-card:nth-child(1) {
+  transform: rotate(0deg) translate(230px) rotate(0deg);
+}
+.orbit-container .module-card:nth-child(2) {
+  transform: rotate(72deg) translate(230px) rotate(-72deg);
+}
+.orbit-container .module-card:nth-child(3) {
+  transform: rotate(144deg) translate(230px) rotate(-144deg);
+}
+.orbit-container .module-card:nth-child(4) {
+  transform: rotate(216deg) translate(230px) rotate(-216deg);
+}
+.orbit-container .module-card:nth-child(5) {
+  transform: rotate(288deg) translate(230px) rotate(-288deg);
+}
 
+/* === ICÔNES ET TITRES === */
 .module-icon {
   font-size: 1.8rem;
   margin-bottom: 6px;
 }
+
 
 .module-card h3 {
   font-size: 0.9rem;
@@ -624,41 +632,44 @@ footer {
   </div>
 
   <div class="visual">
-    <!-- === Cartes de solutions dynamiques === -->
     <div class="solutions-grid">
-      <div class="module-card" onclick="window.location.href='/kwikconnect.html'">
-        <div class="module-icon">🔗</div>
-        <h3>KwikConnect</h3>
+
+      <!-- === Orbite des cartes === -->
+      <div class="orbit-container">
+        <div class="module-card" onclick="window.location.href='/kwikconnect.html'">
+          <div class="module-icon">🔗</div>
+          <h3>KwikConnect</h3>
+        </div>
+
+        <div class="module-card" onclick="window.location.href='/paiements.html'">
+          <div class="module-icon">💳</div>
+          <h3>Paiements</h3>
+        </div>
+
+        <div class="module-card" onclick="window.location.href='/wallet.html'">
+          <div class="module-icon">💼</div>
+          <h3>Portefeuille</h3>
+        </div>
+
+        <div class="module-card" onclick="window.location.href='/analytics.html'">
+          <div class="module-icon">📊</div>
+          <h3>Analytics</h3>
+        </div>
+
+        <div class="module-card" onclick="window.location.href='/entreprises.html'">
+          <div class="module-icon">🏢</div>
+          <h3>Comptes Entreprise</h3>
+        </div>
       </div>
 
-      <div class="module-card" onclick="window.location.href='/paiements.html'">
-        <div class="module-icon">💳</div>
-        <h3>Paiements</h3>
-      </div>
-
-      <div class="module-card" onclick="window.location.href='/wallet.html'">
-        <div class="module-icon">💼</div>
-        <h3>Portefeuille</h3>
-      </div>
-
-      <div class="module-card" onclick="window.location.href='/analytics.html'">
-        <div class="module-icon">📊</div>
-        <h3>Analytics</h3>
-      </div>
-
-      <div class="module-card" onclick="window.location.href='/entreprises.html'">
-        <div class="module-icon">🏢</div>
-        <h3>Comptes Entreprise</h3>
-      </div>
-
-      <!-- ✅ NOYAU CENTRAL À L’INTÉRIEUR DU GLOBE -->
+      <!-- === Noyau central (KwikLink) === -->
       <div class="core-center">
         <div class="core-glow"></div>
         <div class="core-label">KwikLink</div>
       </div>
 
-      <!-- ✅ TRAITS ET CERCLAGES ANIMÉS -->
-      <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+      <!-- === Cercles de liaison (fond SVG) === -->
+      <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" class="orbit-svg">
         <defs>
           <radialGradient id="gradOrbit" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stop-color="#ff7a00">
