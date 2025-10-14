@@ -468,12 +468,12 @@ footer {
   box-shadow: 0 16px 40px rgba(0,0,0,0.08);
 }
 
-/* === Placement en cercle (5 modules) === */
-.module-card:nth-child(1) { transform: rotate(0deg) translate(180px) rotate(0deg); }
-.module-card:nth-child(2) { transform: rotate(72deg) translate(180px) rotate(-72deg); }
-.module-card:nth-child(3) { transform: rotate(144deg) translate(180px) rotate(-144deg); }
-.module-card:nth-child(4) { transform: rotate(216deg) translate(180px) rotate(-216deg); }
-.module-card:nth-child(5) { transform: rotate(288deg) translate(180px) rotate(-288deg); }
+/* === Positionnement circulaire (5 modules autour du noyau) === */
+.module-card:nth-of-type(1) { transform: rotate(0deg) translate(200px) rotate(0deg); }
+.module-card:nth-of-type(2) { transform: rotate(72deg) translate(200px) rotate(-72deg); }
+.module-card:nth-of-type(3) { transform: rotate(144deg) translate(200px) rotate(-144deg); }
+.module-card:nth-of-type(4) { transform: rotate(216deg) translate(200px) rotate(-216deg); }
+.module-card:nth-of-type(5) { transform: rotate(288deg) translate(200px) rotate(-288deg); }
 
 /* === Contenu du module === */
 .module-icon {
