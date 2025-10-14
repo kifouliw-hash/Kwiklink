@@ -9,20 +9,32 @@
       --orange: #ff7a00;
       --green: #00b87c;
       --violet: #8b5cf6;
-      --bg: #f9fafb;
+      --bg-white: #ffffff;
       --text-dark: #111;
       --text-dim: #555;
     }
 
+    /* === FOND DYNAMIQUE COMME LES CŒURS === */
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(120deg, rgba(255,122,0,0.15), rgba(0,184,124,0.15), rgba(139,92,246,0.15));
+      background: radial-gradient(circle at 25% 25%, rgba(255,122,0,0.25), transparent 60%),
+                  radial-gradient(circle at 75% 75%, rgba(0,184,124,0.25), transparent 60%),
+                  radial-gradient(circle at 50% 90%, rgba(139,92,246,0.25), transparent 70%);
+      background-size: 200% 200%;
+      animation: bgMove 15s ease-in-out infinite alternate;
       color: var(--text-dark);
       margin: 0;
       padding: 0;
       overflow-x: hidden;
     }
 
+    @keyframes bgMove {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 100%; }
+      100% { background-position: 0% 100%; }
+    }
+
+    /* === HEADER === */
     header {
       display: flex;
       justify-content: space-between;
@@ -31,7 +43,7 @@
     }
 
     .logo {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: bold;
       background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
       -webkit-background-clip: text;
@@ -44,13 +56,14 @@
       font-weight: 500;
     }
 
+    /* === TITRE === */
     main {
       text-align: center;
       padding: 60px 5%;
     }
 
     h1 {
-      font-size: 2.2rem;
+      font-size: 2.3rem;
       background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
       -webkit-background-clip: text;
       color: transparent;
@@ -62,32 +75,39 @@
       margin-bottom: 50px;
     }
 
-    /* === Indicateurs === */
+    /* === INDICATEURS === */
     .analytics-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 25px;
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto 70px;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
       padding: 25px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      backdrop-filter: blur(10px);
     }
 
     .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     }
 
     .emoji {
       font-size: 1.9rem;
       margin-bottom: 10px;
+      animation: pulse 3s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.15); opacity: 1; }
     }
 
     .value {
@@ -101,27 +121,28 @@
       font-size: 0.95rem;
     }
 
-    /* === Graphique en barres === */
+    /* === GRAPHICHE EN BARRES === */
     .chart-section {
-      max-width: 800px;
+      max-width: 850px;
       margin: 0 auto;
-      background: rgba(255,255,255,0.95);
+      background: rgba(255,255,255,0.9);
       border-radius: 16px;
       padding: 40px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.05);
       position: relative;
+      backdrop-filter: blur(8px);
     }
 
     .axis {
       position: relative;
-      height: 220px;
-      border-left: 2px solid rgba(0,0,0,0.2);
-      border-bottom: 2px solid rgba(0,0,0,0.2);
+      height: 230px;
+      border-left: 2px solid rgba(0,0,0,0.15);
+      border-bottom: 2px solid rgba(0,0,0,0.15);
       margin-bottom: 20px;
     }
 
     .bar {
-      width: 50px;
+      width: 45px;
       position: absolute;
       bottom: 0;
       border-radius: 8px 8px 0 0;
@@ -131,16 +152,17 @@
 
     @keyframes grow {
       0% { height: 40px; }
-      50% { height: 160px; }
+      50% { height: 170px; }
       100% { height: 100px; }
     }
 
-    .bar:nth-child(1) { left: 70px; animation-delay: 0s; }
-    .bar:nth-child(2) { left: 150px; animation-delay: 0.3s; }
-    .bar:nth-child(3) { left: 230px; animation-delay: 0.6s; }
-    .bar:nth-child(4) { left: 310px; animation-delay: 0.9s; }
-    .bar:nth-child(5) { left: 390px; animation-delay: 1.2s; }
-    .bar:nth-child(6) { left: 470px; animation-delay: 1.5s; }
+    .bar:nth-child(1) { left: 60px; animation-delay: 0s; }
+    .bar:nth-child(2) { left: 130px; animation-delay: 0.3s; }
+    .bar:nth-child(3) { left: 200px; animation-delay: 0.6s; }
+    .bar:nth-child(4) { left: 270px; animation-delay: 0.9s; }
+    .bar:nth-child(5) { left: 340px; animation-delay: 1.2s; }
+    .bar:nth-child(6) { left: 410px; animation-delay: 1.5s; }
+    .bar:nth-child(7) { left: 480px; animation-delay: 1.8s; }
 
     .labels {
       display: flex;
@@ -168,19 +190,23 @@
 
   <main>
     <h1>Analytics & Statistiques</h1>
-    <p class="subtitle">Suivez vos performances financières et opérationnelles en temps réel.</p>
+    <p class="subtitle">Suivez vos performances en temps réel avec des indicateurs dynamiques et précis.</p>
 
-    <!-- === Indicateurs clés === -->
+    <!-- === INDICATEURS CLÉS === -->
     <div class="analytics-grid">
       <div class="card"><div class="emoji">💰</div><div class="value">24 980 000 F CFA</div><div class="label">Volume total des transactions</div></div>
+      <div class="card"><div class="emoji">⚡</div><div class="value">98 %</div><div class="label">Paiements réussis</div></div>
       <div class="card"><div class="emoji">📈</div><div class="value">+12 %</div><div class="label">Croissance mensuelle</div></div>
       <div class="card"><div class="emoji">👥</div><div class="value">1 840</div><div class="label">Commerçants actifs</div></div>
-      <div class="card"><div class="emoji">🌍</div><div class="value">8</div><div class="label">Pays connectés</div></div>
       <div class="card"><div class="emoji">🏦</div><div class="value">325 000 F CFA</div><div class="label">Revenus KwikLink (commissions)</div></div>
-      <div class="card"><div class="emoji">⚡</div><div class="value">98 %</div><div class="label">Paiements réussis</div></div>
+      <div class="card"><div class="emoji">🌍</div><div class="value">8</div><div class="label">Pays connectés</div></div>
+      <div class="card"><div class="emoji">📱</div><div class="value">1 250</div><div class="label">Nouveaux comptes Mobile Money</div></div>
+      <div class="card"><div class="emoji">💳</div><div class="value">8 420</div><div class="label">Transactions par carte</div></div>
+      <div class="card"><div class="emoji">🔗</div><div class="value">640</div><div class="label">Liens de paiement actifs</div></div>
+      <div class="card"><div class="emoji">🚀</div><div class="value">72 %</div><div class="label">Croissance des intégrations API</div></div>
     </div>
 
-    <!-- === Graphique === -->
+    <!-- === GRAPHIQUE === -->
     <div class="chart-section">
       <div class="axis">
         <div class="bar"></div>
@@ -189,14 +215,10 @@
         <div class="bar"></div>
         <div class="bar"></div>
         <div class="bar"></div>
+        <div class="bar"></div>
       </div>
       <div class="labels">
-        <span>Lun</span>
-        <span>Mar</span>
-        <span>Mer</span>
-        <span>Jeu</span>
-        <span>Ven</span>
-        <span>Sam</span>
+        <span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span>
       </div>
       <p style="margin-top:20px; color:var(--text-dim); font-size:0.95rem;">
         Évolution du volume hebdomadaire des paiements (en F CFA)
