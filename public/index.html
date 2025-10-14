@@ -434,69 +434,68 @@ footer {
 /* === CONTENEUR GLOBAL === */
 .solutions-grid {
   position: relative;
-  width: 600px;
-  height: 600px;
+  width: 500px;
+  height: 500px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: visible;
 }
 
-/* === CONTENEUR D'ORBITE === */
+/* === CONTAINER DE ROTATION === */
 .orbit-container {
   position: absolute;
-  width: 500px;
-  height: 500px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   animation: orbitRotation 45s linear infinite;
-  pointer-events: none; /* laisse passer les clics */
-  z-index: 1; /* sous les bulles */
+  pointer-events: none;
+  z-index: 1;
 }
 
-/* === CARTES RONDES === */
+/* === BULLES (MODULES) === */
 .module-card {
   position: absolute;
   width: 110px;
   height: 110px;
   background: rgba(255, 255, 255, 0.95);
   border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,0.4);
-  text-align: center;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  z-index: 5; /* au-dessus de tout */
-  pointer-events: auto; /* cliquables */
+  pointer-events: auto;
+  z-index: 5;
 }
 
-/* === SURVOL AVEC COULEUR DYNAMIQUE === */
+/* === SURVOL === */
 .module-card:hover {
   background: linear-gradient(135deg, rgba(255,122,0,0.15), rgba(139,92,246,0.15));
   transform: scale(1.1);
 }
 
-/* === POSITION RAPPROCHÉE DU CŒUR === */
+/* === POSITION DES BULLES DANS LE CERCLE === */
 .orbit-container .module-card:nth-child(1) {
-  transform: rotate(0deg) translate(100px) rotate(0deg);
+  transform: rotate(0deg) translate(180px) rotate(0deg);
 }
 .orbit-container .module-card:nth-child(2) {
-  transform: rotate(72deg) translate(100px) rotate(-72deg);
+  transform: rotate(72deg) translate(180px) rotate(-72deg);
 }
 .orbit-container .module-card:nth-child(3) {
-  transform: rotate(144deg) translate(100px) rotate(-144deg);
+  transform: rotate(144deg) translate(180px) rotate(-144deg);
 }
 .orbit-container .module-card:nth-child(4) {
-  transform: rotate(216deg) translate(100px) rotate(-216deg);
+  transform: rotate(216deg) translate(180px) rotate(-216deg);
 }
 .orbit-container .module-card:nth-child(5) {
-  transform: rotate(288deg) translate(100px) rotate(-288deg);
+  transform: rotate(288deg) translate(180px) rotate(-288deg);
 }
 
-/* === ANIMATION DE ROTATION === */
+/* === ANIMATION === */
 @keyframes orbitRotation {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -508,16 +507,43 @@ footer {
   margin-bottom: 5px;
 }
 
-/* === SVG (cercles orbitaux) EN DESSOUS === */
+/* === CŒUR CENTRAL === */
+.core-center {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.core-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #ff7a00, #00b87c, #8b5cf6);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* === SVG DU CERCLE D'ORBITE === */
 .orbit-svg {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none; /* ne bloque plus les clics */
   z-index: 0;
+  pointer-events: none;
 }
+
+.orbit-svg circle {
+  stroke: url(#gradOrbit);
+  stroke-width: 2;
+  fill: none;
+  opacity: 0.4;
+}
+
 
 /* === CŒUR CENTRAL KwikLink === */
 .core-center {
@@ -583,7 +609,28 @@ footer {
   <div class="visual">
     <div class="solutions-grid">
 
-      <!-- === Orbite des cartes === -->
+      <!-- === Cercles d'orbite (en fond, sous tout) === -->
+      <svg class="orbit-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="gradOrbit" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ff7a00">
+              <animate attributeName="stop-color" values="#ff7a00;#00b87c;#8b5cf6;#ff7a00" dur="8s" repeatCount="indefinite"/>
+            </stop>
+            <stop offset="100%" stop-color="#8b5cf6">
+              <animate attributeName="stop-color" values="#8b5cf6;#ff7a00;#00b87c;#8b5cf6" dur="8s" repeatCount="indefinite"/>
+            </stop>
+          </radialGradient>
+        </defs>
+        <circle cx="250" cy="250" r="180" stroke="url(#gradOrbit)" stroke-width="2" fill="none" opacity="0.4"/>
+        <circle cx="250" cy="250" r="140" stroke="url(#gradOrbit)" stroke-width="1.5" fill="none" opacity="0.3"/>
+      </svg>
+
+      <!-- === Cœur central === -->
+      <div class="core-center">
+        <div class="core-label">KwikLink</div>
+      </div>
+
+      <!-- === Cartes orbitantes === -->
       <div class="orbit-container">
         <div class="module-card" onclick="window.location.href='/kwikconnect.html'">
           <div class="module-icon">🔗</div>
@@ -611,31 +658,10 @@ footer {
         </div>
       </div>
 
-      <!-- === Noyau central (KwikLink) === -->
-      <div class="core-center">
-        <div class="core-glow"></div>
-        <div class="core-label">KwikLink</div>
-      </div>
-
-      <!-- === Cercles de liaison (fond SVG) === -->
-      <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" class="orbit-svg">
-        <defs>
-          <radialGradient id="gradOrbit" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#ff7a00">
-              <animate attributeName="stop-color" values="#ff7a00;#00b87c;#8b5cf6;#ff7a00" dur="8s" repeatCount="indefinite"/>
-            </stop>
-            <stop offset="100%" stop-color="#8b5cf6">
-              <animate attributeName="stop-color" values="#8b5cf6;#ff7a00;#00b87c;#8b5cf6" dur="8s" repeatCount="indefinite"/>
-            </stop>
-          </radialGradient>
-        </defs>
-        <circle cx="250" cy="250" r="180" stroke="url(#gradOrbit)" stroke-width="2" fill="none" opacity="0.4"/>
-        <circle cx="250" cy="250" r="140" stroke="url(#gradOrbit)" stroke-width="1.5" fill="none" opacity="0.3"/>
-      </svg>
-
     </div>
   </div>
 </section>
+
 
 
 
