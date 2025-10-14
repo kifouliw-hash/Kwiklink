@@ -195,6 +195,16 @@
     font-size: 0.9rem;
     border-top: 1px solid rgba(0,0,0,0.05);
   }
+  .info {
+  position: relative;
+  z-index: 5; /* place la section au-dessus du fond animé */
+}
+
+.cta-btn {
+  position: relative;
+  z-index: 6; /* assure que le bouton est cliquable */
+  pointer-events: auto; /* réactive le clic s’il a été bloqué */
+}
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
@@ -264,12 +274,16 @@
     </div>
   </section>
 
-  <!-- === INFO === -->
-  <div class="info">
-    <h2>Une solution prête pour tous les commerçants</h2>
-    <p>KwikPay s’adapte à toutes les tailles d’activité : artisans, boutiques, e-commerces ou grandes entreprises. Connectez votre activité à l’économie numérique.</p>
-    <a href="api.html" class="cta-btn" style="display:inline-block; text-decoration:none;">Accéder à l’API KwikLink</a>
-  </div>
+ <!-- === INFO === -->
+<div class="info">
+  <h2>Une solution prête pour tous les commerçants</h2>
+  <p>KwikPay s’adapte à toutes les tailles d’activité : artisans, boutiques, e-commerces ou grandes entreprises. Connectez votre activité à l’économie numérique.</p>
+
+  <!-- Le bouton corrigé -->
+  <a href="/api.html" id="apiBtn" class="cta-btn" style="display:inline-block; text-decoration:none;">
+    Accéder à l’API KwikLink
+  </a>
+</div>
 
   <footer>© 2025 KwikLink. Tous droits réservés.</footer>
 
@@ -282,5 +296,14 @@
 
   document.querySelectorAll('.feature').forEach(f => observer.observe(f));
   </script>
+  <script>
+  const apiBtn = document.getElementById('apiBtn');
+  if (apiBtn) {
+    apiBtn.addEventListener('click', function (e) {
+      // Force la redirection vers la page API même si un overlay gêne
+      window.location.href = '/api.html';
+    });
+  }
+</script>
 </body>
 </html>
