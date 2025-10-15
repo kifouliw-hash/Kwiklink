@@ -543,6 +543,66 @@ footer {
   z-index: 2;
   pointer-events: none;
 }
+.tpe-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 140px 8%;
+  background: linear-gradient(135deg, #fff, #f9fafb);
+  gap: 40px;
+}
+
+.tpe-section .text {
+  flex: 1;
+  max-width: 600px;
+}
+
+.tpe-section .text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tpe-section .text p {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.tpe-btn {
+  background: linear-gradient(90deg, var(--orange), var(--green));
+  color: white;
+  font-weight: 600;
+  padding: 14px 26px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tpe-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, var(--green), var(--violet));
+}
+
+.tpe-visuals {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.tpe-visuals img {
+  width: 320px;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+  animation: float 6s ease-in-out infinite alternate;
+}
+
 
 
 
@@ -651,22 +711,28 @@ footer {
 
 
   <!-- 2.5. KwikLink TPE -->
-  <section id="tpe" class="tpe-section">
-    <div class="text">
-      <h2>💡 KwikLink TPE — le terminal digital pour tous</h2>
-      <p>
-        Encaissez vos paiements en toute simplicité, même sans carte bancaire.<br>
-        Générez automatiquement des reçus digitaux sécurisés pour vos clients.<br>
-        Une solution pensée pour les marchés, les commerces et les artisans.
-      </p>
+<section id="tpe" class="tpe-section">
+  <div class="text">
+    <h2>💡 KwikLink TPE — le terminal digital pour tous</h2>
+    <p>
+      Encaissez vos paiements en toute simplicité, même sans carte bancaire.<br>
+      Générez automatiquement des reçus digitaux sécurisés pour vos clients.<br>
+      Une solution pensée pour les marchés, les commerces et les artisans.
+    </p>
+
+    <button class="tpe-btn" onclick="window.location.href='tpe.html'">
+      En savoir plus sur KwikLink TPE →
+    </button>
+  </div>
+
+  <div class="visual">
+    <div class="tpe-visuals">
+      <img src="assets/tpe-smartphone-demo.png" alt="Commerçant avec smartphone" class="merchant">
+      <img src="assets/tpe-receipt-demo.png" alt="Reçu digital KwikLink" class="receipt">
     </div>
-    <div class="visual">
-      <div class="tpe-visuals">
-        <img src="/tpe-merchant.png" alt="Commerçant avec smartphone" class="merchant">
-        <img src="/tpe-receipt.png" alt="Reçu digital KwikLink" class="receipt">
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- 3. API -->
   <section id="api">
