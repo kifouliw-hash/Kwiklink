@@ -791,17 +791,16 @@ const content = document.getElementById("mockup-content");
 function updateMockup(region) {
   content.style.opacity = 0;
   setTimeout(() => {
-    content.innerHTML = `
-      <h4>${region.product}</h4>
-      <p class="price">${region.price}</p>
-      <button class="applepay"> Pay</button>
-      <button class="kwikpay" style="background:${region.color};">${region.button}</button>
-      <p class="or">ou une autre méthode</p>
-      <input type="text" placeholder="${region.fields[0]}">
-      <input type="text" placeholder="${region.fields[1]}">
-      <input type="text" placeholder="${region.fields[2]}">
-      <button class="pay-btn">${region.payText}</button>
-    `;
+   content.innerHTML = `
+  <h4>${region.product}</h4>
+  <p class="price">${region.price}</p>
+  <button class="kwikpay" style="background:${region.color};">${region.button}</button>
+  <p class="or">ou une autre méthode</p>
+  <input type="text" placeholder="${region.fields[0]}">
+  <input type="text" placeholder="${region.fields[1]}">
+  <input type="text" placeholder="${region.fields[2]}">
+  <button class="pay-btn">${region.payText}</button>
+`;
     content.style.opacity = 1;
   }, 400);
 }
