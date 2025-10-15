@@ -854,10 +854,82 @@ footer {
   max-width: 1200px;
   width: 100%;
 }
+/* === Simulation visuelle droite === */
+.tpe-visual {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 560px;
+}
 
+/* Arrière-plan avec TPE */
+.tpe-bg-devices {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 120px;
+  z-index: 0;
+  opacity: 0.45;
+  filter: blur(0.5px);
+  transform: translateY(30px);
+}
 
+.bg-device {
+  width: 220px;
+  opacity: 0.8;
+  transform: scale(1.05);
+  transition: transform 0.5s ease;
+}
 
+.bg-device.left {
+  filter: brightness(1.05) contrast(1.05);
+}
 
+.bg-device.right {
+  filter: brightness(0.9) contrast(1.1);
+}
+
+/* Smartphone principal */
+.smartphone {
+  position: relative;
+  width: 280px;
+  height: 540px;
+  background: #111;
+  border-radius: 40px;
+  padding: 10px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.15),
+              0 0 60px rgba(139,92,246,0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  animation: float 6s ease-in-out infinite alternate;
+}
+.tpe-visual {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.tpe-image {
+  width: 460px;
+  max-width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+  animation: float 6s ease-in-out infinite alternate;
+  z-index: 2;
+}
+
+/* Animation douce type Stripe */
+@keyframes float {
+  from { transform: translateY(0px); }
+  to { transform: translateY(-10px); }
+}
 
 
 
@@ -965,9 +1037,10 @@ footer {
 </section>
 
 
-  <!-- 2.5. KwikLink TPE -->
+<!-- 2.5. KwikLink TPE -->
 <section id="tpe" class="tpe-section">
   <div class="tpe-content">
+    
     <div class="tpe-text">
       <h2>💡 KwikLink TPE — le terminal digital pour tous</h2>
       <p>
@@ -980,21 +1053,14 @@ footer {
       </button>
     </div>
 
-   <div class="tpe-visual">
-  <div class="tpe-bg-devices">
-    <img src="assets/tpe-reader-light.png" alt="Lecteur KwikLink" class="bg-device left">
-    <img src="assets/tpe-reader-dark.png" alt="Lecteur KwikLink" class="bg-device right">
-  </div>
-
-  <div class="smartphone">
-    <div class="screen">
-      <h3>Total</h3>
-      <p class="amount">12 500 FCFA</p>
-      <p class="instruction">Présentez ou scannez pour payer</p>
-      <div class="nfc-icon">📶</div>
+    <div class="tpe-visual">
+      <img src="assets/tpe-kwiklink-demo.png" alt="Simulation KwikLink TPE" class="tpe-image">
     </div>
+
   </div>
-</div>
+</section>
+
+
 
 </section>
 
