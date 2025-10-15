@@ -523,6 +523,110 @@ section {
   .visual { margin-top: 40px; display: flex; justify-content: center; }
   .phone-mockup { width: 280px; height: 560px; }
 }
+/* === LISTE DE FONCTIONNALITÉS (visuel amélioré) === */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 40px;
+  justify-items: center;
+  align-items: start;
+  text-align: center;
+  margin: 100px auto;
+  max-width: 1000px;
+  padding: 0 8%;
+}
+
+.feature {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 25px 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 250px;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+}
+
+.feature span {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.feature h3 {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.feature p {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+/* === SECTION INFO (centrée proprement) === */
+.info {
+  background: transparent;
+  padding: 100px 8% 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 80vh;
+}
+
+.info h2 {
+  font-size: 2.2rem;
+  margin-bottom: 18px;
+  background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+.info p {
+  max-width: 680px;
+  margin: 0 auto 40px;
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* Bouton centré et harmonisé */
+.info .cta-btn {
+  background: linear-gradient(90deg, var(--orange), var(--green));
+  color: white;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.info .cta-btn:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* === FOOTER === */
+footer {
+  background: transparent;
+  text-align: center;
+  padding: 40px 0 30px;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  border-top: none;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
 </style>
 
 </head>
