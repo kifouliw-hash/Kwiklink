@@ -728,6 +728,94 @@ footer {
   font-size: 0.9rem;
   color: var(--text-dim);
 }
+.tpe-visual {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 550px;
+}
+
+/* Arrière-plan avec TPE */
+.tpe-bg-devices {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 120px;
+  z-index: 0;
+  opacity: 0.35;
+}
+
+.bg-device {
+  width: 200px;
+  filter: grayscale(1) opacity(0.6);
+  transform: translateY(40px);
+}
+
+/* Smartphone principal */
+.smartphone {
+  position: relative;
+  width: 280px;
+  height: 540px;
+  background: #111;
+  border-radius: 40px;
+  padding: 10px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  animation: float 6s ease-in-out infinite alternate;
+}
+
+.smartphone::before {
+  content: "";
+  position: absolute;
+  width: 60px;
+  height: 6px;
+  background: #222;
+  border-radius: 3px;
+  top: 20px;
+}
+
+.screen {
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  border-radius: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+}
+
+.screen h3 {
+  font-size: 1.3rem;
+  color: #555;
+}
+
+.screen .amount {
+  font-size: 2.6rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--orange), var(--violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.screen .instruction {
+  font-size: 1rem;
+  color: #666;
+}
+
+.nfc-icon {
+  font-size: 2rem;
+  color: var(--green);
+  margin-top: 12px;
+}
+
 
 
 
@@ -852,18 +940,22 @@ footer {
       </button>
     </div>
 
-    <div class="tpe-visual">
-      <div class="smartphone">
-        <div class="screen">
-          <h3>Total</h3>
-          <p class="amount">12 500 FCFA</p>
-          <p class="instruction">Présentez ou scannez pour payer</p>
-          <div class="nfc-icon">📶</div>
-        </div>
-      </div>
-      <p class="caption">Simulation d’encaissement KwikLink TPE</p>
+   <div class="tpe-visual">
+  <div class="tpe-bg-devices">
+    <img src="assets/tpe-reader-light.png" alt="Lecteur KwikLink" class="bg-device left">
+    <img src="assets/tpe-reader-dark.png" alt="Lecteur KwikLink" class="bg-device right">
+  </div>
+
+  <div class="smartphone">
+    <div class="screen">
+      <h3>Total</h3>
+      <p class="amount">12 500 FCFA</p>
+      <p class="instruction">Présentez ou scannez pour payer</p>
+      <div class="nfc-icon">📶</div>
     </div>
   </div>
+</div>
+
 </section>
 
 
