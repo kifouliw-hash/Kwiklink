@@ -602,6 +602,133 @@ footer {
   box-shadow: 0 12px 30px rgba(0,0,0,0.1);
   animation: float 6s ease-in-out infinite alternate;
 }
+.tpe-section {
+  background: linear-gradient(135deg, #ffffff, #f9fafc);
+  padding: 140px 8%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tpe-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 80px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.tpe-text {
+  flex: 1;
+  max-width: 520px;
+}
+
+.tpe-text h2 {
+  font-size: 2.7rem;
+  margin-bottom: 24px;
+  background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tpe-text p {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.tpe-btn {
+  background: linear-gradient(90deg, var(--orange), var(--green));
+  color: white;
+  font-weight: 600;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tpe-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, var(--green), var(--violet));
+}
+
+/* === VISUAL === */
+.tpe-visual {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* === SMARTPHONE SIMULATION === */
+.smartphone {
+  width: 280px;
+  height: 520px;
+  background: #111;
+  border-radius: 40px;
+  padding: 12px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: float 6s ease-in-out infinite alternate;
+}
+
+.smartphone::before {
+  content: "";
+  position: absolute;
+  width: 60px;
+  height: 6px;
+  background: #222;
+  border-radius: 3px;
+  top: 20px;
+}
+
+.screen {
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  border-radius: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.screen h3 {
+  font-size: 1.3rem;
+  color: #555;
+}
+
+.screen .amount {
+  font-size: 2.6rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--orange), var(--violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.screen .instruction {
+  font-size: 1rem;
+  color: #666;
+}
+
+.nfc-icon {
+  font-size: 2rem;
+  color: var(--green);
+  margin-top: 10px;
+}
+
+.caption {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
 
 
 
@@ -712,23 +839,29 @@ footer {
 
   <!-- 2.5. KwikLink TPE -->
 <section id="tpe" class="tpe-section">
-  <div class="text">
-    <h2>💡 KwikLink TPE — le terminal digital pour tous</h2>
-    <p>
-      Encaissez vos paiements en toute simplicité, même sans carte bancaire.<br>
-      Générez automatiquement des reçus digitaux sécurisés pour vos clients.<br>
-      Une solution pensée pour les marchés, les commerces et les artisans.
-    </p>
+  <div class="tpe-content">
+    <div class="tpe-text">
+      <h2>💡 KwikLink TPE — le terminal digital pour tous</h2>
+      <p>
+        Encaissez vos paiements en toute simplicité, même sans carte bancaire.<br>
+        Générez automatiquement des reçus digitaux sécurisés pour vos clients.<br>
+        Une solution pensée pour les marchés, les commerces et les artisans.
+      </p>
+      <button class="tpe-btn" onclick="window.location.href='tpe.html'">
+        En savoir plus sur KwikLink TPE →
+      </button>
+    </div>
 
-    <button class="tpe-btn" onclick="window.location.href='tpe.html'">
-      En savoir plus sur KwikLink TPE →
-    </button>
-  </div>
-
-  <div class="visual">
-    <div class="tpe-visuals">
-      <img src="assets/tpe-smartphone-demo.png" alt="Commerçant avec smartphone" class="merchant">
-      <img src="assets/tpe-receipt-demo.png" alt="Reçu digital KwikLink" class="receipt">
+    <div class="tpe-visual">
+      <div class="smartphone">
+        <div class="screen">
+          <h3>Total</h3>
+          <p class="amount">12 500 FCFA</p>
+          <p class="instruction">Présentez ou scannez pour payer</p>
+          <div class="nfc-icon">📶</div>
+        </div>
+      </div>
+      <p class="caption">Simulation d’encaissement KwikLink TPE</p>
     </div>
   </div>
 </section>
