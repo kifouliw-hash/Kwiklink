@@ -269,6 +269,122 @@ footer {
     .text h1 { font-size: 2.2rem; }
     .visual img { width: 100%; height: auto; margin-top: 30px; }
   }
+  /* === TÉLÉPHONE DYNAMIQUE TYPE STRIPE === */
+.phone-mockup {
+  width: 320px;
+  height: 620px;
+  background: #fff;
+  border-radius: 45px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  animation: float 6s ease-in-out infinite alternate;
+}
+
+.mockup-header {
+  width: 100%;
+  height: 28px;
+  background: #f6f7fb;
+  position: relative;
+}
+.mockup-camera {
+  position: absolute;
+  top: 6px; left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 10px;
+}
+
+.mockup-content {
+  flex: 1;
+  width: 88%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 24px;
+  text-align: center;
+  transition: opacity 0.8s ease;
+}
+
+.mockup-content h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 5px;
+}
+
+.mockup-content .price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.applepay, .kwikpay {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 0;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease;
+}
+
+.applepay {
+  background: #000;
+  color: #fff;
+}
+.kwikpay {
+  background: #00b87c;
+  color: #fff;
+}
+.applepay:hover, .kwikpay:hover {
+  transform: scale(1.03);
+}
+
+.or {
+  font-size: 0.85rem;
+  color: #777;
+  margin: 10px 0;
+}
+
+.mockup-content input {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+.pay-btn {
+  width: 100%;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 0;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: background 0.3s;
+}
+.pay-btn:hover {
+  background: #333;
+}
+
+/* Animation flottante */
+@keyframes float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
+
   </style>
 </head>
 
@@ -289,6 +405,7 @@ footer {
   <section>
     <div class="text">
       <h2>KwikPay — Acceptez tous les paiements, partout dans le monde 🌍</h2>
+
 <p>
 KwikPay simplifie la vie des commerçants en réunissant tous les moyens de paiement sur une seule plateforme fluide et rapide. 
 Que ce soit par Mobile Money, carte bancaire, QR Code ou portefeuille numérique, vos clients peuvent payer en un clic, où qu’ils soient. 
@@ -298,13 +415,28 @@ KwikPay connecte ainsi les paiements locaux et internationaux — de PayPal à A
     </div>
 
     <div class="visual">
-  <div class="phone-dynamic">
-    <img src="/mockup-phone-afrique.png" alt="KwikPay Afrique" class="active">
-    <img src="/mockup-phone-europe.png" alt="KwikPay Europe">
-    <img src="/mockup-phone-usa.png" alt="KwikPay US">
-    <img src="/mockup-phone-asie.png" alt="KwikPay Asie">
+  <div class="phone-mockup">
+    <div class="mockup-header">
+      <div class="mockup-camera"></div>
+    </div>
+    <div class="mockup-content">
+      <h4>Wood Chair 001</h4>
+      <p class="price">149 $US</p>
+
+      <button class="applepay"> Pay</button>
+      <button class="kwikpay">Pay with KwikPay</button>
+
+      <p class="or">or pay another way</p>
+
+      <input type="email" placeholder="Email">
+      <input type="text" placeholder="Card information">
+      <input type="text" placeholder="Country or region">
+
+      <button class="pay-btn">Pay 149 $US</button>
+    </div>
   </div>
 </div>
+
 
 
   <!-- === FEATURES === -->
@@ -376,6 +508,86 @@ KwikPay connecte ainsi les paiements locaux et internationaux — de PayPal à A
     index = (index + 1) % phoneImgs.length;
     phoneImgs[index].classList.add('active');
   }, 4000);
+</script>
+<script>
+// === CONTENU DYNAMIQUE PAR RÉGION ===
+const regions = [
+  {
+    name: "Afrique",
+    product: "Tissu Bogolan Authentique",
+    price: "75 000 F CFA",
+    apple: " Pay",
+    button: "Payer avec KwikPay",
+    payText: "Payer 75 000 F CFA",
+    lang: "Email / Numéro Mobile",
+    field1: "Email ou téléphone",
+    field2: "Numéro de carte ou Mobile Money",
+    field3: "Pays / Région"
+  },
+  {
+    name: "Europe",
+    product: "Robe Élégance Pagne",
+    price: "135,00 €",
+    apple: " Pay",
+    button: "Payer avec KwikPay",
+    payText: "Payer 135,00 €",
+    lang: "Email / Carte bancaire",
+    field1: "Adresse e-mail",
+    field2: "Informations de carte",
+    field3: "Pays / Région"
+  },
+  {
+    name: "USA",
+    product: "Wood Chair 001",
+    price: "$149 US",
+    apple: " Pay",
+    button: "Pay with KwikPay",
+    payText: "Pay $149 US",
+    lang: "Email / Card info",
+    field1: "Email",
+    field2: "Card information",
+    field3: "Country / Region"
+  },
+  {
+    name: "Asie",
+    product: "Kimono Traditionnel",
+    price: "¥199 00",
+    apple: " Pay",
+    button: "KwikPayで支払う",
+    payText: "¥199 00 支払う",
+    lang: "メール / 支払い方法",
+    field1: "メールアドレス",
+    field2: "カード情報",
+    field3: "国 / 地域"
+  }
+];
+
+let current = 0;
+const content = document.getElementById("mockup-content");
+
+function updateMockup(region) {
+  content.style.opacity = 0;
+  setTimeout(() => {
+    content.innerHTML = `
+      <h4>${region.product}</h4>
+      <p class="price">${region.price}</p>
+      <button class="applepay">${region.apple}</button>
+      <button class="kwikpay">${region.button}</button>
+      <p class="or">${region.lang}</p>
+      <input type="text" placeholder="${region.field1}">
+      <input type="text" placeholder="${region.field2}">
+      <input type="text" placeholder="${region.field3}">
+      <button class="pay-btn">${region.payText}</button>
+    `;
+    content.style.opacity = 1;
+  }, 400);
+}
+
+updateMockup(regions[current]);
+setInterval(() => {
+  current = (current + 1) % regions.length;
+  updateMockup(regions[current]);
+}, 5000);
 </script>
 </body>
 </html>
