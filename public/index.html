@@ -603,7 +603,6 @@ footer {
   animation: float 6s ease-in-out infinite alternate;
 }
 .tpe-section {
-  background: linear-gradient(135deg, #ffffff, #f9fafc);
   padding: 140px 8%;
   display: flex;
   justify-content: center;
@@ -815,6 +814,47 @@ footer {
   color: var(--green);
   margin-top: 12px;
 }
+/* === VERSION FINALE KwikLink TPE === */
+.tpe-section {
+  position: relative;
+  background: transparent; /* ✅ on libère le fond */
+  overflow: hidden;
+  padding: 140px 8%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* halo coloré animé comme sur les autres pages */
+.tpe-section::before {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  background: radial-gradient(circle at 30% 40%, rgba(255,122,0,0.15), transparent 70%),
+              radial-gradient(circle at 70% 60%, rgba(0,184,124,0.15), transparent 70%),
+              radial-gradient(circle at 50% 90%, rgba(139,92,246,0.15), transparent 80%);
+  filter: blur(100px);
+  animation: haloShift 18s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+@keyframes haloShift {
+  0% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(20px,-20px) scale(1.05); }
+  100% { transform: translate(-20px,20px) scale(1); }
+}
+
+.tpe-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 80px;
+  max-width: 1200px;
+  width: 100%;
+}
+
 
 
 
