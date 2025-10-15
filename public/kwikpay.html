@@ -523,19 +523,21 @@ section {
   .visual { margin-top: 40px; display: flex; justify-content: center; }
   .phone-mockup { width: 280px; height: 560px; }
 }
-/* === SECTION FEATURES AMÉLIORÉE === */
+/* === SECTION FEATURES (disposition équilibrée et fluide) === */
 .features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 50px;
-  justify-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* ✅ Centre toujours les blocs horizontalement */
   align-items: stretch;
+  gap: 40px 50px; /* Espacement plus naturel entre les blocs */
   margin: 120px auto;
   max-width: 1100px;
   padding: 0 8%;
 }
 
 .feature {
+  flex: 1 1 240px; /* Largeur minimale plus souple */
+  max-width: 260px;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
   border-radius: 20px;
@@ -543,7 +545,6 @@ section {
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05);
   text-align: center;
   transition: all 0.4s ease;
-  height: 100%;
 }
 
 .feature:hover {
@@ -576,19 +577,23 @@ section {
 }
 
 /* Responsive */
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .features {
-    grid-template-columns: 1fr 1fr;
     gap: 30px;
   }
+  .feature {
+    flex: 1 1 45%;
+  }
 }
-@media (max-width: 500px) {
+
+@media (max-width: 600px) {
   .features {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: center;
   }
   .feature {
-    max-width: 90%;
-    margin: 0 auto;
+    width: 90%;
+    max-width: 360px;
   }
 }
 
