@@ -317,6 +317,212 @@ footer {
     height: 560px;
   }
 }
+/* === ALIGNEMENT & ESPACE === */
+section {
+  min-height: 100vh;
+  padding: 140px 8% 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.text {
+  flex: 1 1 45%;
+  max-width: 600px;
+}
+
+.text h2 {
+  font-size: 2.8rem;
+  line-height: 1.1;
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientFlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.text p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-dim);
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+
+/* === ICONES === */
+.icons-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 25px 0 35px;
+  max-width: 450px;
+}
+
+.icons-row div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100px;
+}
+
+.icons-row span {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.icons-row p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+/* === BOUTON === */
+.cta-btn {
+  background: linear-gradient(90deg, var(--orange), var(--green));
+  border: none;
+  border-radius: 50px;
+  color: white;
+  padding: 14px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .3s;
+}
+.cta-btn:hover { transform: scale(1.05); }
+
+/* === MOCKUP DYNAMIQUE STRIPE-LIKE === */
+.phone-mockup {
+  width: 320px;
+  height: 620px;
+  background: #fff;
+  border-radius: 45px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  animation: float 6s ease-in-out infinite alternate;
+}
+
+.mockup-header {
+  width: 100%;
+  height: 28px;
+  background: #f6f7fb;
+  position: relative;
+}
+.mockup-header::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
+  background-size: 300% 300%;
+  animation: stripeFlow 5s ease infinite alternate;
+}
+@keyframes stripeFlow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.mockup-camera {
+  position: absolute;
+  top: 6px; left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 10px;
+}
+
+.mockup-content {
+  flex: 1;
+  width: 88%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 24px;
+  text-align: center;
+  transition: opacity 0.8s ease;
+}
+
+.mockup-content h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 5px;
+}
+
+.mockup-content .price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.applepay, .kwikpay {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 0;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease;
+}
+.applepay { background: #000; color: #fff; }
+.kwikpay { background: #00b87c; color: #fff; }
+.applepay:hover, .kwikpay:hover { transform: scale(1.03); }
+
+.or { font-size: 0.85rem; color: #777; margin: 10px 0; }
+
+.mockup-content input {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+.pay-btn {
+  width: 100%;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 0;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: background 0.3s;
+}
+.pay-btn:hover { background: #333; }
+
+@keyframes float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  section { flex-direction: column; text-align: center; padding: 120px 1.5rem 80px; }
+  .text h2 { font-size: 2.2rem; }
+  .icons-row { justify-content: center; gap: 25px; }
+  .visual { margin-top: 40px; display: flex; justify-content: center; }
+  .phone-mockup { width: 280px; height: 560px; }
+}
 </style>
 
 </head>
@@ -336,39 +542,31 @@ footer {
 
   <!-- === HERO === -->
   <section>
-    <div class="text">
-      <h2>KwikPay — Acceptez tous les paiements, partout dans le monde 🌍</h2>
-
-<p>
-KwikPay simplifie la vie des commerçants en réunissant tous les moyens de paiement sur une seule plateforme fluide et rapide. 
-Que ce soit par Mobile Money, carte bancaire, QR Code ou portefeuille numérique, vos clients peuvent payer en un clic, où qu’ils soient. 
-KwikPay connecte ainsi les paiements locaux et internationaux — de PayPal à Apple Pay ou Alipay — dans une interface unique et sécurisée.
-</p>
-      <button class="cta-btn" onclick="window.location.href='connexion.html'">Créer un compte marchand</button>
+  <div class="text">
+    <h2>KwikPay — Acceptez tous les paiements, partout dans le monde 🌍</h2>
+    <p>
+      KwikPay simplifie la vie des commerçants en réunissant tous les moyens de paiement sur une seule plateforme fluide et rapide.  
+      Que ce soit par Mobile Money, carte bancaire, QR Code ou portefeuille numérique, vos clients peuvent payer en un clic, où qu’ils soient.  
+      KwikPay connecte ainsi les paiements locaux et internationaux — de PayPal à Apple Pay ou Alipay — dans une interface unique et sécurisée.
+    </p>
+    <div class="icons-row">
+      <div><span>📱</span><p>Mobile Money</p></div>
+      <div><span>💳</span><p>Cartes bancaires</p></div>
+      <div><span>🔗</span><p>QR & Liens</p></div>
+      <div><span>⚡</span><p>Paiement instantané</p></div>
     </div>
+    <button class="cta-btn" onclick="window.location.href='connexion.html'">Créer un compte marchand</button>
+  </div>
 
-    <div class="visual">
-  <div class="phone-mockup">
-    <div class="mockup-header">
-      <div class="mockup-camera"></div>
-    </div>
-    <div class="mockup-content">
-      <h4>Wood Chair 001</h4>
-      <p class="price">149 $US</p>
-
-      <button class="applepay"> Pay</button>
-      <button class="kwikpay">Pay with KwikPay</button>
-
-      <p class="or">or pay another way</p>
-
-      <input type="email" placeholder="Email">
-      <input type="text" placeholder="Card information">
-      <input type="text" placeholder="Country or region">
-
-      <button class="pay-btn">Pay 149 $US</button>
+  <div class="visual">
+    <div class="phone-mockup">
+      <div class="mockup-header">
+        <div class="mockup-camera"></div>
+      </div>
+      <div class="mockup-content" id="mockup-content"></div>
     </div>
   </div>
-</div>
+</section>
 
 
 
@@ -514,5 +712,6 @@ setInterval(() => {
   updateMockup(regions[current]);
 }, 5000);
 </script>
+
 </body>
 </html>
