@@ -13,7 +13,7 @@
   --text-dim: #555;
 }
 
-/* === BASE === */
+/* BASE */
 body {
   font-family: 'Inter', sans-serif;
   margin: 0;
@@ -22,7 +22,7 @@ body {
   overflow-x: hidden;
 }
 
-/* === HEADER === */
+/* HEADER */
 header {
   display: flex;
   justify-content: space-between;
@@ -42,47 +42,67 @@ header a {
   font-weight: 600;
 }
 
-/* === MAIN CONTAINER === */
+/* MAIN LAYOUT */
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 80px;
+  gap: 70px;
   padding: 60px 5%;
 }
 
-/* === LAPTOP MOCKUP === */
-.laptop {
-  width: 420px;
-  height: 260px;
-  background: #fff;
+/* === MACBOOK MOCKUP === */
+.macbook {
+  position: relative;
+  width: 440px;
+  height: 270px;
   border-radius: 12px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  background: #222;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.2);
   overflow: hidden;
   animation: float 4s ease-in-out infinite;
 }
 @keyframes float {
-  0% { transform: translateY(0); }
+  0% { transform: translateY(0px); }
   50% { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
+  100% { transform: translateY(0px); }
 }
-.laptop-header {
-  height: 30px;
+.macbook::after {
+  content: "";
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 480px;
+  height: 25px;
+  background: #aaa;
+  border-radius: 0 0 15px 15px;
+}
+.screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.status-bar {
+  height: 20px;
   background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
 }
-.laptop-screen {
-  padding: 20px;
+.dashboard {
+  padding: 25px;
 }
 .stat {
   background: #f9fafb;
   border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
 }
 .stat span {
   font-weight: 600;
@@ -91,7 +111,7 @@ header a {
   color: var(--green);
 }
 
-/* === TEXT AREA === */
+/* TEXT AREA */
 .text-zone {
   max-width: 480px;
 }
@@ -126,7 +146,7 @@ header a {
   color: var(--green);
 }
 
-/* === CTA BUTTON === */
+/* CTA */
 .cta {
   display: inline-block;
   background: var(--green);
@@ -141,7 +161,7 @@ header a {
   background: var(--orange);
 }
 
-/* === PARTNERS SECTION === */
+/* PARTNERS */
 .partners {
   text-align: center;
   margin-top: 80px;
@@ -157,10 +177,10 @@ header a {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 25px;
 }
 .partner-logos img {
-  height: 30px;
+  height: 35px;
   opacity: 0.9;
   transition: transform 0.3s;
 }
@@ -168,7 +188,7 @@ header a {
   transform: scale(1.1);
 }
 
-/* === RESPONSIVE === */
+/* RESPONSIVE */
 @media (max-width: 900px) {
   .container { flex-direction: column; text-align: center; }
   .text-zone { max-width: 100%; }
@@ -183,13 +203,15 @@ header a {
 </header>
 
 <main class="container">
-  <div class="laptop">
-    <div class="laptop-header"></div>
-    <div class="laptop-screen">
-      <div class="stat"><span>Volume mensuel</span><span class="value">+24 800 000 F CFA</span></div>
-      <div class="stat"><span>Transactions réussies</span><span class="value">98 %</span></div>
-      <div class="stat"><span>Commissions générées</span><span class="value">+320 000 F CFA</span></div>
-      <div class="stat"><span>Marchés connectés</span><span class="value">8 pays</span></div>
+  <div class="macbook">
+    <div class="screen">
+      <div class="status-bar"></div>
+      <div class="dashboard">
+        <div class="stat"><span>Volume mensuel</span><span class="value">+24 800 000 F CFA</span></div>
+        <div class="stat"><span>Transactions réussies</span><span class="value">98 %</span></div>
+        <div class="stat"><span>Commissions générées</span><span class="value">+320 000 F CFA</span></div>
+        <div class="stat"><span>Marchés connectés</span><span class="value">8 pays</span></div>
+      </div>
     </div>
   </div>
 
@@ -213,12 +235,14 @@ header a {
 <section class="partners">
   <h2>Déjà utilisés par +150 entreprises africaines et européennes</h2>
   <div class="partner-logos">
-    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968260.png" alt="Orange Money">
-    <img src="https://cdn-icons-png.flaticon.com/512/196/196566.png" alt="MasterCard">
-    <img src="https://cdn-icons-png.flaticon.com/512/196/196565.png" alt="Visa">
-    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968144.png" alt="PayPal">
-    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968257.png" alt="MTN">
-    <img src="https://cdn-icons-png.flaticon.com/512/825/825535.png" alt="Ecobank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Orange_Money_logo.svg" alt="Orange Money">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Mastercard-logo.svg" alt="Mastercard">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Apple_Pay_logo.svg" alt="Apple Pay">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/MTN_Group_Logo.svg" alt="MTN">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Ecobank_logo.svg" alt="Ecobank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Jumia_logo.svg" alt="Jumia">
   </div>
 </section>
 </body>
