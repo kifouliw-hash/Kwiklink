@@ -186,6 +186,17 @@
       color: var(--text-dim);
       line-height: 1.7;
     }
+    /* === MISE EN PAGE CENTRÉE DU 4E ATOUT === */
+.benefit-center {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.benefit-center .benefit {
+  width: 300px;
+}
+
 
     /* === SECTION COMMENT ÇA MARCHE === */
     .tpe-how {
@@ -290,26 +301,30 @@
   </section>
 
   <section class="tpe-benefits">
-    <h2>Les atouts du KwikLink TPE</h2>
-    <div class="benefits-grid">
-      <div class="benefit">
-        <h3>⚡ Encaissement instantané</h3>
-        <p>Recevez vos paiements en temps réel, sans attendre la validation bancaire.</p>
-      </div>
-      <div class="benefit">
-        <h3>🔒 Sécurité renforcée</h3>
-        <p>Toutes les transactions sont chiffrées et authentifiées via nos serveurs sécurisés KwikLink Cloud.</p>
-      </div>
-      <div class="benefit">
-        <h3>📱 Compatible avec tous les appareils</h3>
-        <p>Utilisez votre smartphone, tablette ou PC — aucune installation complexe n’est nécessaire.</p>
-      </div>
-      <div class="benefit">
-        <h3>📊 Reçus et statistiques</h3>
-        <p>Chaque transaction génère un reçu digital et alimente votre tableau de bord analytique.</p>
-      </div>
+  <h2>Les atouts du KwikLink TPE</h2>
+  <div class="benefits-grid">
+    <div class="benefit">
+      <h3>⚡ Encaissement instantané</h3>
+      <p>Recevez vos paiements en temps réel, sans attendre la validation bancaire.</p>
     </div>
-  </section>
+    <div class="benefit">
+      <h3>🔒 Sécurité renforcée</h3>
+      <p>Toutes les transactions sont chiffrées et authentifiées via nos serveurs sécurisés KwikLink Cloud.</p>
+    </div>
+    <div class="benefit">
+      <h3>📱 Compatible avec tous les appareils</h3>
+      <p>Utilisez votre smartphone, tablette ou PC — aucune installation complexe n’est nécessaire.</p>
+    </div>
+  </div>
+
+  <div class="benefit-center">
+    <div class="benefit">
+      <h3>📊 Reçus et statistiques</h3>
+      <p>Chaque transaction génère un reçu digital et alimente votre tableau de bord analytique.</p>
+    </div>
+  </div>
+</section>
+
 
   <section class="tpe-how">
     <h2>Comment ça marche ?</h2>
@@ -321,8 +336,8 @@
       </div>
       <div class="step">
         <div class="step-icon">🔳</div>
-        <h3>2. Le client scanne le QR Code</h3>
-        <p>Le QR code s’affiche instantanément, le client choisit son moyen de paiement.</p>
+        <h3>2. Le client scanne le QR Code ou paye en sans contact NFC</h3>
+        <p>Le QR code s’affiche instantanément, le client choisit son moyen de paiement ou si c'est en sans contact, le logo NFC s'affiche et le client paye en sans contact.</p>
       </div>
       <div class="step">
         <div class="step-icon">⚡</div>
