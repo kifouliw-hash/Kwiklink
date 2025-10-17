@@ -814,54 +814,51 @@ footer {
   color: var(--green);
   margin-top: 12px;
 }
-/* === VERSION FINALE KwikLink TPE === */
+/* === KWIKLINK TPE — HARMONISATION VISUELLE === */
 .tpe-section {
-  position: relative;
-  background: transparent; /* ✅ on libère le fond */
-  overflow: hidden;
-  padding: 140px 8%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(249, 250, 251, 0.6));
+  backdrop-filter: blur(25px);
+  padding: 140px 8% 100px;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  border: none; /* ✅ Supprime tout effet de ligne */
 }
 
-/* halo coloré animé comme sur les autres pages */
 .tpe-section::before {
   content: "";
   position: absolute;
-  inset: -25%;
-  background: radial-gradient(circle at 30% 40%, rgba(255,122,0,0.15), transparent 70%),
-              radial-gradient(circle at 70% 60%, rgba(0,184,124,0.15), transparent 70%),
-              radial-gradient(circle at 50% 90%, rgba(139,92,246,0.15), transparent 80%);
-  filter: blur(100px);
-  animation: haloShift 18s ease-in-out infinite alternate;
+  top: -50px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.2), transparent);
   z-index: 0;
 }
 
-@keyframes haloShift {
-  0% { transform: translate(0,0) scale(1); }
-  50% { transform: translate(20px,-20px) scale(1.05); }
-  100% { transform: translate(-20px,20px) scale(1); }
-}
-
+/* Pour un rendu plus doux */
 .tpe-content {
-  position: relative;
-  z-index: 2;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 80px;
   max-width: 1200px;
   width: 100%;
+  z-index: 1;
 }
-/* === Simulation visuelle droite === */
-.tpe-visual {
-  flex: 1;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 560px;
+
+.tpe-visual img {
+  border-radius: 24px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+  transform: scale(1.02);
+  transition: transform 0.6s ease;
+}
+
+.tpe-visual img:hover {
+  transform: scale(1.05);
+}
+
 }
 
 /* Arrière-plan avec TPE */
