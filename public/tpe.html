@@ -3,45 +3,292 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KwikLink TPE — Terminal Digital Intelligent</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="tpe.css" />
+  <title>KwikLink TPE — Terminal Digital Nouvelle Génération</title>
+  <style>
+    :root {
+      --orange: #ff7a00;
+      --green: #00b87c;
+      --violet: #8b5cf6;
+      --text-dark: #111;
+      --text-dim: #555;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      color: var(--text-dark);
+      overflow-x: hidden;
+      position: relative;
+      background: linear-gradient(135deg, #fff, #faf8f7);
+      min-height: 100vh;
+    }
+
+    /* === FOND ANIMÉ === */
+    .bg-animation {
+      position: fixed;
+      top: -10%;
+      left: -10%;
+      width: 120%;
+      height: 120%;
+      background: radial-gradient(circle at 25% 25%, rgba(255,122,0,0.25), transparent 60%),
+                  radial-gradient(circle at 80% 20%, rgba(0,184,124,0.25), transparent 60%),
+                  radial-gradient(circle at 40% 80%, rgba(139,92,246,0.25), transparent 60%);
+      background-size: 200% 200%;
+      animation: moveWaves 18s ease-in-out infinite alternate;
+      filter: blur(100px);
+      opacity: 0.8;
+      z-index: 0;
+    }
+
+    @keyframes moveWaves {
+      0% { background-position: 0% 50%; transform: scale(1); }
+      50% { background-position: 100% 50%; transform: scale(1.05); }
+      100% { background-position: 0% 50%; transform: scale(1); }
+    }
+
+    /* === SECTION HERO === */
+    .tpe-hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 1;
+      padding: 0 8%;
+    }
+
+    .tpe-hero-content {
+      max-width: 850px;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(20px);
+      border-radius: 36px;
+      padding: 80px 60px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.08);
+      animation: float 6s ease-in-out infinite alternate;
+    }
+
+    .tpe-hero-content h1 {
+      font-size: 3rem;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tpe-hero-content p {
+      font-size: 1.15rem;
+      color: var(--text-dim);
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .tpe-hero-content button {
+      background: linear-gradient(90deg, var(--orange), var(--green));
+      color: #fff;
+      font-weight: 600;
+      padding: 14px 30px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .tpe-hero-content button:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(90deg, var(--green), var(--violet));
+    }
+
+    /* === SECTION VIDEO === */
+    .tpe-video {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 120px 8%;
+    }
+
+    .tpe-video h2 {
+      font-size: 2.2rem;
+      margin-bottom: 40px;
+      background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .video-frame {
+      width: 100%;
+      max-width: 720px;
+      height: 400px;
+      margin: 0 auto;
+      border-radius: 24px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.8);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+
+    .video-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* === SECTION AVANTAGES === */
+    .tpe-benefits {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 160px 8% 140px;
+    }
+
+    .tpe-benefits h2 {
+      font-size: 2.8rem;
+      margin-bottom: 80px;
+      background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .benefit {
+      background: rgba(255,255,255,0.9);
+      border-radius: 24px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+      padding: 40px 30px;
+      transition: all 0.3s ease;
+    }
+
+    .benefit:hover {
+      transform: translateY(-6px) scale(1.02);
+    }
+
+    .benefit h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .benefit p {
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    /* === SECTION COMMENT ÇA MARCHE === */
+    .tpe-how {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 160px 8% 120px;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(10px);
+    }
+
+    .tpe-how h2 {
+      font-size: 2.7rem;
+      margin-bottom: 100px;
+      background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .steps {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 80px;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .step {
+      background: rgba(255,255,255,0.95);
+      border-radius: 24px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+      padding: 50px 35px;
+      flex: 1 1 300px;
+      transition: transform 0.4s ease;
+    }
+
+    .step:hover {
+      transform: translateY(-8px);
+    }
+
+    .step-icon {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: float 5s ease-in-out infinite alternate;
+    }
+
+    .step h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: var(--text-dark);
+    }
+
+    .step p {
+      font-size: 1rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    /* === FOOTER === */
+    footer {
+      text-align: center;
+      padding: 60px 0 40px;
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      z-index: 2;
+      position: relative;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
+  </style>
 </head>
+
 <body>
+  <div class="bg-animation"></div>
 
-  <!-- === SECTION 1 : HERO AVEC VIDÉO === -->
   <section class="tpe-hero">
-    <video autoplay muted loop playsinline class="tpe-bg-video">
-      <source src="assets/kwiklink-tpe-demo.mp4" type="video/mp4" />
-      Votre navigateur ne supporte pas la vidéo.
-    </video>
-
     <div class="tpe-hero-content">
       <h1>KwikLink TPE — le terminal digital nouvelle génération</h1>
       <p>
-        Encaissez, suivez et gérez vos paiements en toute simplicité.  
-        Notre terminal intelligent vous permet d’accepter cartes, mobiles et QR codes, même sans connexion constante.
+        Encaissez, suivez et gérez vos paiements en toute simplicité. Notre terminal intelligent vous permet d’accepter cartes, mobiles et QR codes, même sans connexion constante.
       </p>
-      <button onclick="window.location.href='index.html'">← Retour à l’accueil</button>
+      <button onclick="window.location.href='index.html'">← Retour à l'accueil</button>
     </div>
   </section>
 
-  <!-- === SECTION 2 : EXPLICATION === -->
-  <section class="tpe-details">
-    <div class="tpe-text">
-      <h2>💡 Pourquoi KwikLink TPE ?</h2>
-      <p>
-        Conçu pour les commerçants, artisans et points de vente mobiles, KwikLink TPE remplace le terminal physique par une interface numérique simple.  
-        En un clic, générez un montant à encaisser, affichez un QR code et recevez le paiement instantanément via mobile money, carte ou portefeuille KwikLink.
-      </p>
-    </div>
-
-    <div class="tpe-visual">
-      <img src="assets/tpe-kwiklink-demo.png" alt="Simulation KwikLink TPE" />
+  <section class="tpe-video">
+    <h2>Simulation KwikLink TPE</h2>
+    <div class="video-frame">
+      <!-- 🎬 Remplace cette ligne par ta vidéo -->
+      <video autoplay muted loop>
+        <source src="kwiklink-tpe-demo.mp4" type="video/mp4" />
+      </video>
     </div>
   </section>
 
-  <!-- === SECTION 3 : AVANTAGES === -->
   <section class="tpe-benefits">
     <h2>Les atouts du KwikLink TPE</h2>
     <div class="benefits-grid">
@@ -55,7 +302,7 @@
       </div>
       <div class="benefit">
         <h3>📱 Compatible avec tous les appareils</h3>
-        <p>Utilisez votre smartphone, tablette ou PC : aucune installation complexe n’est nécessaire.</p>
+        <p>Utilisez votre smartphone, tablette ou PC — aucune installation complexe n’est nécessaire.</p>
       </div>
       <div class="benefit">
         <h3>📊 Reçus et statistiques</h3>
@@ -64,35 +311,27 @@
     </div>
   </section>
 
-  <footer>
-    <p>© 2025 KwikLink — Une solution de KwikGroupe</p>
-    <!-- === SECTION : COMMENT ÇA MARCHE === -->
-<section class="tpe-how">
-  <h2>Comment ça marche&nbsp;?</h2>
-  <div class="steps">
-    
-    <div class="step">
-      <div class="step-icon">💰</div>
-      <h3>1. Entrez le montant</h3>
-      <p>Le commerçant saisit simplement le montant à encaisser dans son espace KwikLink TPE.</p>
+  <section class="tpe-how">
+    <h2>Comment ça marche ?</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-icon">💰</div>
+        <h3>1. Entrez le montant</h3>
+        <p>Le commerçant saisit simplement le montant à encaisser dans son espace KwikLink TPE.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">🔳</div>
+        <h3>2. Le client scanne le QR Code</h3>
+        <p>Le QR code s’affiche instantanément, le client choisit son moyen de paiement.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">⚡</div>
+        <h3>3. Paiement instantané</h3>
+        <p>La transaction est validée immédiatement et un reçu digital est généré.</p>
+      </div>
     </div>
+  </section>
 
-    <div class="step">
-      <div class="step-icon">🔳</div>
-      <h3>2. Le client scanne le QR Code</h3>
-      <p>Un QR Code s’affiche instantanément ; le client le scanne pour choisir son moyen de paiement : carte, mobile money ou portefeuille KwikLink.</p>
-    </div>
-
-    <div class="step">
-      <div class="step-icon">⚡</div>
-      <h3>3. Paiement instantané</h3>
-      <p>La transaction est validée immédiatement et un reçu digital est généré pour le commerçant et le client.</p>
-    </div>
-
-  </div>
-</section>
-
-  </footer>
-
+  <footer>© 2025 KwikLink — Tous droits réservés.</footer>
 </body>
 </html>
