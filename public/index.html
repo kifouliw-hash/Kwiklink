@@ -1119,6 +1119,78 @@ footer {
   overflow: hidden;
   background: radial-gradient(circle at 30% 30%, #0f172a, #1e293b);
 }
+  /* === COMMERCE MONDIAL (type Stripe) === */
+.commerce-section {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #fff;
+  padding: 140px 8%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.commerce-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  gap: 80px;
+}
+
+.commerce-text {
+  flex: 1;
+}
+
+.commerce-text h3 {
+  color: #00b87c;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.commerce-text h2 {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.commerce-text p {
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.commerce-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px 50px;
+}
+
+.commerce-stats h4 {
+  font-size: 1.4rem;
+  color: #00b87c;
+  margin-bottom: 6px;
+}
+
+.commerce-stats p {
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.commerce-visual {
+  flex: 1;
+  position: relative;
+  height: 420px;
+}
+
+#globeCanvas {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #111827, #0a0f1f);
+}
+
 
 </style>
 </head>
@@ -1292,15 +1364,30 @@ footer {
   </section>
 
   <!-- 6. Commerce mondial -->
-  <section id="commerce">
-    <div class="text">
+  <section id="commerce" class="commerce-section">
+  <div class="commerce-content">
+    <div class="commerce-text">
+      <h3>Une portée internationale</h3>
       <h2>La solution idéale pour le commerce mondial</h2>
-      <p>Programmez et réalisez des transferts de fonds à l’échelle mondiale avec une précision et une rapidité inégalées.</p>
+      <p>
+        Grâce à <strong>KwikLink</strong>, vous pouvez programmer et réaliser des transferts de fonds aussi
+        facilement que des transferts de données. Nos serveurs sont répartis dans le monde entier et
+        traitent chaque année des milliards d’euros pour des entreprises de toutes tailles.
+      </p>
+      <div class="commerce-stats">
+        <div><h4>+500 millions</h4><p>de requêtes API par jour</p></div>
+        <div><h4>99,999%</h4><p>de disponibilité des services</p></div>
+        <div><h4>+47 pays</h4><p>connectés avec acquisition locale</p></div>
+        <div><h4>+135 devises</h4><p>et moyens de paiement pris en charge</p></div>
+      </div>
     </div>
-    <div class="visual">
-  <div id="globe-container"></div>
-</div>
-  </section>
+
+    <div class="commerce-visual">
+      <canvas id="globeCanvas"></canvas>
+    </div>
+  </div>
+</section>
+
 
   <!-- 7. Entreprises -->
   <section id="entreprises">
@@ -1527,6 +1614,65 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
   renderer.setSize(container.clientWidth, container.clientHeight);
 });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
+<script>
+const canvas = document.getElementById("globeCanvas");
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+
+// Lumière
+scene.add(new THREE.AmbientLight(0xffffff, 1.1));
+
+// Globe en points
+const geometry = new THREE.SphereGeometry(2, 64, 64);
+const material = new THREE.PointsMaterial({ color: 0x38bdf8, size: 0.03 });
+const globe = new THREE.Points(geometry, material);
+scene.add(globe);
+
+// Arcs lumineux
+const curveMaterial = new THREE.LineBasicMaterial({ color: 0xff7a00, opacity: 0.6, transparent: true });
+function latLonToVec(lat, lon, r=2) {
+  const phi = (90 - lat) * Math.PI / 180;
+  const theta = (lon + 180) * Math.PI / 180;
+  return new THREE.Vector3(
+    -(r * Math.sin(phi) * Math.cos(theta)),
+    r * Math.cos(phi),
+    r * Math.sin(phi) * Math.sin(theta)
+  );
+}
+
+const routes = [
+  [{ lat: 5.35, lon: -4 }, { lat: 48.85, lon: 2.35 }],
+  [{ lat: 48.85, lon: 2.35 }, { lat: 35.68, lon: 139.69 }],
+  [{ lat: 48.85, lon: 2.35 }, { lat: 40.71, lon: -74.0 }],
+  [{ lat: 5.35, lon: -4 }, { lat: 51.51, lon: -0.13 }],
+];
+
+routes.forEach(route => {
+  const start = latLonToVec(route[0].lat, route[0].lon);
+  const end = latLonToVec(route[1].lat, route[1].lon);
+  const mid = start.clone().add(end).multiplyScalar(0.5).setLength(2.3);
+  const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
+  const points = curve.getPoints(100);
+  const geometry = new THREE.BufferGeometry().setFromPoints(points);
+  const line = new THREE.Line(geometry, curveMaterial);
+  scene.add(line);
+});
+
+camera.position.z = 5;
+
+// Animation rotation
+function animate() {
+  requestAnimationFrame(animate);
+  globe.rotation.y += 0.0015;
+  scene.traverse(obj => { if (obj.type === 'Line') obj.rotation.y += 0.0015; });
+  renderer.render(scene, camera);
+}
+animate();
 </script>
 
 
