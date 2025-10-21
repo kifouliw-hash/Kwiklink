@@ -1513,12 +1513,12 @@ footer {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
 <script>
-// === Globe 3D style Stripe ===
+// === Globe 3D animé style Stripe ===
 
-// Récupération du canvas
+// Sélection du canvas
 const canvas = document.getElementById("globeCanvas");
 
-// Scène, caméra et rendu
+// Initialisation de la scène, caméra, rendu
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
@@ -1528,19 +1528,19 @@ renderer.setPixelRatio(window.devicePixelRatio);
 // === Lumière ambiante ===
 scene.add(new THREE.AmbientLight(0xffffff, 1.2));
 
-// === Globe en points lumineux ===
+// === Globe (points bleus) ===
 const geometry = new THREE.SphereGeometry(2, 128, 128);
 const material = new THREE.PointsMaterial({
   color: 0x38bdf8,
   size: 0.02,
   transparent: true,
-  opacity: 0.85
+  opacity: 0.9
 });
 const globe = new THREE.Points(geometry, material);
 scene.add(globe);
 
 // === Halo lumineux autour du globe ===
-const glowGeometry = new THREE.SphereGeometry(2.1, 64, 64);
+const glowGeometry = new THREE.SphereGeometry(2.15, 64, 64);
 const glowMaterial = new THREE.MeshBasicMaterial({
   color: 0x38bdf8,
   transparent: true,
@@ -1549,14 +1549,7 @@ const glowMaterial = new THREE.MeshBasicMaterial({
 const glow = new THREE.Mesh(glowGeometry, glowMaterial);
 scene.add(glow);
 
-// === Arcs lumineux (liaisons internationales) ===
-const curveMaterial = new THREE.LineBasicMaterial({
-  color: 0xff7a00,
-  opacity: 0.6,
-  transparent: true
-});
-
-// Conversion latitude / longitude → coordonnées 3D
+// === Fonctions utilitaires ===
 function latLonToVec(lat, lon, r = 2) {
   const phi = (90 - lat) * Math.PI / 180;
   const theta = (lon + 180) * Math.PI / 180;
@@ -1567,38 +1560,62 @@ function latLonToVec(lat, lon, r = 2) {
   );
 }
 
-// === Définition des routes ===
+// === Routes + couleurs ===
+const colorSet = [0xff7a00, 0x8b5cf6, 0x22d3ee, 0xec4899]; // orange, violet, cyan, rose
 const routes = [
-  [{ lat: 5.35, lon: -4 }, { lat: 48.85, lon: 2.35 }],   // Abidjan → Paris
-  [{ lat: 48.85, lon: 2.35 }, { lat: 40.71, lon: -74.0 }], // Paris → New York
-  [{ lat: 48.85, lon: 2.35 }, { lat: 35.68, lon: 139.69 }], // Paris → Tokyo
-  [{ lat: 5.35, lon: -4 }, { lat: 51.51, lon: -0.13 }]    // Abidjan → Londres
+  [{ lat: 5.35, lon: -4 }, { lat: 48.85, lon: 2.35 }],   // Abidjan - Paris
+  [{ lat: 48.85, lon: 2.35 }, { lat: 40.71, lon: -74.0 }], // Paris - New York
+  [{ lat: 48.85, lon: 2.35 }, { lat: 35.68, lon: 139.69 }], // Paris - Tokyo
+  [{ lat: 5.35, lon: -4 }, { lat: 51.51, lon: -0.13 }]    // Abidjan - Londres
 ];
 
-// === Création des arcs ===
-routes.forEach(route => {
+// === Création des arcs + flux lumineux ===
+const movers = [];
+
+routes.forEach((route, i) => {
+  const color = colorSet[i % colorSet.length];
+  const lineMat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.7 });
+
   const start = latLonToVec(route[0].lat, route[0].lon);
   const end = latLonToVec(route[1].lat, route[1].lon);
-  const mid = start.clone().add(end).multiplyScalar(0.5).setLength(2.3);
+  const mid = start.clone().add(end).multiplyScalar(0.5).setLength(2.35);
   const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
+
+  // Ligne
   const points = curve.getPoints(100);
-  const geometry = new THREE.BufferGeometry().setFromPoints(points);
-  const line = new THREE.Line(geometry, curveMaterial);
+  const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
+  const line = new THREE.Line(lineGeo, lineMat);
   scene.add(line);
+
+  // Flux lumineux (petite sphère animée)
+  const dotGeo = new THREE.SphereGeometry(0.04, 16, 16);
+  const dotMat = new THREE.MeshBasicMaterial({ color, emissive: color, emissiveIntensity: 1 });
+  const dot = new THREE.Mesh(dotGeo, dotMat);
+  scene.add(dot);
+
+  movers.push({ curve, dot, progress: Math.random() }); // position aléatoire sur la route
 });
 
-// === Position caméra ===
+// === Caméra et orientation ===
 camera.position.z = 5;
+camera.position.y = 0.7; // légère inclinaison
 
-// === Animation (rotation fluide) ===
+// === Animation ===
 function animate() {
   requestAnimationFrame(animate);
+
+  // rotation globe + halo + arcs
   globe.rotation.y += 0.0018;
   glow.rotation.y += 0.0018;
+  scene.traverse(obj => { if (obj.type === 'Line') obj.rotation.y += 0.0018; });
 
-  // rotation douce des arcs
-  scene.traverse(obj => {
-    if (obj.type === 'Line') obj.rotation.y += 0.0018;
+  // Animation des flux lumineux
+  movers.forEach(m => {
+    m.progress += 0.006; // vitesse du flux
+    if (m.progress > 1) m.progress = 0;
+    const pos = m.curve.getPointAt(m.progress);
+    m.dot.position.copy(pos);
+    m.dot.rotation.y += 0.002;
   });
 
   renderer.render(scene, camera);
@@ -1612,6 +1629,7 @@ window.addEventListener('resize', () => {
   renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 });
 </script>
+
 
 </body>
 </html>
