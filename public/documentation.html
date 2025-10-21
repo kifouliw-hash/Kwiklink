@@ -10,7 +10,7 @@
       --orange: #ff7a00;
       --green: #00b87c;
       --violet: #8b5cf6;
-      --bg-light: #f9fafb;
+      --bg-gradient: linear-gradient(135deg, #fff, #f9fafb);
       --text-dark: #111;
       --text-dim: #555;
     }
@@ -24,31 +24,33 @@
 
     body {
       display: flex;
-      background: var(--bg-light);
+      background: linear-gradient(135deg, rgba(255,122,0,0.07), rgba(0,184,124,0.07), rgba(139,92,246,0.07));
       color: var(--text-dark);
       overflow-x: hidden;
     }
 
-    /* === Sidebar === */
+    /* === BARRE LATÉRALE === */
     .sidebar {
       width: 270px;
       height: 100vh;
-      background: white;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(15px);
       border-right: 1px solid rgba(0,0,0,0.05);
       position: fixed;
       top: 0;
       left: 0;
       padding: 40px 25px;
       overflow-y: auto;
+      box-shadow: 0 0 25px rgba(0,0,0,0.05);
     }
 
     .logo {
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       font-weight: 800;
       background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 35px;
+      margin-bottom: 40px;
     }
 
     .sidebar nav ul {
@@ -70,19 +72,26 @@
       color: var(--green);
     }
 
-    /* === Main content === */
+    /* === CONTENU PRINCIPAL === */
     main {
       margin-left: 270px;
-      padding: 60px 80px;
+      padding: 70px 80px;
       width: calc(100% - 270px);
+      background: linear-gradient(135deg, #ffffff, #f8fafc, rgba(255,122,0,0.04));
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     main h1 {
-      font-size: 2.4rem;
+      font-size: 2.6rem;
+      margin-bottom: 40px;
       background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 40px;
     }
 
     h2 {
@@ -103,22 +112,24 @@
       background: #0f172a;
       color: #e2e8f0;
       padding: 18px 22px;
-      border-radius: 10px;
+      border-radius: 12px;
       overflow-x: auto;
       font-size: 0.9rem;
       margin-bottom: 24px;
+      transition: 0.3s ease;
     }
 
-    code {
-      font-family: monospace;
+    pre:hover {
+      box-shadow: 0 0 25px rgba(0, 184, 124, 0.2);
+      transform: scale(1.01);
     }
 
     .endpoint {
-      background: #e0f2f1;
+      background: rgba(0,184,124,0.1);
       padding: 6px 12px;
       border-radius: 8px;
       font-weight: 600;
-      color: #00695c;
+      color: var(--green);
       display: inline-block;
       margin-bottom: 12px;
     }
@@ -138,7 +149,7 @@
     }
 
     table th {
-      background: #f1f5f9;
+      background: rgba(0,184,124,0.05);
     }
 
     .highlight {
@@ -148,69 +159,68 @@
 
     footer {
       text-align: center;
-      margin-top: 60px;
-      padding: 20px;
+      margin-top: 80px;
+      padding: 40px;
       color: #888;
       border-top: 1px solid rgba(0,0,0,0.05);
     }
 
-    a.btn-doc {
+    .btn-doc {
       display: inline-block;
-      background: linear-gradient(90deg, var(--green), var(--violet));
+      background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
       color: white;
-      padding: 10px 20px;
+      padding: 12px 24px;
       border-radius: 50px;
       text-decoration: none;
       font-weight: 600;
       transition: 0.3s;
     }
 
-    a.btn-doc:hover {
+    .btn-doc:hover {
       transform: translateY(-2px);
-      background: linear-gradient(90deg, var(--violet), var(--orange));
+      background: linear-gradient(90deg, var(--violet), var(--orange), var(--green));
     }
+
   </style>
 </head>
-
 <body>
 
-  <!-- === Sidebar === -->
+  <!-- === MENU LATÉRAL === -->
   <aside class="sidebar">
-    <div class="logo">KwikLink</div>
+    <div class="logo">KwikLink Docs</div>
     <nav>
       <ul>
         <li><a href="#intro">Introduction</a></li>
         <li><a href="#auth">Authentification</a></li>
+        <li><a href="#sandbox">Environnements</a></li>
         <li><a href="#create">Créer un paiement</a></li>
-        <li><a href="#status">Vérifier un paiement</a></li>
-        <li><a href="#refund">Remboursement</a></li>
+        <li><a href="#wallet">Gestion de portefeuille</a></li>
         <li><a href="#webhooks">Webhooks</a></li>
-        <li><a href="#sdks">SDKs & Intégrations</a></li>
+        <li><a href="#sdk">SDKs & intégrations</a></li>
         <li><a href="#errors">Codes d’erreurs</a></li>
         <li><a href="#support">Support</a></li>
       </ul>
     </nav>
   </aside>
 
-  <!-- === Main content === -->
+  <!-- === CONTENU PRINCIPAL === -->
   <main>
-    <h1 id="intro">Documentation API KwikLink</h1>
+    <h1 id="intro">Documentation API KwikLink – V2</h1>
     <p>
-      L’API KwikLink vous permet d’intégrer des paiements instantanés — Mobile Money, cartes bancaires ou portefeuilles digitaux — directement dans vos applications.
-      Nos endpoints sont sécurisés, rapides et compatibles avec les environnements <span class="highlight">sandbox</span> et <span class="highlight">production</span>.
+      L’API <strong>KwikLink</strong> permet aux développeurs d’intégrer des paiements unifiés — Mobile Money, cartes bancaires et portefeuilles KwikSend — sur leurs sites et applications.  
+      Elle est sécurisée, rapide et compatible avec tous les environnements modernes.
     </p>
 
     <h2 id="auth">Authentification</h2>
-    <p>KwikLink utilise une clé API secrète pour authentifier vos requêtes :</p>
+    <p>Chaque requête doit inclure la clé API secrète :</p>
     <pre><code>Authorization: Bearer sk_test_abc123
 Content-Type: application/json</code></pre>
 
-    <p>Chaque requête à l’API doit contenir cet en-tête. Pour obtenir vos clés :</p>
-    <ul>
-      <li>Connectez-vous à votre tableau de bord KwikLink</li>
-      <li>Accédez à l’onglet <strong>Clés API</strong></li>
-      <li>Copiez votre clé de test ou de production</li>
-    </ul>
+    <p>Clés disponibles dans le Dashboard → <span class="highlight">Développeurs &gt; Clés API</span></p>
+
+    <h2 id="sandbox">Environnements</h2>
+    <pre><code>Sandbox : https://sandbox-api.kwiklink.com
+Production : https://api.kwiklink.com</code></pre>
 
     <h2 id="create">Créer un paiement</h2>
     <div class="endpoint">POST /v1/payment_intents</div>
@@ -219,73 +229,79 @@ Content-Type: application/json</code></pre>
   "currency": "XOF",
   "method": "mobile_money",
   "customer": "client_001",
-  "description": "Paiement marchand Abidjan"
+  "description": "Achat produits marché Adjamé"
 }</code></pre>
 
     <p>Réponse :</p>
     <pre><code>{
   "status": "success",
-  "transaction_id": "kl_39485GHQ",
-  "redirect_url": "https://checkout.kwiklink.com/kl_39485GHQ"
+  "transaction_id": "kl_48392A",
+  "redirect_url": "https://checkout.kwiklink.com/kl_48392A"
 }</code></pre>
 
-    <h2 id="status">Vérifier le statut d’un paiement</h2>
-    <div class="endpoint">GET /v1/payments/{transaction_id}</div>
+    <h2 id="wallet">Gestion de portefeuille</h2>
+    <div class="endpoint">GET /v1/wallets/{user_id}</div>
     <pre><code>{
-  "status": "completed",
-  "amount": 5000,
+  "balance": 120000,
   "currency": "XOF",
-  "method": "mobile_money"
-}</code></pre>
-
-    <h2 id="refund">Remboursement</h2>
-    <div class="endpoint">POST /v1/refunds</div>
-    <pre><code>{
-  "transaction_id": "kl_39485GHQ",
-  "amount": 5000
-}</code></pre>
-
-    <p>Réponse :</p>
-    <pre><code>{
-  "status": "refunded",
-  "refund_id": "rf_20241019_001"
+  "transactions": [
+    { "id": "tx_101", "amount": -5000, "type": "withdrawal" },
+    { "id": "tx_102", "amount": 20000, "type": "deposit" }
+  ]
 }</code></pre>
 
     <h2 id="webhooks">Webhooks</h2>
-    <p>KwikLink vous notifie automatiquement lorsqu’un événement survient (paiement réussi, échec, remboursement…).</p>
+    <p>Recevez des notifications automatiques :</p>
     <pre><code>{
   "event": "payment.success",
   "data": {
-    "transaction_id": "kl_39485GHQ",
+    "transaction_id": "kl_48392A",
     "amount": 5000,
-    "currency": "XOF"
-  }
+    "currency": "XOF",
+    "customer": "client_001"
+  },
+  "signature": "9f8a3d1b5..."
 }</code></pre>
 
-    <h2 id="sdks">SDKs & Intégrations</h2>
-    <p>KwikLink propose des SDKs pour simplifier l’intégration :</p>
-    <pre><code>// Node.js
-const kwiklink = require('kwiklink')('sk_test_abc123');
-await kwiklink.paymentIntents.create({ amount: 5000, currency: 'XOF' });
-</code></pre>
+    <h2 id="sdk">SDKs & intégrations</h2>
+    <p><strong>Node.js</strong></p>
+    <pre><code>const kwiklink = require('kwiklink')('sk_test_abc123');
+await kwiklink.paymentIntents.create({
+  amount: 5000,
+  currency: 'XOF',
+  method: 'mobile_money'
+});</code></pre>
 
-    <pre><code># Python
-import kwiklink
+    <p><strong>Python</strong></p>
+    <pre><code>import kwiklink
 kwiklink.api_key = "sk_test_abc123"
 kwiklink.Payment.create(amount=5000, currency="XOF")</code></pre>
 
+    <p><strong>PHP</strong></p>
+    <pre><code>$kwik = new KwikLink("sk_test_abc123");
+$kwik->createPayment([
+  "amount" => 5000,
+  "currency" => "XOF"
+]);</code></pre>
+
+    <p><strong>cURL</strong></p>
+    <pre><code>curl -X POST https://api.kwiklink.com/v1/payment_intents \
+-H "Authorization: Bearer sk_test_abc123" \
+-d '{"amount":5000,"currency":"XOF","method":"mobile_money"}'</code></pre>
+
     <h2 id="errors">Codes d’erreurs</h2>
     <table>
-      <tr><th>Code</th><th>Description</th></tr>
-      <tr><td>200</td><td>Succès de la requête</td></tr>
-      <tr><td>400</td><td>Requête invalide</td></tr>
-      <tr><td>401</td><td>Clé API invalide</td></tr>
-      <tr><td>404</td><td>Transaction introuvable</td></tr>
-      <tr><td>500</td><td>Erreur serveur interne</td></tr>
+      <tr><th>Code</th><th>Message</th><th>Description</th><th>Action</th></tr>
+      <tr><td>200</td><td>Success</td><td>Requête réussie</td><td>–</td></tr>
+      <tr><td>400</td><td>Bad Request</td><td>Paramètres invalides</td><td>Vérifiez le JSON envoyé</td></tr>
+      <tr><td>401</td><td>Unauthorized</td><td>Clé API manquante ou invalide</td><td>Ajoutez l’en-tête Authorization</td></tr>
+      <tr><td>404</td><td>Not Found</td><td>Transaction introuvable</td><td>Vérifiez l’ID fourni</td></tr>
+      <tr><td>422</td><td>Validation Error</td><td>Champs requis manquants</td><td>Complétez les paramètres</td></tr>
+      <tr><td>500</td><td>Server Error</td><td>Erreur interne KwikLink</td><td>Réessayez plus tard</td></tr>
     </table>
 
     <h2 id="support">Support développeur</h2>
-    <p>Besoin d’aide ? Contactez notre équipe technique :</p>
+    <p>Des questions ? Contactez l’équipe technique KwikLink :</p>
     <a href="mailto:dev@kwiklink.com" class="btn-doc">Contacter le support</a>
 
     <footer>© 2025 KwikLink — Afrique & Europe | Tous droits réservés</footer>
