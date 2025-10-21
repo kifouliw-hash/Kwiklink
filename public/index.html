@@ -1111,12 +1111,14 @@ footer {
   font-size: 0.8rem;
   color: #888;
 }
-
-
-
-
-
-
+#globe-container {
+  width: 480px;
+  height: 320px;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+  overflow: hidden;
+  background: radial-gradient(circle at 30% 30%, #0f172a, #1e293b);
+}
 
 </style>
 </head>
@@ -1296,8 +1298,8 @@ footer {
       <p>Programmez et réalisez des transferts de fonds à l’échelle mondiale avec une précision et une rapidité inégalées.</p>
     </div>
     <div class="visual">
-      <div class="visual-placeholder">🌍 Globe 3D</div>
-    </div>
+  <div id="globe-container"></div>
+</div>
   </section>
 
   <!-- 7. Entreprises -->
@@ -1421,6 +1423,110 @@ footer {
   }
 
   typeCode();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
+<script>
+// === Globe 3D inspiré de Stripe ===
+const container = document.getElementById('globe-container');
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setSize(container.clientWidth, container.clientHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+container.appendChild(renderer.domElement);
+
+// === Lumières ===
+const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+scene.add(ambientLight);
+
+// === Globe ===
+const textureLoader = new THREE.TextureLoader();
+const earthTexture = textureLoader.load('https://raw.githubusercontent.com/creotiv/three-globe-textures/main/earth-night.jpg');
+const geometry = new THREE.SphereGeometry(2.2, 64, 64);
+const material = new THREE.MeshStandardMaterial({
+  map: earthTexture,
+  emissive: new THREE.Color(0x222244),
+  emissiveIntensity: 0.4,
+  roughness: 1
+});
+const globe = new THREE.Mesh(geometry, material);
+scene.add(globe);
+
+// === Points lumineux (villes principales) ===
+const dotGeometry = new THREE.SphereGeometry(0.04, 16, 16);
+const dotMaterial = new THREE.MeshBasicMaterial({ color: 0x00b87c });
+const cities = [
+  { lat: 5.35, lon: -4.0 },    // Abidjan
+  { lat: 48.85, lon: 2.35 },   // Paris
+  { lat: 51.51, lon: -0.13 },  // Londres
+  { lat: 40.71, lon: -74.0 },  // New York
+  { lat: 35.68, lon: 139.69 }  // Tokyo
+];
+cities.forEach(city => {
+  const { x, y, z } = latLonToVector3(city.lat, city.lon, 2.25);
+  const dot = new THREE.Mesh(dotGeometry, dotMaterial);
+  dot.position.set(x, y, z);
+  scene.add(dot);
+});
+
+// === Lignes lumineuses entre villes ===
+const curveMaterial = new THREE.LineBasicMaterial({ color: 0xff7a00, transparent: true, opacity: 0.6 });
+const routes = [
+  [cities[0], cities[1]], // Abidjan - Paris
+  [cities[0], cities[2]], // Abidjan - Londres
+  [cities[1], cities[3]], // Paris - New York
+  [cities[1], cities[4]]  // Paris - Tokyo
+];
+
+routes.forEach(route => {
+  const curve = createArc(route[0], route[1]);
+  const points = curve.getPoints(100);
+  const geometry = new THREE.BufferGeometry().setFromPoints(points);
+  const line = new THREE.Line(geometry, curveMaterial);
+  scene.add(line);
+});
+
+// === Fonctions utilitaires ===
+function latLonToVector3(lat, lon, radius) {
+  const phi = (90 - lat) * (Math.PI / 180);
+  const theta = (lon + 180) * (Math.PI / 180);
+  const x = -(radius * Math.sin(phi) * Math.cos(theta));
+  const z = radius * Math.sin(phi) * Math.sin(theta);
+  const y = radius * Math.cos(phi);
+  return { x, y, z };
+}
+
+function createArc(start, end) {
+  const startVec = latLonToVector3(start.lat, start.lon, 2.25);
+  const endVec = latLonToVector3(end.lat, end.lon, 2.25);
+  const mid = {
+    x: (startVec.x + endVec.x) / 2,
+    y: (startVec.y + endVec.y) / 2 + 0.8, // élévation de la courbe
+    z: (startVec.z + endVec.z) / 2
+  };
+  const curve = new THREE.QuadraticBezierCurve3(
+    new THREE.Vector3(startVec.x, startVec.y, startVec.z),
+    new THREE.Vector3(mid.x, mid.y, mid.z),
+    new THREE.Vector3(endVec.x, endVec.y, endVec.z)
+  );
+  return curve;
+}
+
+// === Animation ===
+camera.position.z = 6;
+function animate() {
+  requestAnimationFrame(animate);
+  globe.rotation.y += 0.002;
+  renderer.render(scene, camera);
+}
+animate();
+
+// === Redimension dynamique ===
+window.addEventListener('resize', () => {
+  camera.aspect = container.clientWidth / container.clientHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(container.clientWidth, container.clientHeight);
+});
 </script>
 
 
