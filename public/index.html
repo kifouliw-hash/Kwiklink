@@ -1037,6 +1037,81 @@ footer {
   font-size: 0.95rem;
   overflow-x: auto;
 }
+  .api-section {
+  background: transparent; /* ✅ garde ton fond clair */
+  color: var(--text-dark);
+  padding: 160px 8%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.api-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 80px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.api-text {
+  flex: 1;
+  max-width: 520px;
+}
+
+.api-text h2 {
+  font-size: 2.8rem;
+  background: linear-gradient(90deg, #00b87c, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+.api-text p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-dim);
+  margin-bottom: 40px;
+}
+
+.api-btn {
+  background: linear-gradient(90deg, #00b87c, #8b5cf6);
+  color: #fff;
+  padding: 14px 26px;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.api-btn:hover {
+  transform: translateY(-3px);
+}
+
+.api-demo {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
+  padding: 25px 30px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.95rem;
+  color: #111;
+  overflow-x: auto;
+  position: relative;
+}
+
+.api-demo::before {
+  content: "kwiklink.js";
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-size: 0.8rem;
+  color: #888;
+}
+
 
 
 
@@ -1185,20 +1260,11 @@ footer {
     </div>
 
     <div class="api-demo">
-<pre><code>
-const kwiklink = require('kwiklink')('sk_test_abc123');
-
-await kwiklink.paymentIntents.create({
-  amount: 5000,
-  currency: 'XOF',
-  method: 'mobile_money',
-  customer: 'client_001',
-  description: 'Paiement marchand Abidjan'
-});
-</code></pre>
+      <pre id="code-block"><code></code></pre>
     </div>
   </div>
 </section>
+
 
 
   <!-- 4. Paiements -->
@@ -1310,6 +1376,53 @@ await kwiklink.paymentIntents.create({
     });
   });
 </script>
+    <script>
+  const codeBlock = document.querySelector("#code-block code");
+  const codeLines = [
+    "const kwiklink = require('kwiklink')('sk_test_abc123');",
+    "",
+    "await kwiklink.paymentIntents.create({",
+    "  amount: 5000,",
+    "  currency: 'XOF',",
+    "  method: 'mobile_money',",
+    "  customer: 'client_001',",
+    "  description: 'Paiement marchand Abidjan'",
+    "});"
+  ];
+
+  let index = 0;
+  let charIndex = 0;
+  let currentLine = "";
+
+  function typeCode() {
+    if (index < codeLines.length) {
+      const line = codeLines[index];
+      if (charIndex < line.length) {
+        currentLine += line.charAt(charIndex);
+        codeBlock.innerHTML =
+          "<span style='color:#00b87c'>" + currentLine + "</span>" +
+          "<br>" + codeLines.slice(0, index).join("<br>");
+        charIndex++;
+        setTimeout(typeCode, 35);
+      } else {
+        codeBlock.innerHTML += "<br>";
+        index++;
+        charIndex = 0;
+        currentLine = "";
+        setTimeout(typeCode, 200);
+      }
+    } else {
+      setTimeout(() => {
+        codeBlock.innerHTML = "";
+        index = 0;
+        typeCode();
+      }, 3000);
+    }
+  }
+
+  typeCode();
+</script>
+
 
 </body>
 </html>
