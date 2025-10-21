@@ -972,6 +972,72 @@ footer {
 .tpe-visual img:hover {
   transform: scale(1.04);
 }
+  .api-section {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #fff;
+  padding: 160px 8%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.api-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 80px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.api-text {
+  flex: 1;
+}
+
+.api-text h2 {
+  font-size: 2.8rem;
+  background: linear-gradient(90deg, #00b87c, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 24px;
+}
+
+.api-text p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #cbd5e1;
+  margin-bottom: 40px;
+}
+
+.api-btn {
+  background: linear-gradient(90deg, #00b87c, #8b5cf6);
+  color: white;
+  padding: 14px 26px;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.api-btn:hover {
+  transform: translateY(-3px);
+}
+
+.api-demo {
+  flex: 1;
+  background: #0a0f1f;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  color: #38bdf8;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.95rem;
+  overflow-x: auto;
+}
+
 
 
 
@@ -1105,15 +1171,35 @@ footer {
 
 
   <!-- 3. API -->
-  <section id="api">
-    <div class="text">
+  <section id="api" class="api-section">
+  <div class="api-content">
+    <div class="api-text">
       <h2>Des API performantes et intuitives</h2>
-      <p>Intégrez KwikLink à vos sites ou applications et bénéficiez d’une flexibilité complète grâce à nos API modernes et sécurisées.</p>
+      <p>
+        Intégrez <strong>KwikLink</strong> à vos sites e-commerce ou applications et offrez des paiements unifiés :
+        Mobile Money, cartes bancaires, ou portefeuilles KwikSend — le tout en quelques lignes de code.
+      </p>
+      <button class="api-btn" onclick="window.location.href='documentation.html'">
+        Voir la documentation →
+      </button>
     </div>
-    <div class="visual">
-      <div class="visual-placeholder">Code API</div>
+
+    <div class="api-demo">
+<pre><code>
+const kwiklink = require('kwiklink')('sk_test_abc123');
+
+await kwiklink.paymentIntents.create({
+  amount: 5000,
+  currency: 'XOF',
+  method: 'mobile_money',
+  customer: 'client_001',
+  description: 'Paiement marchand Abidjan'
+});
+</code></pre>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- 4. Paiements -->
   <section id="paiements">
