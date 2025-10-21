@@ -1513,110 +1513,6 @@ footer {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
 <script>
-// === Globe 3D inspiré de Stripe ===
-const container = document.getElementById('globe-container');
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.setSize(container.clientWidth, container.clientHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
-container.appendChild(renderer.domElement);
-
-// === Lumières ===
-const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
-scene.add(ambientLight);
-
-// === Globe ===
-const textureLoader = new THREE.TextureLoader();
-const earthTexture = textureLoader.load('https://raw.githubusercontent.com/creotiv/three-globe-textures/main/earth-night.jpg');
-const geometry = new THREE.SphereGeometry(2.2, 64, 64);
-const material = new THREE.MeshStandardMaterial({
-  map: earthTexture,
-  emissive: new THREE.Color(0x222244),
-  emissiveIntensity: 0.4,
-  roughness: 1
-});
-const globe = new THREE.Mesh(geometry, material);
-scene.add(globe);
-
-// === Points lumineux (villes principales) ===
-const dotGeometry = new THREE.SphereGeometry(0.04, 16, 16);
-const dotMaterial = new THREE.MeshBasicMaterial({ color: 0x00b87c });
-const cities = [
-  { lat: 5.35, lon: -4.0 },    // Abidjan
-  { lat: 48.85, lon: 2.35 },   // Paris
-  { lat: 51.51, lon: -0.13 },  // Londres
-  { lat: 40.71, lon: -74.0 },  // New York
-  { lat: 35.68, lon: 139.69 }  // Tokyo
-];
-cities.forEach(city => {
-  const { x, y, z } = latLonToVector3(city.lat, city.lon, 2.25);
-  const dot = new THREE.Mesh(dotGeometry, dotMaterial);
-  dot.position.set(x, y, z);
-  scene.add(dot);
-});
-
-// === Lignes lumineuses entre villes ===
-const curveMaterial = new THREE.LineBasicMaterial({ color: 0xff7a00, transparent: true, opacity: 0.6 });
-const routes = [
-  [cities[0], cities[1]], // Abidjan - Paris
-  [cities[0], cities[2]], // Abidjan - Londres
-  [cities[1], cities[3]], // Paris - New York
-  [cities[1], cities[4]]  // Paris - Tokyo
-];
-
-routes.forEach(route => {
-  const curve = createArc(route[0], route[1]);
-  const points = curve.getPoints(100);
-  const geometry = new THREE.BufferGeometry().setFromPoints(points);
-  const line = new THREE.Line(geometry, curveMaterial);
-  scene.add(line);
-});
-
-// === Fonctions utilitaires ===
-function latLonToVector3(lat, lon, radius) {
-  const phi = (90 - lat) * (Math.PI / 180);
-  const theta = (lon + 180) * (Math.PI / 180);
-  const x = -(radius * Math.sin(phi) * Math.cos(theta));
-  const z = radius * Math.sin(phi) * Math.sin(theta);
-  const y = radius * Math.cos(phi);
-  return { x, y, z };
-}
-
-function createArc(start, end) {
-  const startVec = latLonToVector3(start.lat, start.lon, 2.25);
-  const endVec = latLonToVector3(end.lat, end.lon, 2.25);
-  const mid = {
-    x: (startVec.x + endVec.x) / 2,
-    y: (startVec.y + endVec.y) / 2 + 0.8, // élévation de la courbe
-    z: (startVec.z + endVec.z) / 2
-  };
-  const curve = new THREE.QuadraticBezierCurve3(
-    new THREE.Vector3(startVec.x, startVec.y, startVec.z),
-    new THREE.Vector3(mid.x, mid.y, mid.z),
-    new THREE.Vector3(endVec.x, endVec.y, endVec.z)
-  );
-  return curve;
-}
-
-// === Animation ===
-camera.position.z = 6;
-function animate() {
-  requestAnimationFrame(animate);
-  globe.rotation.y += 0.002;
-  renderer.render(scene, camera);
-}
-animate();
-
-// === Redimension dynamique ===
-window.addEventListener('resize', () => {
-  camera.aspect = container.clientWidth / container.clientHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(container.clientWidth, container.clientHeight);
-});
-</script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
-<script>
 const canvas = document.getElementById("globeCanvas");
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
@@ -1624,18 +1520,23 @@ const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true 
 renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 
-// Lumière
+// === Lumière ===
 scene.add(new THREE.AmbientLight(0xffffff, 1.1));
 
-// Globe en points
+// === Globe en points bleus ===
 const geometry = new THREE.SphereGeometry(2, 64, 64);
 const material = new THREE.PointsMaterial({ color: 0x38bdf8, size: 0.03 });
 const globe = new THREE.Points(geometry, material);
 scene.add(globe);
 
-// Arcs lumineux
-const curveMaterial = new THREE.LineBasicMaterial({ color: 0xff7a00, opacity: 0.6, transparent: true });
-function latLonToVec(lat, lon, r=2) {
+// === Arcs lumineux (liaisons internationales) ===
+const curveMaterial = new THREE.LineBasicMaterial({
+  color: 0xff7a00,
+  opacity: 0.6,
+  transparent: true
+});
+
+function latLonToVec(lat, lon, r = 2) {
   const phi = (90 - lat) * Math.PI / 180;
   const theta = (lon + 180) * Math.PI / 180;
   return new THREE.Vector3(
@@ -1646,10 +1547,10 @@ function latLonToVec(lat, lon, r=2) {
 }
 
 const routes = [
-  [{ lat: 5.35, lon: -4 }, { lat: 48.85, lon: 2.35 }],
-  [{ lat: 48.85, lon: 2.35 }, { lat: 35.68, lon: 139.69 }],
-  [{ lat: 48.85, lon: 2.35 }, { lat: 40.71, lon: -74.0 }],
-  [{ lat: 5.35, lon: -4 }, { lat: 51.51, lon: -0.13 }],
+  [{ lat: 5.35, lon: -4 }, { lat: 48.85, lon: 2.35 }],   // Abidjan - Paris
+  [{ lat: 48.85, lon: 2.35 }, { lat: 40.71, lon: -74.0 }], // Paris - New York
+  [{ lat: 48.85, lon: 2.35 }, { lat: 35.68, lon: 139.69 }], // Paris - Tokyo
+  [{ lat: 5.35, lon: -4 }, { lat: 51.51, lon: -0.13 }]    // Abidjan - Londres
 ];
 
 routes.forEach(route => {
@@ -1663,18 +1564,18 @@ routes.forEach(route => {
   scene.add(line);
 });
 
+// === Caméra et animation ===
 camera.position.z = 5;
 
-// Animation rotation
 function animate() {
   requestAnimationFrame(animate);
   globe.rotation.y += 0.0015;
   scene.traverse(obj => { if (obj.type === 'Line') obj.rotation.y += 0.0015; });
   renderer.render(scene, camera);
 }
+
 animate();
 </script>
-
 
 </body>
 </html>
