@@ -1513,80 +1513,117 @@ footer {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
 <script>
-// === GLOBE KWIKLINK STYLE STRIPE ===
+// === Globe KwikLink final (type Stripe) ===
 
-// Sélection du canvas
+// Initialisation
 const canvas = document.getElementById("globeCanvas");
-
-// Scène, caméra, rendu
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 
-// === Lumière ===
-scene.add(new THREE.AmbientLight(0xffffff, 1.2));
+// Lumières
+const ambient = new THREE.AmbientLight(0xffffff, 0.8);
+const directional = new THREE.DirectionalLight(0xffffff, 1.2);
+directional.position.set(5, 2, 5);
+scene.add(ambient, directional);
 
-// === Texture des continents (haute qualité) ===
-const textureLoader = new THREE.TextureLoader();
-const earthTexture = textureLoader.load("https://raw.githubusercontent.com/creotiv/three-globe-textures/main/earth-night.jpg");
+// === Texture (haute qualité, fiable) ===
+const loader = new THREE.TextureLoader();
+loader.load("https://raw.githubusercontent.com/pmndrs/drei-assets/master/textures/earth-night.jpg", (texture) => {
+  const globeGeo = new THREE.SphereGeometry(2, 128, 128);
+  const globeMat = new THREE.MeshStandardMaterial({
+    map: texture,
+    emissive: new THREE.Color(0x001122),
+    emissiveIntensity: 0.6,
+    roughness: 1,
+  });
+  const globe = new THREE.Mesh(globeGeo, globeMat);
+  scene.add(globe);
 
-// === Globe principal ===
-const globeGeo = new THREE.SphereGeometry(2, 128, 128);
-const globeMat = new THREE.MeshStandardMaterial({
-  map: earthTexture,
-  emissive: new THREE.Color(0x003366),
-  emissiveIntensity: 0.35,
-  roughness: 1,
+  // Points lumineux (villes)
+  const dotGeo = new THREE.SphereGeometry(0.015, 8, 8);
+  const dotMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+  for (let i = 0; i < 400; i++) {
+    const lat = Math.random() * 180 - 90;
+    const lon = Math.random() * 360 - 180;
+    const pos = latLonToVec(lat, lon, 2.03);
+    const dot = new THREE.Mesh(dotGeo, dotMat);
+    dot.position.copy(pos);
+    scene.add(dot);
+  }
+
+  // Halo atmosphérique
+  const glowGeo = new THREE.SphereGeometry(2.1, 64, 64);
+  const glowMat = new THREE.MeshBasicMaterial({
+    color: 0x38bdf8,
+    transparent: true,
+    opacity: 0.15,
+  });
+  const glow = new THREE.Mesh(glowGeo, glowMat);
+  scene.add(glow);
+
+  // === Arcs multicolores ===
+  const colorSet = [0xff7a00, 0x8b5cf6, 0x22d3ee, 0xec4899];
+  const routes = [
+    [{ lat: 5.35, lon: -4 }, { lat: 48.85, lon: 2.35 }],   // Abidjan - Paris
+    [{ lat: 48.85, lon: 2.35 }, { lat: 40.71, lon: -74.0 }], // Paris - NY
+    [{ lat: 48.85, lon: 2.35 }, { lat: 35.68, lon: 139.69 }], // Paris - Tokyo
+    [{ lat: 5.35, lon: -4 }, { lat: 51.51, lon: -0.13 }],   // Abidjan - Londres
+  ];
+
+  const movers = [];
+
+  routes.forEach((route, i) => {
+    const color = colorSet[i % colorSet.length];
+    const mat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.7 });
+    const start = latLonToVec(route[0].lat, route[0].lon);
+    const end = latLonToVec(route[1].lat, route[1].lon);
+    const mid = start.clone().add(end).multiplyScalar(0.5).setLength(2.3);
+    const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
+
+    const points = curve.getPoints(100);
+    const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
+    const line = new THREE.Line(lineGeo, mat);
+    scene.add(line);
+
+    // Flux lumineux sur chaque arc
+    const flowGeo = new THREE.SphereGeometry(0.04, 16, 16);
+    const flowMat = new THREE.MeshBasicMaterial({ color, emissive: color, emissiveIntensity: 1 });
+    const flow = new THREE.Mesh(flowGeo, flowMat);
+    scene.add(flow);
+    movers.push({ curve, flow, progress: Math.random() });
+  });
+
+  // Caméra
+  camera.position.z = 5.5;
+  camera.position.y = 0.8;
+  camera.rotation.x = -0.3;
+
+  // === Animation ===
+  function animate() {
+    requestAnimationFrame(animate);
+    globe.rotation.y += 0.0018;
+    glow.rotation.y += 0.0018;
+
+    // rotation fluide des arcs
+    scene.traverse(obj => { if (obj.type === "Line") obj.rotation.y += 0.0018; });
+
+    // flux animés
+    movers.forEach(m => {
+      m.progress += 0.006;
+      if (m.progress > 1) m.progress = 0;
+      const pos = m.curve.getPointAt(m.progress);
+      m.flow.position.copy(pos);
+    });
+
+    renderer.render(scene, camera);
+  }
+  animate();
 });
-const globe = new THREE.Mesh(globeGeo, globeMat);
-scene.add(globe);
 
-// === Points lumineux sur la surface ===
-const dotGeo = new THREE.SphereGeometry(0.015, 8, 8);
-const dotMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
-for (let i = 0; i < 800; i++) {
-  const lat = Math.random() * 180 - 90;
-  const lon = Math.random() * 360 - 180;
-  const pos = latLonToVec(lat, lon, 2.02);
-  const dot = new THREE.Mesh(dotGeo, dotMat);
-  dot.position.copy(pos);
-  scene.add(dot);
-}
-
-// === Halo atmosphérique ===
-const glowGeo = new THREE.SphereGeometry(2.15, 64, 64);
-const glowMat = new THREE.MeshBasicMaterial({
-  color: 0x38bdf8,
-  transparent: true,
-  opacity: 0.15,
-});
-const glow = new THREE.Mesh(glowGeo, glowMat);
-scene.add(glow);
-
-// === Grille de méridiens et parallèles ===
-const gridMat = new THREE.LineBasicMaterial({
-  color: 0x0ea5e9,
-  transparent: true,
-  opacity: 0.08,
-});
-for (let i = -80; i <= 80; i += 20) {
-  const circleGeo = new THREE.CircleGeometry(2 * Math.cos(THREE.MathUtils.degToRad(i)), 128);
-  circleGeo.vertices.shift();
-  const line = new THREE.LineLoop(circleGeo, gridMat);
-  line.rotation.x = THREE.MathUtils.degToRad(90 - i);
-  scene.add(line);
-}
-for (let j = 0; j < 360; j += 30) {
-  const curveGeo = new THREE.CircleGeometry(2, 128);
-  curveGeo.vertices.shift();
-  const line = new THREE.LineLoop(curveGeo, gridMat);
-  line.rotation.y = THREE.MathUtils.degToRad(j);
-  scene.add(line);
-}
-
-// === Fonctions utilitaires ===
+// === Fonction lat/lon → position 3D ===
 function latLonToVec(lat, lon, r = 2) {
   const phi = (90 - lat) * Math.PI / 180;
   const theta = (lon + 180) * Math.PI / 180;
@@ -1597,64 +1634,6 @@ function latLonToVec(lat, lon, r = 2) {
   );
 }
 
-// === Routes animées (multicolores) ===
-const colorSet = [0xff7a00, 0x8b5cf6, 0x22d3ee, 0xec4899];
-const routes = [
-  [{ lat: 5.35, lon: -4 }, { lat: 48.85, lon: 2.35 }],   // Abidjan - Paris
-  [{ lat: 48.85, lon: 2.35 }, { lat: 40.71, lon: -74.0 }], // Paris - New York
-  [{ lat: 48.85, lon: 2.35 }, { lat: 35.68, lon: 139.69 }], // Paris - Tokyo
-  [{ lat: 5.35, lon: -4 }, { lat: 51.51, lon: -0.13 }],   // Abidjan - Londres
-];
-
-const movers = [];
-routes.forEach((route, i) => {
-  const color = colorSet[i % colorSet.length];
-  const mat = new THREE.LineBasicMaterial({ color, opacity: 0.7, transparent: true });
-
-  const start = latLonToVec(route[0].lat, route[0].lon);
-  const end = latLonToVec(route[1].lat, route[1].lon);
-  const mid = start.clone().add(end).multiplyScalar(0.5).setLength(2.3);
-  const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
-
-  const points = curve.getPoints(100);
-  const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
-  const line = new THREE.Line(lineGeo, mat);
-  scene.add(line);
-
-  // Flux lumineux sur l'arc
-  const flowGeo = new THREE.SphereGeometry(0.045, 16, 16);
-  const flowMat = new THREE.MeshBasicMaterial({ color, emissive: color, emissiveIntensity: 1 });
-  const flow = new THREE.Mesh(flowGeo, flowMat);
-  scene.add(flow);
-  movers.push({ curve, flow, progress: Math.random() });
-});
-
-// === Caméra & inclinaison ===
-camera.position.z = 5.5;
-camera.position.y = 0.8;
-camera.rotation.x = -0.3;
-
-// === Animation ===
-function animate() {
-  requestAnimationFrame(animate);
-  globe.rotation.y += 0.0018;
-  glow.rotation.y += 0.0018;
-  scene.traverse(obj => {
-    if (obj.type === 'Line') obj.rotation.y += 0.0018;
-  });
-
-  // flux lumineux animés
-  movers.forEach(m => {
-    m.progress += 0.006;
-    if (m.progress > 1) m.progress = 0;
-    const pos = m.curve.getPointAt(m.progress);
-    m.flow.position.copy(pos);
-  });
-
-  renderer.render(scene, camera);
-}
-animate();
-
 // === Responsive ===
 window.addEventListener("resize", () => {
   camera.aspect = canvas.clientWidth / canvas.clientHeight;
@@ -1662,6 +1641,7 @@ window.addEventListener("resize", () => {
   renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 });
 </script>
+
 
 
 
