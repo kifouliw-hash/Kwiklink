@@ -2,12 +2,12 @@ const express = require("express");
 const path = require("path");
 const app = express();
 
-// ✅ Rendre le dossier "public" accessible
-app.use(express.static(path.join(__dirname, "public")));
+// ✅ Rendre le dossier "publique" accessible (corrigé)
+app.use(express.static(path.join(__dirname, "publique")));
 
 // ✅ Route principale
 app.get("/", (req, res) => {
-res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, "publique", "index.html"));
 });
 
 // ✅ Port
