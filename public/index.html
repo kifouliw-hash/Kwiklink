@@ -1518,57 +1518,45 @@ const canvas = document.getElementById("globeCanvas");
 if (!canvas) {
   console.error("❌ Élément #globeCanvas introuvable !");
 } else {
+  // === Scène & caméra ===
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setSize(canvas.clientWidth, canvas.clientHeight);
   renderer.setPixelRatio(window.devicePixelRatio);
 
-  // Lumières
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-  const dirLight = new THREE.DirectionalLight(0xffffff, 1);
-  dirLight.position.set(3, 2, 5);
-  scene.add(ambientLight, dirLight);
+  // === Lumières ===
+  scene.add(new THREE.AmbientLight(0xffffff, 1));
+  const dir = new THREE.DirectionalLight(0xffffff, 1);
+  dir.position.set(3, 2, 5);
+  scene.add(dir);
 
-  // === Globe de base ===
-  const geometry = new THREE.SphereGeometry(2, 128, 128);
-  const material = new THREE.MeshStandardMaterial({
-    color: 0x113355,
-    emissive: 0x002244,
-    emissiveIntensity: 0.4,
+  // === Globe avec points (effet Flutterwave) ===
+  const globeGeometry = new THREE.SphereGeometry(2, 120, 120);
+  const globeMaterial = new THREE.PointsMaterial({
+    color: 0x9ecbff,
+    size: 0.02,
+    transparent: true,
+    opacity: 0.85
   });
-  const globe = new THREE.Mesh(geometry, material);
+  const globe = new THREE.Points(globeGeometry, globeMaterial);
   scene.add(globe);
 
-  // === Points bleus ===
-  const dotGeo = new THREE.SphereGeometry(0.015, 8, 8);
-  const dotMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
-  for (let i = 0; i < 400; i++) {
-    const lat = Math.random() * 180 - 90;
-    const lon = Math.random() * 360 - 180;
-    const pos = latLonToVec(lat, lon, 2.05);
-    const dot = new THREE.Mesh(dotGeo, dotMat);
-    dot.position.copy(pos);
-    scene.add(dot);
-  }
+  // === Halo doux autour du globe ===
+  const haloGeo = new THREE.SphereGeometry(2.1, 64, 64);
+  const haloMat = new THREE.MeshBasicMaterial({
+    color: 0x0050ff,
+    transparent: true,
+    opacity: 0.05
+  });
+  const halo = new THREE.Mesh(haloGeo, haloMat);
+  scene.add(halo);
 
-  // === Texture Terre ===
-  const loader = new THREE.TextureLoader();
-  loader.load(
-    "https://raw.githubusercontent.com/pmndrs/drei-assets/master/textures/earth-night.jpg",
-    (texture) => {
-      globe.material.map = texture;
-      globe.material.needsUpdate = true;
-    },
-    undefined,
-    (err) => console.warn("⚠️ Texture non chargée :", err)
-  );
-
-  // === Arcs multicolores ===
+  // === Routes colorées ===
   const colorSet = [0xff7a00, 0x8b5cf6, 0x22d3ee, 0xec4899];
   const routes = [
     [{ lat: 5.35, lon: -4 }, { lat: 48.85, lon: 2.35 }],   // Abidjan - Paris
-    [{ lat: 48.85, lon: 2.35 }, { lat: 40.71, lon: -74.0 }], // Paris - New York
+    [{ lat: 48.85, lon: 2.35 }, { lat: 40.71, lon: -74.0 }], // Paris - NY
     [{ lat: 48.85, lon: 2.35 }, { lat: 35.68, lon: 139.69 }], // Paris - Tokyo
     [{ lat: 5.35, lon: -4 }, { lat: 51.51, lon: -0.13 }],   // Abidjan - Londres
   ];
@@ -1587,12 +1575,12 @@ if (!canvas) {
     const line = new THREE.Line(lineGeo, mat);
     scene.add(line);
 
-    // === Flux lumineux animé ===
-    const flowGeo = new THREE.SphereGeometry(0.04, 16, 16);
+    // === Flux lumineux ===
+    const flowGeo = new THREE.SphereGeometry(0.04, 8, 8);
     const flowMat = new THREE.MeshBasicMaterial({ color });
     const flow = new THREE.Mesh(flowGeo, flowMat);
     scene.add(flow);
-    movers.push({ curve, flow, progress: Math.random(), color });
+    movers.push({ curve, flow, progress: Math.random() });
   });
 
   // === Fonctions utilitaires ===
@@ -1606,20 +1594,18 @@ if (!canvas) {
     );
   }
 
-  // === Caméra ===
-  camera.position.z = 5;
+  // === Position caméra ===
+  camera.position.z = 5.3;
   camera.position.y = 0.5;
-  camera.rotation.x = -0.2;
 
   // === Animation ===
   function animate() {
     requestAnimationFrame(animate);
-    globe.rotation.y += 0.0018;
+    globe.rotation.y += 0.0015;
+    halo.rotation.y += 0.0015;
 
-    // rotation des arcs
-    scene.traverse(obj => { if (obj.type === "Line") obj.rotation.y += 0.0018; });
-
-    // flux lumineux
+    // arcs & flux
+    scene.traverse(obj => { if (obj.type === "Line") obj.rotation.y += 0.0015; });
     movers.forEach(m => {
       m.progress += 0.006;
       if (m.progress > 1) m.progress = 0;
@@ -1631,7 +1617,6 @@ if (!canvas) {
   }
   animate();
 
-  // === Responsive ===
   window.addEventListener("resize", () => {
     camera.aspect = canvas.clientWidth / canvas.clientHeight;
     camera.updateProjectionMatrix();
@@ -1639,6 +1624,7 @@ if (!canvas) {
   });
 }
 </script>
+
 
 
 
