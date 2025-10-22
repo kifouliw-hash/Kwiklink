@@ -1597,6 +1597,58 @@ if (!canvas) {
     renderer.setSize(canvas.clientWidth, canvas.clientHeight);
   });
 }
+  // === Arcs multicolores ===
+const colorSet = [0xff7a00, 0x8b5cf6, 0x22d3ee, 0xec4899];
+const routes = [
+  [{ lat: 5.35, lon: -4 }, { lat: 48.85, lon: 2.35 }],   // Abidjan - Paris
+  [{ lat: 48.85, lon: 2.35 }, { lat: 40.71, lon: -74.0 }], // Paris - New York
+  [{ lat: 48.85, lon: 2.35 }, { lat: 35.68, lon: 139.69 }], // Paris - Tokyo
+  [{ lat: 5.35, lon: -4 }, { lat: 51.51, lon: -0.13 }],   // Abidjan - Londres
+];
+
+const movers = [];
+
+routes.forEach((route, i) => {
+  const color = colorSet[i % colorSet.length];
+  const mat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.8 });
+  const start = latLonToVec(route[0].lat, route[0].lon);
+  const end = latLonToVec(route[1].lat, route[1].lon);
+  const mid = start.clone().add(end).multiplyScalar(0.5).setLength(2.3);
+  const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
+  const points = curve.getPoints(100);
+  const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
+  const line = new THREE.Line(lineGeo, mat);
+  scene.add(line);
+
+  // === Flux lumineux animé ===
+  const flowGeo = new THREE.SphereGeometry(0.04, 16, 16);
+  const flowMat = new THREE.MeshBasicMaterial({ color });
+  const flow = new THREE.Mesh(flowGeo, flowMat);
+  scene.add(flow);
+  movers.push({ curve, flow, progress: Math.random(), color });
+});
+
+// Mets à jour la fonction animate()
+const oldAnimate = animate;
+animate = function() {
+  requestAnimationFrame(animate);
+  globe.rotation.y += 0.0018;
+
+  // rotation des arcs
+  scene.traverse(obj => { if (obj.type === "Line") obj.rotation.y += 0.0018; });
+
+  // flux lumineux
+  movers.forEach(m => {
+    m.progress += 0.006;
+    if (m.progress > 1) m.progress = 0;
+    const pos = m.curve.getPointAt(m.progress);
+    m.flow.position.copy(pos);
+  });
+
+  renderer.render(scene, camera);
+};
+animate();
+
 </script>
 
 
