@@ -1200,6 +1200,23 @@ footer {
   from { box-shadow: 0 0 80px 10px rgba(0, 136, 255, 0.25); }
   to { box-shadow: 0 0 100px 25px rgba(0, 136, 255, 0.4); }
 }
+  .globe-video-container {
+  position: relative;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(0, 128, 255, 0.3);
+  background: radial-gradient(circle at center, #0a0f1e, #05070f);
+}
+
+.globe-video-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  transform: scale(1.1);
+}
+
 
 
 
@@ -1374,7 +1391,7 @@ footer {
     </div>
   </section>
   
-<!-- 5. Commerce -->
+<!-- 6. Commerce -->
 <section id="commerce" class="commerce-section">
   <div class="commerce-content">
     
@@ -1397,12 +1414,15 @@ footer {
     </div>
 
     <div class="commerce-visual">
-      <div class="globe-video-container">
-        <video autoplay loop muted playsinline class="globe-video">
-          <source src="https://drive.google.com/uc?export=download&id=1eMgZwJKS0zJ9Nsj0Gy9WiongQmpPX9KP" type="video/mp4">
-        </video>
-      </div>
-    </div>
+  <div class="globe-video-container">
+    <iframe 
+      src="https://drive.google.com/uc?export=preview&id=1eMgZwJKS0zJ9Nsj0Gy9WiongQmpPX9KP"
+      allow="autoplay"
+      class="globe-video-frame">
+    </iframe>
+  </div>
+</div>
+
 
   </div>
 </section>
