@@ -1190,6 +1190,30 @@ footer {
   border-radius: 50%;
   background: radial-gradient(circle at 40% 40%, #111827, #0a0f1f);
 }
+.globe-video-container {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #0a1020, #060812);
+  box-shadow: 0 0 80px rgba(0, 136, 255, 0.15);
+}
+
+.globe-video {
+  width: 150%;
+  height: 150%;
+  object-fit: cover;
+  transform: rotate(0deg);
+  animation: slowRotate 60s linear infinite;
+  opacity: 0.9;
+}
+
+/* Animation fluide de rotation lente */
+@keyframes slowRotate {
+  from { transform: rotate(0deg) scale(1.1); }
+  to { transform: rotate(360deg) scale(1.1); }
+}
 
 
 
@@ -1364,28 +1388,38 @@ footer {
     </div>
   </section>
 
-  <!-- 6. Commerce mondial -->
-  <section id="commerce" class="commerce-section">
+<!-- 6. Commerce mondial -->
+<section id="commerce" class="commerce-section">
   <div class="commerce-content">
+    
     <div class="commerce-text">
       <h3>Une portée internationale</h3>
-      <h2>La solution idéale pour le commerce mondial</h2>
+      <h2>Connectez le monde avec KwikLink</h2>
       <p>
-        Grâce à <strong>KwikLink</strong>, vous pouvez programmer et réaliser des transferts de fonds aussi
-        facilement que des transferts de données. Nos serveurs sont répartis dans le monde entier et
-        traitent chaque année des milliards d’euros pour des entreprises de toutes tailles.
+        Avec <strong>KwikLink</strong>, vos paiements franchissent les frontières sans friction.  
+        Notre technologie relie les systèmes de paiement entre l’Afrique, l’Europe et le reste du monde  
+        pour offrir des transactions instantanées, fiables et transparentes que ce soit pour des entreprises,  
+        des commerçants ou des particuliers.
       </p>
+
       <div class="commerce-stats">
-        <div><h4>+500 millions</h4><p>de requêtes API par jour</p></div>
-        <div><h4>99,999%</h4><p>de disponibilité des services</p></div>
-        <div><h4>+47 pays</h4><p>connectés avec acquisition locale</p></div>
-        <div><h4>+135 devises</h4><p>et moyens de paiement pris en charge</p></div>
+        <div><h4>+10 millions</h4><p>de requêtes API traitées par jour</p></div>
+        <div><h4>100%</h4><p>de disponibilité et de stabilité du réseau</p></div>
+        <div><h4>+70 pays</h4><p>connectés à travers les solutions KwikLink</p></div>
+        <div><h4>+10 devises</h4><p>Nous acceptons les paiements dans plus dix devises</p></div>
+        <div><h4>+15 options de paiement</h4><p>et moyens de paiement interconnectés</p></div>
       </div>
     </div>
 
     <div class="commerce-visual">
-      <canvas id="globeCanvas"></canvas>
+      <div class="globe-video-container">
+        <video autoplay loop muted playsinline class="globe-video">
+          <source src="globe paiement.mp4" type="video/mp4">
+          Votre navigateur ne supporte pas la lecture vidéo.
+        </video>
+      </div>
     </div>
+
   </div>
 </section>
 
