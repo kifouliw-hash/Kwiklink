@@ -1186,10 +1186,11 @@ footer {
 
 #globeCanvas {
   width: 100%;
-  height: 100%;
+  height: 420px;
   border-radius: 50%;
   background: radial-gradient(circle at 40% 40%, #111827, #0a0f1f);
 }
+
 
 
 </style>
@@ -1513,134 +1514,91 @@ footer {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
 <script>
-// === Globe KwikLink final (type Stripe) ===
-
-// Initialisation
 const canvas = document.getElementById("globeCanvas");
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
+if (!canvas) {
+  console.error("❌ Élément #globeCanvas introuvable !");
+} else {
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
 
-// Lumières
-const ambient = new THREE.AmbientLight(0xffffff, 0.8);
-const directional = new THREE.DirectionalLight(0xffffff, 1.2);
-directional.position.set(5, 2, 5);
-scene.add(ambient, directional);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+  dirLight.position.set(3, 2, 5);
+  scene.add(ambientLight, dirLight);
 
-// === Texture (haute qualité, fiable) ===
-const loader = new THREE.TextureLoader();
-loader.load("https://raw.githubusercontent.com/pmndrs/drei-assets/master/textures/earth-night.jpg", (texture) => {
-  const globeGeo = new THREE.SphereGeometry(2, 128, 128);
-  const globeMat = new THREE.MeshStandardMaterial({
-    map: texture,
-    emissive: new THREE.Color(0x001122),
-    emissiveIntensity: 0.6,
-    roughness: 1,
+  // === Globe de base (même sans texture) ===
+  const geometry = new THREE.SphereGeometry(2, 128, 128);
+  const material = new THREE.MeshStandardMaterial({
+    color: 0x113355,
+    emissive: 0x002244,
+    emissiveIntensity: 0.4,
   });
-  const globe = new THREE.Mesh(globeGeo, globeMat);
+  const globe = new THREE.Mesh(geometry, material);
   scene.add(globe);
 
-  // Points lumineux (villes)
+  // === Points bleus ===
   const dotGeo = new THREE.SphereGeometry(0.015, 8, 8);
   const dotMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
   for (let i = 0; i < 400; i++) {
     const lat = Math.random() * 180 - 90;
     const lon = Math.random() * 360 - 180;
-    const pos = latLonToVec(lat, lon, 2.03);
+    const pos = latLonToVec(lat, lon, 2.05);
     const dot = new THREE.Mesh(dotGeo, dotMat);
     dot.position.copy(pos);
     scene.add(dot);
   }
 
-  // Halo atmosphérique
-  const glowGeo = new THREE.SphereGeometry(2.1, 64, 64);
-  const glowMat = new THREE.MeshBasicMaterial({
-    color: 0x38bdf8,
-    transparent: true,
-    opacity: 0.15,
-  });
-  const glow = new THREE.Mesh(glowGeo, glowMat);
-  scene.add(glow);
+  // === Texture Terre ===
+  const loader = new THREE.TextureLoader();
+  loader.load(
+    "https://raw.githubusercontent.com/datasets/planet-earth/master/data/earth-dark.jpg",
+    (texture) => {
+      globe.material.map = texture;
+      globe.material.needsUpdate = true;
+      console.log("✅ Texture chargée !");
+    },
+    undefined,
+    (err) => console.warn("⚠️ Texture non chargée :", err)
+  );
 
-  // === Arcs multicolores ===
-  const colorSet = [0xff7a00, 0x8b5cf6, 0x22d3ee, 0xec4899];
-  const routes = [
-    [{ lat: 5.35, lon: -4 }, { lat: 48.85, lon: 2.35 }],   // Abidjan - Paris
-    [{ lat: 48.85, lon: 2.35 }, { lat: 40.71, lon: -74.0 }], // Paris - NY
-    [{ lat: 48.85, lon: 2.35 }, { lat: 35.68, lon: 139.69 }], // Paris - Tokyo
-    [{ lat: 5.35, lon: -4 }, { lat: 51.51, lon: -0.13 }],   // Abidjan - Londres
-  ];
+  camera.position.z = 5;
+  camera.position.y = 0.5;
+  camera.rotation.x = -0.2;
 
-  const movers = [];
+  function latLonToVec(lat, lon, r = 2) {
+    const phi = (90 - lat) * Math.PI / 180;
+    const theta = (lon + 180) * Math.PI / 180;
+    return new THREE.Vector3(
+      -(r * Math.sin(phi) * Math.cos(theta)),
+      r * Math.cos(phi),
+      r * Math.sin(phi) * Math.sin(theta)
+    );
+  }
 
-  routes.forEach((route, i) => {
-    const color = colorSet[i % colorSet.length];
-    const mat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.7 });
-    const start = latLonToVec(route[0].lat, route[0].lon);
-    const end = latLonToVec(route[1].lat, route[1].lon);
-    const mid = start.clone().add(end).multiplyScalar(0.5).setLength(2.3);
-    const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
-
-    const points = curve.getPoints(100);
-    const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
-    const line = new THREE.Line(lineGeo, mat);
-    scene.add(line);
-
-    // Flux lumineux sur chaque arc
-    const flowGeo = new THREE.SphereGeometry(0.04, 16, 16);
-    const flowMat = new THREE.MeshBasicMaterial({ color, emissive: color, emissiveIntensity: 1 });
-    const flow = new THREE.Mesh(flowGeo, flowMat);
-    scene.add(flow);
-    movers.push({ curve, flow, progress: Math.random() });
-  });
-
-  // Caméra
-  camera.position.z = 5.5;
-  camera.position.y = 0.8;
-  camera.rotation.x = -0.3;
-
-  // === Animation ===
+  // Animation
   function animate() {
     requestAnimationFrame(animate);
     globe.rotation.y += 0.0018;
-    glow.rotation.y += 0.0018;
-
-    // rotation fluide des arcs
-    scene.traverse(obj => { if (obj.type === "Line") obj.rotation.y += 0.0018; });
-
-    // flux animés
-    movers.forEach(m => {
-      m.progress += 0.006;
-      if (m.progress > 1) m.progress = 0;
-      const pos = m.curve.getPointAt(m.progress);
-      m.flow.position.copy(pos);
+    scene.traverse(obj => {
+      if (obj.type === "Mesh" && obj.geometry.type === "SphereGeometry" && obj !== globe) {
+        obj.rotation.y += 0.0018;
+      }
     });
-
     renderer.render(scene, camera);
   }
   animate();
-});
 
-// === Fonction lat/lon → position 3D ===
-function latLonToVec(lat, lon, r = 2) {
-  const phi = (90 - lat) * Math.PI / 180;
-  const theta = (lon + 180) * Math.PI / 180;
-  return new THREE.Vector3(
-    -(r * Math.sin(phi) * Math.cos(theta)),
-    r * Math.cos(phi),
-    r * Math.sin(phi) * Math.sin(theta)
-  );
+  window.addEventListener("resize", () => {
+    camera.aspect = canvas.clientWidth / canvas.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+  });
 }
-
-// === Responsive ===
-window.addEventListener("resize", () => {
-  camera.aspect = canvas.clientWidth / canvas.clientHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-});
 </script>
+
 
 
 </body>
