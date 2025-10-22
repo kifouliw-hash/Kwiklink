@@ -1184,35 +1184,21 @@ footer {
   height: 420px;
 }
 
-#globeCanvas {
-  width: 100%;
-  height: 420px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 40% 40%, #111827, #0a0f1f);
+
 }
-.globe-video-container {
-  position: relative;
-  width: 100%;
-  height: 420px;
-  overflow: hidden;
+/* Effet de halo doux autour du globe */
+.globe-video-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   border-radius: 50%;
-  background: radial-gradient(circle at 40% 40%, #0a1020, #060812);
-  box-shadow: 0 0 80px rgba(0, 136, 255, 0.15);
+  box-shadow: 0 0 90px 20px rgba(0, 136, 255, 0.25);
+  animation: pulseHalo 6s ease-in-out infinite alternate;
 }
 
-.globe-video {
-  width: 150%;
-  height: 150%;
-  object-fit: cover;
-  transform: rotate(0deg);
-  animation: slowRotate 60s linear infinite;
-  opacity: 0.9;
-}
-
-/* Animation fluide de rotation lente */
-@keyframes slowRotate {
-  from { transform: rotate(0deg) scale(1.1); }
-  to { transform: rotate(360deg) scale(1.1); }
+@keyframes pulseHalo {
+  from { box-shadow: 0 0 80px 10px rgba(0, 136, 255, 0.25); }
+  to { box-shadow: 0 0 100px 25px rgba(0, 136, 255, 0.4); }
 }
 
 
