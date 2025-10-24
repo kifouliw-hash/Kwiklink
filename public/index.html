@@ -1363,6 +1363,29 @@ footer {
   from { transform: translateY(0); }
   to { transform: translateY(-10px); }
 }
+.paiement-btn {
+  background: linear-gradient(90deg, #ff7a00, #00b87c, #8b5cf6);
+  color: #fff;
+  font-weight: 600;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 6px 16px rgba(0, 184, 124, 0.2);
+  background-size: 300% 300%;
+  animation: btnGradient 5s ease-in-out infinite;
+}
+
+@keyframes btnGradient {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.paiement-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 184, 124, 0.35);
+}
 
 
 
