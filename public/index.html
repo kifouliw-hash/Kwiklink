@@ -1229,6 +1229,96 @@ footer {
   from { transform: scale(1); }
   to { transform: scale(1.05); }
 }
+/* === SECTION PAIEMENTS ANIMÉE === */
+.paiement-section {
+  position: relative;
+  padding: 140px 8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.paiement-visual {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite alternate;
+}
+
+.node {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 50%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #333;
+  transition: transform .3s;
+}
+
+.node span {
+  font-size: 0.7rem;
+  color: #666;
+  margin-top: 4px;
+}
+
+.node.center {
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(90deg, #ff7a00, #8b5cf6);
+  color: white;
+  font-size: 1.8rem;
+}
+
+.node.n1 { top: 10%; left: 10%; }
+.node.n2 { top: 15%; right: 5%; }
+.node.n3 { bottom: 5%; left: 30%; }
+
+.node:hover { transform: scale(1.08); }
+
+/* === LIGNES ANIMÉES === */
+.paiement-lines {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.line {
+  fill: none;
+  stroke: url(#grad);
+  stroke-width: 2.5;
+  stroke-dasharray: 5 8;
+  animation: dashFlow 2s linear infinite;
+}
+
+@keyframes dashFlow {
+  to { stroke-dashoffset: -20; }
+}
+
+/* === DÉGRADÉ LUMINEUX === */
+.paiement-lines defs,
+.paiement-lines path {
+  stroke: url(#grad);
+}
+
+.paiement-lines::before {
+  content: '';
+}
+
+/* === ANIMATION FLUIDE === */
+@keyframes float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
 
 
 
@@ -1385,15 +1475,42 @@ footer {
 
 
   <!-- 4. Paiements -->
-  <section id="paiements">
-    <div class="text">
-      <h2>Prenez en charge les paiements à plusieurs bénéficiaires</h2>
-      <p>Offrez des expériences de paiement de bout en bout grâce à notre plateforme connectée entre clients, marchands et banques partenaires.</p>
+  <section id="paiements" class="paiement-section">
+  <div class="text">
+    <h2>Automatisez vos paiements à plusieurs bénéficiaires</h2>
+    <p>
+      Distribuez un paiement unique vers plusieurs comptes, portefeuilles ou partenaires grâce à l’intelligence de KwikLink.
+    </p>
+    <button class="tpe-btn" onclick="window.location.href='paiements.html'">
+      Voir la simulation complète →
+    </button>
+  </div>
+
+  <div class="visual">
+    <div class="paiement-visual">
+      <div class="node center">💳<span>Client</span></div>
+      <div class="node n1">🏦<span>Banque</span></div>
+      <div class="node n2">🛍️<span>Marchand</span></div>
+      <div class="node n3">🤝<span>Partenaire</span></div>
+      <svg class="paiement-lines" viewBox="0 0 400 400">
+        <path class="line l1" d="M200,200 Q150,120 80,100" />
+        <path class="line l2" d="M200,200 Q300,120 340,160" />
+        <path class="line l3" d="M200,200 Q220,300 150,340" />
+      </svg>
+      <defs>
+  <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#ff7a00">
+      <animate attributeName="stop-color" values="#ff7a00;#00b87c;#8b5cf6;#ff7a00" dur="6s" repeatCount="indefinite" />
+    </stop>
+    <stop offset="100%" stop-color="#00b87c">
+      <animate attributeName="stop-color" values="#00b87c;#8b5cf6;#ff7a00;#00b87c" dur="6s" repeatCount="indefinite" />
+    </stop>
+  </linearGradient>
+</defs>
     </div>
-    <div class="visual">
-      <div class="visual-placeholder">Flux Paiement</div>
-    </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- 5. Tarifs -->
   <section id="tarifs">
