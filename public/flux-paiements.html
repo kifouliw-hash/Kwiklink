@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KwikLink — Simulation interactive de paiements</title>
+  <title>KwikLink – Simulation de flux de paiements</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
@@ -24,7 +24,7 @@
     }
 
     body {
-      background: linear-gradient(135deg, #fff, #f9fafb);
+      background: linear-gradient(135deg, #ffffff, #faf9f8);
       color: var(--text-dark);
       overflow-x: hidden;
       min-height: 100vh;
@@ -59,24 +59,24 @@
     }
     header a:hover { color: var(--green); }
 
-    /* ===== HERO ===== */
+    /* === HERO === */
     .hero {
+      padding: 120px 8%;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      padding: 120px 8%;
       gap: 60px;
-      position: relative;
     }
 
     .hero-text {
       flex: 1;
-      min-width: 320px;
+      min-width: 340px;
     }
 
     .hero-text h1 {
       font-size: 2.8rem;
+      line-height: 1.2;
       background: linear-gradient(90deg, var(--orange), var(--green), var(--violet));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -113,20 +113,19 @@
       box-shadow: 0 10px 25px rgba(0, 184, 124, 0.35);
     }
 
-    /* ===== VISUAL ZONE ===== */
-    .flow-visual {
+    /* === FLOW === */
+    .flow-container {
       position: relative;
-      width: 420px;
-      height: 420px;
       flex: 1;
+      width: 450px;
+      height: 450px;
       margin: 0 auto;
-      animation: float 6s ease-in-out infinite alternate;
     }
 
     .node {
       position: absolute;
-      width: 90px;
-      height: 90px;
+      width: 100px;
+      height: 100px;
       background: rgba(255,255,255,0.95);
       border-radius: 50%;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
@@ -136,15 +135,15 @@
       align-items: center;
       font-size: 1.8rem;
       color: #333;
-      cursor: pointer;
-      transition: transform 0.3s;
       z-index: 2;
+      cursor: pointer;
+      transition: 0.3s ease;
     }
 
     .node span {
       font-size: 0.8rem;
-      color: #666;
-      margin-top: 4px;
+      margin-top: 5px;
+      color: #555;
     }
 
     .node.center {
@@ -152,13 +151,14 @@
       transform: translate(-50%, -50%);
       background: linear-gradient(90deg, #ff7a00, #8b5cf6);
       color: #fff;
+      font-weight: 600;
     }
+
+    .node:hover { transform: scale(1.08); }
 
     .node.n1 { top: 10%; left: 10%; }
     .node.n2 { top: 15%; right: 5%; }
     .node.n3 { bottom: 5%; left: 30%; }
-
-    .node:hover { transform: scale(1.1); }
 
     svg {
       position: absolute;
@@ -171,50 +171,38 @@
       fill: none;
       stroke: url(#grad);
       stroke-width: 3;
-      stroke-linecap: round;
       stroke-dasharray: 10 12;
       animation: dashFlow 3s linear infinite;
-      opacity: 0.9;
-      filter: drop-shadow(0 0 6px rgba(255,255,255,0.3));
+      opacity: 0.8;
     }
 
-    @keyframes dashFlow {
-      to { stroke-dashoffset: -30; }
-    }
+    @keyframes dashFlow { to { stroke-dashoffset: -30; } }
 
     .bubble {
       position: absolute;
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
       background: linear-gradient(90deg, var(--orange), var(--green));
       box-shadow: 0 0 10px rgba(0,184,124,0.4);
       opacity: 0;
-      z-index: 1;
     }
 
-    /* Message de transfert */
-    .transfer-message {
+    .message {
       position: absolute;
       bottom: -60px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(255,255,255,0.9);
-      padding: 12px 20px;
+      padding: 10px 20px;
       border-radius: 50px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
       font-weight: 600;
       color: var(--text-dim);
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.3s;
     }
 
-    .transfer-message.active { opacity: 1; }
-
-    @keyframes float {
-      from { transform: translateY(0); }
-      to { transform: translateY(-10px); }
-    }
+    .message.active { opacity: 1; }
 
     footer {
       background: #fff;
@@ -224,10 +212,15 @@
       font-size: 0.9rem;
       border-top: 1px solid rgba(0,0,0,0.05);
     }
+
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
   </style>
 </head>
-<body>
 
+<body>
 <header>
   <div class="logo">KwikLink</div>
   <a href="index.html">← Retour à l’accueil</a>
@@ -237,15 +230,15 @@
   <div class="hero-text">
     <h1>Simulation interactive de flux de paiements</h1>
     <p>
-      Cliquez sur le client pour visualiser la distribution automatique d’un paiement
-      vers plusieurs bénéficiaires. KwikLink gère tout, en temps réel.
+      Cliquez sur le client pour observer la distribution automatique d’un paiement unique
+      vers plusieurs bénéficiaires : marchands, partenaires et banques.
     </p>
     <button class="paiement-btn" onclick="window.location.href='documentation.html'">
       Explorer l’API →
     </button>
   </div>
 
-  <div class="flow-visual" id="flow">
+  <div class="flow-container">
     <div class="node center" id="client">💳<span>Client</span></div>
     <div class="node n1">🏦<span>Banque</span></div>
     <div class="node n2">🛍️<span>Marchand</span></div>
@@ -268,61 +261,60 @@
     </svg>
 
     <div class="bubble" id="bubble"></div>
-    <div class="transfer-message" id="message">Paiement envoyé</div>
+    <div class="message" id="msg">Paiement envoyé</div>
   </div>
 </section>
 
 <footer>
-  © 2025 KwikLink — Simulation interactive | Tous droits réservés
+  © 2025 KwikLink — Simulation de flux de paiements | Tous droits réservés
 </footer>
 
 <script>
-  const client = document.getElementById('client');
-  const bubble = document.getElementById('bubble');
-  const message = document.getElementById('message');
+const client = document.getElementById("client");
+const bubble = document.getElementById("bubble");
+const msg = document.getElementById("msg");
 
-  // Coordonnées approximatives des cibles
-  const targets = [
-    { x: 100, y: 100, name: 'Banque 🏦' },
-    { x: 340, y: 160, name: 'Marchand 🛍️' },
-    { x: 160, y: 340, name: 'Partenaire 🤝' }
-  ];
+const targets = [
+  { x: 100, y: 100, label: "Banque 🏦" },
+  { x: 340, y: 160, label: "Marchand 🛍️" },
+  { x: 160, y: 340, label: "Partenaire 🤝" }
+];
 
-  client.addEventListener('click', () => {
-    let i = 0;
-    message.classList.remove('active');
-    bubble.style.opacity = 0;
+client.addEventListener("click", () => {
+  let i = 0;
+  msg.classList.remove("active");
+  bubble.style.opacity = 0;
 
-    const sendToNext = () => {
-      if (i >= targets.length) {
-        message.textContent = "Tous les bénéficiaires ont été crédités ✔️";
-        message.classList.add('active');
-        return;
-      }
+  const moveNext = () => {
+    if (i >= targets.length) {
+      msg.textContent = "✅ Tous les bénéficiaires ont été crédités";
+      msg.classList.add("active");
+      return;
+    }
 
-      const target = targets[i];
-      bubble.style.transition = 'none';
-      bubble.style.left = '200px';
-      bubble.style.top = '200px';
-      bubble.style.opacity = 1;
+    const target = targets[i];
+    bubble.style.transition = "none";
+    bubble.style.left = "200px";
+    bubble.style.top = "200px";
+    bubble.style.opacity = 1;
 
-      setTimeout(() => {
-        bubble.style.transition = 'all 1.5s ease';
-        bubble.style.left = target.x + 'px';
-        bubble.style.top = target.y + 'px';
-      }, 50);
+    setTimeout(() => {
+      bubble.style.transition = "all 1.5s ease";
+      bubble.style.left = target.x + "px";
+      bubble.style.top = target.y + "px";
+    }, 50);
 
-      setTimeout(() => {
-        message.textContent = "Paiement envoyé à " + target.name;
-        message.classList.add('active');
-        setTimeout(() => message.classList.remove('active'), 1200);
-        i++;
-        sendToNext();
-      }, 1800);
-    };
+    setTimeout(() => {
+      msg.textContent = "Paiement envoyé à " + target.label;
+      msg.classList.add("active");
+      setTimeout(() => msg.classList.remove("active"), 1200);
+      i++;
+      moveNext();
+    }, 1800);
+  };
 
-    sendToNext();
-  });
+  moveNext();
+});
 </script>
 </body>
 </html>
