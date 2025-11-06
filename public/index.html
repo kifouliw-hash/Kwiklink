@@ -804,13 +804,18 @@ footer {
   #commerce .globe-wrapper {
     width: 90vw !important;
     height: 90vw !important;
-    max-width: 400px !important;
-    max-height: 400px !important;
+    max-width: 450px !important;
+    max-height: 450px !important;
   }
   
   #commerce > div > div:first-child > div:last-child {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 24px !important;
+  }
+  
+  .phone-mockup {
+    width: 240px !important;
+    height: 480px !important;
   }
 }
 </style>
@@ -923,20 +928,44 @@ footer {
   <section id="showcase">
     <div class="showcase-container">
       <div class="showcase-content">
+        <div style="display: inline-block; background: rgba(139, 92, 246, 0.1); color: var(--violet); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 20px;">
+          💡 Innovation
+        </div>
         <h2>KwikLink TPE<br>Le terminal nouvelle génération</h2>
         <p>
           Transformez n'importe quel smartphone en terminal de paiement professionnel. 
           Encaissez par QR Code, NFC ou lien de paiement. Générez des reçus automatiques 
           et suivez vos ventes en temps réel.
         </p>
+        
+        <!-- Features list -->
+        <div style="margin: 32px 0;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(0,184,124,0.1); display: flex; align-items: center; justify-content: center; color: var(--green); font-size: 1.2rem;">✓</div>
+            <span style="color: var(--text-medium); font-size: 1rem;">Encaissement instantané par QR Code ou NFC</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(0,184,124,0.1); display: flex; align-items: center; justify-content: center; color: var(--green); font-size: 1.2rem;">✓</div>
+            <span style="color: var(--text-medium); font-size: 1rem;">Reçus digitaux automatiques sécurisés</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(0,184,124,0.1); display: flex; align-items: center; justify-content: center; color: var(--green); font-size: 1.2rem;">✓</div>
+            <span style="color: var(--text-medium); font-size: 1rem;">Compatible avec tous les smartphones</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(0,184,124,0.1); display: flex; align-items: center; justify-content: center; color: var(--green); font-size: 1.2rem;">✓</div>
+            <span style="color: var(--text-medium); font-size: 1rem;">Suivi des ventes en temps réel</span>
+          </div>
+        </div>
+        
         <button class="btn-primary" onclick="window.location.href='tpe.html'">
           Découvrir KwikLink TPE →
         </button>
       </div>
       <div class="showcase-visual">
-        <div class="phone-mockup">
+        <div class="phone-mockup" style="width: 280px; height: 560px;">
           <div class="phone-screen">
-            <img src="tpe-kwiklink-demo.png" alt="KwikLink TPE" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'320\' height=\'640\'%3E%3Crect fill=\'%23ffffff\' width=\'320\' height=\'640\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' fill=\'%23425466\' font-family=\'Inter\' font-size=\'18\'%3ETPE Preview%3C/text%3E%3C/svg%3E'">
+            <img src="tpe-kwiklink-demo.png" alt="KwikLink TPE" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.objectFit='contain'; this.style.padding='20px'; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'280\' height=\'560\' viewBox=\'0 0 280 560\'%3E%3Crect fill=\'%23f6f9fc\' width=\'280\' height=\'560\'/%3E%3Crect x=\'20\' y=\'80\' width=\'240\' height=\'120\' rx=\'12\' fill=\'white\' stroke=\'%23e5e7eb\' stroke-width=\'2\'/%3E%3Ctext x=\'140\' y=\'130\' text-anchor=\'middle\' fill=\'%23ff7a00\' font-family=\'Inter\' font-weight=\'bold\' font-size=\'24\'%3EKwikLink%3C/text%3E%3Ctext x=\'140\' y=\'160\' text-anchor=\'middle\' fill=\'%2300b87c\' font-family=\'Inter\' font-size=\'18\'%3ETPE%3C/text%3E%3Crect x=\'30\' y=\'230\' width=\'220\' height=\'180\' rx=\'8\' fill=\'%23334155\'/%3E%3Ctext x=\'140\' y=\'275\' text-anchor=\'middle\' fill=\'%23ff7a00\' font-family=\'Inter\' font-weight=\'bold\' font-size=\'16\'%3EKwikLink%3C/text%3E%3Ccircle cx=\'80\' cy=\'330\' r=\'18\' fill=\'%23475569\'/%3E%3Ctext x=\'80\' y=\'338\' text-anchor=\'middle\' fill=\'white\' font-family=\'Inter\' font-size=\'16\'%3E1%3C/text%3E%3Ccircle cx=\'140\' cy=\'330\' r=\'18\' fill=\'%23475569\'/%3E%3Ctext x=\'140\' y=\'338\' text-anchor=\'middle\' fill=\'white\' font-family=\'Inter\' font-size=\'16\'%3E2%3C/text%3E%3Ccircle cx=\'200\' cy=\'330\' r=\'18\' fill=\'%23475569\'/%3E%3Ctext x=\'200\' y=\'338\' text-anchor=\'middle\' fill=\'white\' font-family=\'Inter\' font-size=\'16\'%3E3%3C/text%3E%3Ccircle cx=\'80\' cy=\'375\' r=\'18\' fill=\'%23475569\'/%3E%3Ctext x=\'80\' y=\'383\' text-anchor=\'middle\' fill=\'white\' font-family=\'Inter\' font-size=\'16\'%3E4%3C/text%3E%3Ccircle cx=\'140\' cy=\'375\' r=\'18\' fill=\'%23475569\'/%3E%3Ctext x=\'140\' y=\'383\' text-anchor=\'middle\' fill=\'white\' font-family=\'Inter\' font-size=\'16\'%3E5%3C/text%3E%3Ccircle cx=\'200\' cy=\'375\' r=\'18\' fill=\'%23475569\'/%3E%3Ctext x=\'200\' y=\'383\' text-anchor=\'middle\' fill=\'white\' font-family=\'Inter\' font-size=\'16\'%3E6%3C/text%3E%3C/svg%3E';">
           </div>
         </div>
       </div>
@@ -1048,25 +1077,27 @@ footer {
       
       <!-- Right globe -->
       <div style="flex: 1; display: flex; justify-content: center; align-items: center; position: relative;">
-        <div class="globe-wrapper" style="position: relative; width: 550px; height: 550px;">
+        <div class="globe-wrapper" style="position: relative; width: 650px; height: 650px;">
           <!-- Glow effect -->
-          <div style="position: absolute; inset: -20px; background: radial-gradient(circle, rgba(99, 242, 242, 0.2), transparent 60%); border-radius: 50%; filter: blur(40px); animation: pulse-glow 4s ease-in-out infinite;"></div>
+          <div style="position: absolute; inset: -30px; background: radial-gradient(circle, rgba(99, 242, 242, 0.25), transparent 65%); border-radius: 50%; filter: blur(50px); animation: pulse-glow 4s ease-in-out infinite;"></div>
           
           <!-- Globe container -->
-          <div style="position: relative; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.6), inset 0 0 80px rgba(99, 242, 242, 0.1);">
+          <div style="position: relative; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; box-shadow: 0 50px 120px rgba(0,0,0,0.7), inset 0 0 100px rgba(99, 242, 242, 0.15);">
             <video autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: cover;">
               <source src="https://res.cloudinary.com/dmnbn7slz/video/upload/v1761141045/globe-paiement_u881ia.mp4" type="video/mp4">
             </video>
           </div>
           
           <!-- Rotating ring -->
-          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; border: 2px solid rgba(99, 242, 242, 0.3); border-radius: 50%; animation: rotate-ring 20s linear infinite;"></div>
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 700px; height: 700px; border: 2px solid rgba(99, 242, 242, 0.3); border-radius: 50%; animation: rotate-ring 20s linear infinite;"></div>
           
-          <!-- Connection dots -->
-          <div class="connection-dot" style="position: absolute; top: 20%; left: 15%; width: 8px; height: 8px; background: #63f2f2; border-radius: 50%; box-shadow: 0 0 20px #63f2f2; animation: pulse-dot 2s ease-in-out infinite;"></div>
-          <div class="connection-dot" style="position: absolute; top: 30%; right: 20%; width: 8px; height: 8px; background: #ff7a00; border-radius: 50%; box-shadow: 0 0 20px #ff7a00; animation: pulse-dot 2s ease-in-out infinite 0.5s;"></div>
-          <div class="connection-dot" style="position: absolute; bottom: 25%; left: 25%; width: 8px; height: 8px; background: #8b5cf6; border-radius: 50%; box-shadow: 0 0 20px #8b5cf6; animation: pulse-dot 2s ease-in-out infinite 1s;"></div>
-          <div class="connection-dot" style="position: absolute; bottom: 30%; right: 15%; width: 8px; height: 8px; background: #00b87c; border-radius: 50%; box-shadow: 0 0 20px #00b87c; animation: pulse-dot 2s ease-in-out infinite 1.5s;"></div>
+          <!-- Connection dots (plus nombreux) -->
+          <div class="connection-dot" style="position: absolute; top: 15%; left: 12%; width: 10px; height: 10px; background: #63f2f2; border-radius: 50%; box-shadow: 0 0 25px #63f2f2; animation: pulse-dot 2s ease-in-out infinite;"></div>
+          <div class="connection-dot" style="position: absolute; top: 25%; right: 18%; width: 10px; height: 10px; background: #ff7a00; border-radius: 50%; box-shadow: 0 0 25px #ff7a00; animation: pulse-dot 2s ease-in-out infinite 0.5s;"></div>
+          <div class="connection-dot" style="position: absolute; bottom: 20%; left: 20%; width: 10px; height: 10px; background: #8b5cf6; border-radius: 50%; box-shadow: 0 0 25px #8b5cf6; animation: pulse-dot 2s ease-in-out infinite 1s;"></div>
+          <div class="connection-dot" style="position: absolute; bottom: 28%; right: 12%; width: 10px; height: 10px; background: #00b87c; border-radius: 50%; box-shadow: 0 0 25px #00b87c; animation: pulse-dot 2s ease-in-out infinite 1.5s;"></div>
+          <div class="connection-dot" style="position: absolute; top: 45%; left: 8%; width: 8px; height: 8px; background: #63f2f2; border-radius: 50%; box-shadow: 0 0 20px #63f2f2; animation: pulse-dot 2.5s ease-in-out infinite 0.3s;"></div>
+          <div class="connection-dot" style="position: absolute; top: 38%; right: 10%; width: 8px; height: 8px; background: #ff7a00; border-radius: 50%; box-shadow: 0 0 20px #ff7a00; animation: pulse-dot 2.5s ease-in-out infinite 0.8s;"></div>
         </div>
       </div>
     </div>
