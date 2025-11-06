@@ -605,6 +605,21 @@ header nav a:hover::after {
   }
 }
 
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+@keyframes rotate-ring {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
 #cta .content {
   position: relative;
   z-index: 1;
@@ -779,6 +794,23 @@ footer {
   .footer-content {
     grid-template-columns: 1fr;
     gap: 40px;
+  }
+  
+  #commerce > div {
+    flex-direction: column !important;
+    text-align: center;
+  }
+  
+  #commerce .globe-wrapper {
+    width: 90vw !important;
+    height: 90vw !important;
+    max-width: 400px !important;
+    max-height: 400px !important;
+  }
+  
+  #commerce > div > div:first-child > div:last-child {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 24px !important;
   }
 }
 </style>
@@ -972,41 +1004,69 @@ footer {
     </div>
   </section>
 
-  <!-- === COMMERCE MONDIAL === -->
-  <section id="commerce" style="padding: 140px 6%; background: var(--bg-light); position: relative; overflow: hidden;">
-    <div class="showcase-container">
-      <div class="showcase-content">
-        <h2>Connectez le monde avec KwikLink</h2>
-        <p>
-          Vos paiements franchissent les frontières sans friction. Notre technologie relie 
-          les systèmes de paiement entre l'Afrique, l'Europe et le reste du monde pour offrir 
-          des transactions instantanées et transparentes.
+  <!-- === COMMERCE MONDIAL (Style Stripe) === -->
+  <section id="commerce" style="padding: 140px 6%; background: #0a2540; position: relative; overflow: hidden; color: white;">
+    <!-- Animated background lines -->
+    <canvas id="bgCanvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.6;"></canvas>
+    
+    <div style="position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 100px;">
+      
+      <!-- Left content -->
+      <div style="flex: 1; max-width: 600px;">
+        <div style="display: inline-block; background: rgba(99, 242, 242, 0.15); color: #63f2f2; padding: 8px 16px; border-radius: 24px; font-size: 0.85rem; font-weight: 600; margin-bottom: 32px; letter-spacing: 0.02em;">
+          Une portée internationale
+        </div>
+        
+        <h2 style="font-size: 3.5rem; line-height: 1.1; font-weight: 800; margin-bottom: 28px; letter-spacing: -0.03em; color: white;">
+          La solution idéale pour le commerce mondial
+        </h2>
+        
+        <p style="font-size: 1.15rem; line-height: 1.7; color: rgba(255,255,255,0.75); margin-bottom: 60px;">
+          Vos paiements franchissent les frontières sans friction. Notre technologie relie les systèmes de paiement entre l'Afrique, l'Europe et le reste du monde pour offrir des transactions instantanées et transparentes.
         </p>
-        <div class="stats-mini" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 40px;">
+        
+        <!-- Stats horizontales comme Stripe -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;">
           <div>
-            <h4 style="font-size: 2rem; font-weight: 800; color: var(--green); margin-bottom: 8px;">+70</h4>
-            <p style="color: var(--text-medium); font-size: 0.95rem;">Pays connectés</p>
+            <div style="font-size: 2.2rem; font-weight: 800; color: #63f2f2; margin-bottom: 8px;">+70</div>
+            <div style="font-size: 0.9rem; color: rgba(255,255,255,0.6); line-height: 1.4;">Pays connectés</div>
           </div>
           <div>
-            <h4 style="font-size: 2rem; font-weight: 800; color: var(--orange); margin-bottom: 8px;">+10</h4>
-            <p style="color: var(--text-medium); font-size: 0.95rem;">Devises supportées</p>
+            <div style="font-size: 2.2rem; font-weight: 800; color: #ff7a00; margin-bottom: 8px;">+10</div>
+            <div style="font-size: 0.9rem; color: rgba(255,255,255,0.6); line-height: 1.4;">Devises supportées</div>
           </div>
           <div>
-            <h4 style="font-size: 2rem; font-weight: 800; color: var(--violet); margin-bottom: 8px;">10M+</h4>
-            <p style="color: var(--text-medium); font-size: 0.95rem;">Requêtes API/jour</p>
+            <div style="font-size: 2.2rem; font-weight: 800; color: #8b5cf6; margin-bottom: 8px;">10M+</div>
+            <div style="font-size: 0.9rem; color: rgba(255,255,255,0.6); line-height: 1.4;">Requêtes API/jour</div>
           </div>
           <div>
-            <h4 style="font-size: 2rem; font-weight: 800; color: var(--green); margin-bottom: 8px;">99.9%</h4>
-            <p style="color: var(--text-medium); font-size: 0.95rem;">Disponibilité</p>
+            <div style="font-size: 2.2rem; font-weight: 800; color: #00b87c; margin-bottom: 8px;">99.9%</div>
+            <div style="font-size: 0.9rem; color: rgba(255,255,255,0.6); line-height: 1.4;">Disponibilité</div>
           </div>
         </div>
       </div>
-      <div class="showcase-visual">
-        <div class="globe-container" style="width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(0,184,124,0.1), transparent); display: flex; align-items: center; justify-content: center; position: relative; animation: float 8s ease-in-out infinite;">
-          <video autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; box-shadow: 0 30px 80px rgba(0,0,0,0.15);">
-            <source src="https://res.cloudinary.com/dmnbn7slz/video/upload/v1761141045/globe-paiement_u881ia.mp4" type="video/mp4">
-          </video>
-          <div style="position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(0,184,124,0.3); animation: pulse-border 3s ease-in-out infinite;"></div>
+      
+      <!-- Right globe -->
+      <div style="flex: 1; display: flex; justify-content: center; align-items: center; position: relative;">
+        <div class="globe-wrapper" style="position: relative; width: 550px; height: 550px;">
+          <!-- Glow effect -->
+          <div style="position: absolute; inset: -20px; background: radial-gradient(circle, rgba(99, 242, 242, 0.2), transparent 60%); border-radius: 50%; filter: blur(40px); animation: pulse-glow 4s ease-in-out infinite;"></div>
+          
+          <!-- Globe container -->
+          <div style="position: relative; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.6), inset 0 0 80px rgba(99, 242, 242, 0.1);">
+            <video autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: cover;">
+              <source src="https://res.cloudinary.com/dmnbn7slz/video/upload/v1761141045/globe-paiement_u881ia.mp4" type="video/mp4">
+            </video>
+          </div>
+          
+          <!-- Rotating ring -->
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; border: 2px solid rgba(99, 242, 242, 0.3); border-radius: 50%; animation: rotate-ring 20s linear infinite;"></div>
+          
+          <!-- Connection dots -->
+          <div class="connection-dot" style="position: absolute; top: 20%; left: 15%; width: 8px; height: 8px; background: #63f2f2; border-radius: 50%; box-shadow: 0 0 20px #63f2f2; animation: pulse-dot 2s ease-in-out infinite;"></div>
+          <div class="connection-dot" style="position: absolute; top: 30%; right: 20%; width: 8px; height: 8px; background: #ff7a00; border-radius: 50%; box-shadow: 0 0 20px #ff7a00; animation: pulse-dot 2s ease-in-out infinite 0.5s;"></div>
+          <div class="connection-dot" style="position: absolute; bottom: 25%; left: 25%; width: 8px; height: 8px; background: #8b5cf6; border-radius: 50%; box-shadow: 0 0 20px #8b5cf6; animation: pulse-dot 2s ease-in-out infinite 1s;"></div>
+          <div class="connection-dot" style="position: absolute; bottom: 30%; right: 15%; width: 8px; height: 8px; background: #00b87c; border-radius: 50%; box-shadow: 0 0 20px #00b87c; animation: pulse-dot 2s ease-in-out infinite 1.5s;"></div>
         </div>
       </div>
     </div>
@@ -1164,6 +1224,72 @@ footer {
 
     // Start typing animation when page loads
     typeCode();
+
+    // Canvas background animation (Stripe-style)
+    const canvas = document.getElementById('bgCanvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      
+      function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+      
+      // Animated lines
+      const lines = [];
+      const lineCount = 8;
+      
+      for (let i = 0; i < lineCount; i++) {
+        lines.push({
+          x1: Math.random() * canvas.width,
+          y1: Math.random() * canvas.height,
+          x2: Math.random() * canvas.width,
+          y2: Math.random() * canvas.height,
+          speedX1: (Math.random() - 0.5) * 0.5,
+          speedY1: (Math.random() - 0.5) * 0.5,
+          speedX2: (Math.random() - 0.5) * 0.5,
+          speedY2: (Math.random() - 0.5) * 0.5,
+          hue: Math.random() * 60 + 170 // Blue/cyan range
+        });
+      }
+      
+      function drawLines() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        lines.forEach(line => {
+          // Update positions
+          line.x1 += line.speedX1;
+          line.y1 += line.speedY1;
+          line.x2 += line.speedX2;
+          line.y2 += line.speedY2;
+          
+          // Bounce off edges
+          if (line.x1 < 0 || line.x1 > canvas.width) line.speedX1 *= -1;
+          if (line.y1 < 0 || line.y1 > canvas.height) line.speedY1 *= -1;
+          if (line.x2 < 0 || line.x2 > canvas.width) line.speedX2 *= -1;
+          if (line.y2 < 0 || line.y2 > canvas.height) line.speedY2 *= -1;
+          
+          // Draw line
+          const gradient = ctx.createLinearGradient(line.x1, line.y1, line.x2, line.y2);
+          gradient.addColorStop(0, `hsla(${line.hue}, 100%, 60%, 0.1)`);
+          gradient.addColorStop(0.5, `hsla(${line.hue}, 100%, 60%, 0.3)`);
+          gradient.addColorStop(1, `hsla(${line.hue}, 100%, 60%, 0.1)`);
+          
+          ctx.strokeStyle = gradient;
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(line.x1, line.y1);
+          ctx.lineTo(line.x2, line.y2);
+          ctx.stroke();
+        });
+        
+        requestAnimationFrame(drawLines);
+      }
+      
+      drawLines();
+    }
   </script>
 </body>
 </html>
