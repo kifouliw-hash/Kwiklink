@@ -499,44 +499,251 @@ header nav a:hover::after {
   position: relative;
 }
 
+/* === TPE AMÉLIORÉ === */
 .phone-mockup {
-  width: 320px;
-  height: 640px;
-  background: #000;
-  border-radius: 40px;
-  padding: 12px;
-  box-shadow: 
-    0 50px 100px rgba(0,0,0,0.2),
-    0 0 0 1px rgba(255,255,255,0.1);
-  margin: 0 auto;
+  width: 340px;
+  height: 700px;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border-radius: 48px;
+  padding: 16px;
+  box-shadow: 0 0 0 8px rgba(0,0,0,0.15), 0 50px 100px rgba(0,0,0,0.25);
   position: relative;
+  animation: float 6s ease-in-out infinite;
+  margin: 0 auto;
 }
 
+/* Notch */
 .phone-mockup::before {
   content: '';
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 120px;
-  height: 28px;
-  background: #000;
+  width: 140px;
+  height: 32px;
+  background: #0f172a;
   border-radius: 0 0 20px 20px;
   z-index: 10;
+}
+
+.phone-mockup::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background: #1e293b;
+  border-radius: 50%;
+  z-index: 11;
 }
 
 .phone-screen {
   width: 100%;
   height: 100%;
-  background: white;
-  border-radius: 32px;
+  background: linear-gradient(180deg, #fef3c7 0%, #fde68a 100%);
+  border-radius: 38px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.phone-screen img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+/* Status bar */
+.status-bar {
+  height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  color: #0a2540;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status-bar-left {
+  margin-left: 50px;
+}
+
+.status-bar-right {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+/* Content */
+.tpe-content {
+  flex: 1;
+  background: white;
+  border-radius: 30px 30px 0 0;
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+  position: relative;
+}
+
+/* Active indicator */
+.active-indicator {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 8px;
+  height: 8px;
+  background: #00b87c;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(0,184,124,0.2);
+  animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* Logo section avec NFC */
+.tpe-logo-section {
+  text-align: center;
+  background: linear-gradient(135deg, #fff 0%, #f9fafb 100%);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-bottom: 18px;
+  position: relative;
+}
+
+.nfc-logo {
+  font-size: 38px;
+  margin-bottom: 8px;
+  animation: pulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(0,184,124,0.3));
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.kwiklink-title {
+  font-size: 24px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #ff7a00, #00b87c, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Amount display */
+.amount-display {
+  background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+  border-radius: 14px;
+  padding: 24px 16px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.amount-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.amount-value {
+  font-size: 36px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #ff7a00, #00b87c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.amount-currency {
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* Keypad */
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: auto;
+}
+
+.key {
+  aspect-ratio: 1;
+  background: #f1f5f9;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #0f172a;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.key:active {
+  transform: scale(0.95);
+}
+
+.key-delete {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  font-size: 20px;
+}
+
+.key-validate {
+  background: linear-gradient(135deg, #00b87c, #059669);
+  color: white;
+  font-size: 20px;
+}
+
+/* Action buttons au bas du téléphone */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  padding: 12px 20px 20px;
+  background: white;
+}
+
+.btn-cancel {
+  flex: 1;
+  padding: 14px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(239,68,68,0.3);
+}
+
+.btn-validate {
+  flex: 1;
+  padding: 14px;
+  background: linear-gradient(135deg, #00b87c, #059669);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0,184,124,0.3);
+}
+
+.btn-cancel:hover, .btn-validate:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
 /* === STATS SECTION === */
@@ -592,32 +799,6 @@ header nav a:hover::after {
 @keyframes rotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
-
-@keyframes pulse-border {
-  0%, 100% { 
-    transform: scale(1); 
-    opacity: 0.5; 
-  }
-  50% { 
-    transform: scale(1.05); 
-    opacity: 0.8; 
-  }
-}
-
-@keyframes pulse-glow {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.1); }
-}
-
-@keyframes rotate-ring {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.5); }
 }
 
 #cta .content {
@@ -724,6 +905,97 @@ footer {
   font-size: 0.9rem;
 }
 
+/* === API SECTION === */
+#api {
+  padding: 140px 6%;
+  background: white;
+}
+
+.code-block {
+  background: #0f172a;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  font-family: 'Monaco', monospace;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  max-width: 550px;
+}
+
+/* === COMMERCE MONDIAL === */
+#commerce {
+  padding: 140px 6%;
+  background: #0a2540;
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+#commerce .globe-video-container {
+  position: relative;
+  width: 650px;
+  height: 650px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 50px 120px rgba(0,0,0,0.7), inset 0 0 100px rgba(99, 242, 242, 0.15);
+}
+
+#commerce .globe-video-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Glow effect */
+.globe-glow {
+  position: absolute;
+  inset: -30px;
+  background: radial-gradient(circle, rgba(99, 242, 242, 0.25), transparent 65%);
+  border-radius: 50%;
+  filter: blur(50px);
+  animation: pulse-glow 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+/* Rotating ring */
+.globe-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 700px;
+  border: 2px solid rgba(99, 242, 242, 0.3);
+  border-radius: 50%;
+  animation: rotate-ring 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotate-ring {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Connection dots */
+.connection-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
 /* === RESPONSIVE === */
 @media (max-width: 1024px) {
   .hero-content h1 {
@@ -738,6 +1010,11 @@ footer {
   .footer-content {
     grid-template-columns: 1fr 1fr;
     gap: 40px;
+  }
+  
+  .phone-mockup {
+    width: 300px;
+    height: 620px;
   }
 }
 
@@ -801,21 +1078,16 @@ footer {
     text-align: center;
   }
   
-  #commerce .globe-wrapper {
+  #commerce .globe-video-container {
     width: 90vw !important;
     height: 90vw !important;
     max-width: 450px !important;
     max-height: 450px !important;
   }
   
-  #commerce > div > div:first-child > div:last-child {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 24px !important;
-  }
-  
   .phone-mockup {
-    width: 240px !important;
-    height: 480px !important;
+    width: 280px !important;
+    height: 560px !important;
   }
 }
 </style>
@@ -924,7 +1196,7 @@ footer {
     </div>
   </section>
 
-  <!-- === PRODUCT SHOWCASE === -->
+  <!-- === PRODUCT SHOWCASE AVEC TPE AMÉLIORÉ === -->
   <section id="showcase">
     <div class="showcase-container">
       <div class="showcase-content">
@@ -958,23 +1230,19 @@ footer {
           </div>
         </div>
         
-        <button class="btn-primary" onclick="window.location.href='tpe.html'">
-          Découvrir KwikLink TPE →
+        <button class="btn-primary" onclick="startPaymentSimulation()">
+          Voir une simulation →
         </button>
       </div>
+      
+      <!-- TPE AMÉLIORÉ -->
       <div class="showcase-visual">
-        <!-- TPE Digital inline -->
-        <div style="width: 340px; height: 680px; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 48px; padding: 16px; box-shadow: 0 0 0 8px rgba(0,0,0,0.15), 0 50px 100px rgba(0,0,0,0.25); position: relative; animation: float 6s ease-in-out infinite;">
-          <!-- Notch -->
-          <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 140px; height: 32px; background: #0f172a; border-radius: 0 0 20px 20px; z-index: 10;"></div>
-          <div style="position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 10px; height: 10px; background: #1e293b; border-radius: 50%; z-index: 11;"></div>
-          
-          <!-- Screen -->
-          <div style="width: 100%; height: 100%; background: linear-gradient(180deg, #fef3c7 0%, #fde68a 100%); border-radius: 38px; overflow: hidden; display: flex; flex-direction: column;">
+        <div class="phone-mockup">
+          <div class="phone-screen">
             <!-- Status bar -->
-            <div style="height: 48px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; color: #0a2540; font-size: 13px; font-weight: 600;">
-              <div style="margin-left: 50px;">12:34</div>
-              <div style="display: flex; gap: 6px; align-items: center;">
+            <div class="status-bar">
+              <div class="status-bar-left">12:34</div>
+              <div class="status-bar-right">
                 <span>●●●</span>
                 <span style="font-size: 16px;">📶</span>
                 <span style="font-size: 16px;">🔋</span>
@@ -982,38 +1250,70 @@ footer {
             </div>
             
             <!-- Content -->
-            <div style="flex: 1; background: white; border-radius: 30px 30px 0 0; padding: 28px 20px; display: flex; flex-direction: column; box-shadow: 0 -10px 30px rgba(0,0,0,0.05); position: relative;">
+            <div class="tpe-content" id="tpeContent">
               <!-- Active indicator -->
-              <div style="position: absolute; top: 12px; right: 12px; width: 8px; height: 8px; background: #00b87c; border-radius: 50%; box-shadow: 0 0 0 4px rgba(0,184,124,0.2); animation: blink 2s ease-in-out infinite;"></div>
+              <div class="active-indicator"></div>
               
-              <!-- Logo section -->
-              <div style="text-align: center; background: linear-gradient(135deg, #fff 0%, #f9fafb 100%); padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 18px;">
-                <div style="font-size: 38px; margin-bottom: 8px; animation: pulse 2s ease-in-out infinite;">📡</div>
-                <div style="font-size: 24px; font-weight: 800; background: linear-gradient(90deg, #ff7a00, #00b87c, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">KwikLink</div>
+              <!-- Logo section avec NFC -->
+              <div class="tpe-logo-section">
+                <div class="nfc-logo">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6C4 4.89543 4.89543 4 6 4H18C19.1046 4 20 4.89543 20 6V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V6Z" stroke="url(#paint0_linear)" stroke-width="2"/>
+                    <path d="M8 8L8 16" stroke="url(#paint1_linear)" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M11 10C11 9.44772 11.4477 9 12 9V9C12.5523 9 13 9.44772 13 10V14C13 14.5523 12.5523 15 12 15V15C11.4477 15 11 14.5523 11 14V10Z" stroke="url(#paint2_linear)" stroke-width="2"/>
+                    <path d="M15 11C15 10.4477 15.4477 10 16 10V10C16.5523 10 17 10.4477 17 11V13C17 13.5523 16.5523 14 16 14V14C15.4477 14 15 13.5523 15 13V11Z" stroke="url(#paint3_linear)" stroke-width="2"/>
+                    <defs>
+                      <linearGradient id="paint0_linear" x1="4" y1="4" x2="20" y2="20" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#ff7a00"/>
+                        <stop offset="0.5" stop-color="#00b87c"/>
+                        <stop offset="1" stop-color="#8b5cf6"/>
+                      </linearGradient>
+                      <linearGradient id="paint1_linear" x1="8" y1="8" x2="8" y2="16" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#00b87c"/>
+                        <stop offset="1" stop-color="#8b5cf6"/>
+                      </linearGradient>
+                      <linearGradient id="paint2_linear" x1="11" y1="9" x2="13" y2="15" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#ff7a00"/>
+                        <stop offset="1" stop-color="#00b87c"/>
+                      </linearGradient>
+                      <linearGradient id="paint3_linear" x1="15" y1="10" x2="17" y2="14" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#00b87c"/>
+                        <stop offset="1" stop-color="#8b5cf6"/>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="kwiklink-title">KwikLink</div>
               </div>
               
               <!-- Amount -->
-              <div style="background: linear-gradient(135deg, #334155 0%, #1e293b 100%); border-radius: 14px; padding: 24px 16px; margin-bottom: 20px; text-align: center; box-shadow: 0 8px 24px rgba(0,0,0,0.15);">
-                <div style="font-size: 11px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; font-weight: 600;">MONTANT</div>
-                <div style="font-size: 36px; font-weight: 800; background: linear-gradient(90deg, #ff7a00, #00b87c); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">12,500</div>
-                <div style="font-size: 14px; color: rgba(255,255,255,0.8); margin-top: 4px; font-weight: 500;">F CFA</div>
+              <div class="amount-display" id="amountDisplay">
+                <div class="amount-label">MONTANT</div>
+                <div class="amount-value" id="amountValue">12,500</div>
+                <div class="amount-currency">F CFA</div>
               </div>
               
               <!-- Keypad -->
-              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: auto;">
-                <div style="aspect-ratio: 1; background: #f1f5f9; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 600; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">1</div>
-                <div style="aspect-ratio: 1; background: #f1f5f9; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 600; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">2</div>
-                <div style="aspect-ratio: 1; background: #f1f5f9; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 600; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">3</div>
-                <div style="aspect-ratio: 1; background: #f1f5f9; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 600; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">4</div>
-                <div style="aspect-ratio: 1; background: #f1f5f9; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 600; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">5</div>
-                <div style="aspect-ratio: 1; background: #f1f5f9; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 600; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">6</div>
-                <div style="aspect-ratio: 1; background: #f1f5f9; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 600; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">7</div>
-                <div style="aspect-ratio: 1; background: #f1f5f9; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 600; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">8</div>
-                <div style="aspect-ratio: 1; background: #f1f5f9; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 600; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">9</div>
-                <div style="aspect-ratio: 1; background: linear-gradient(135deg, #ef4444, #dc2626); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 600; color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">✕</div>
-                <div style="aspect-ratio: 1; background: #f1f5f9; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 600; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">0</div>
-                <div style="aspect-ratio: 1; background: linear-gradient(135deg, #00b87c, #059669); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 600; color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">✓</div>
+              <div class="keypad" id="keypad">
+                <div class="key" onclick="addDigit('1')">1</div>
+                <div class="key" onclick="addDigit('2')">2</div>
+                <div class="key" onclick="addDigit('3')">3</div>
+                <div class="key" onclick="addDigit('4')">4</div>
+                <div class="key" onclick="addDigit('5')">5</div>
+                <div class="key" onclick="addDigit('6')">6</div>
+                <div class="key" onclick="addDigit('7')">7</div>
+                <div class="key" onclick="addDigit('8')">8</div>
+                <div class="key" onclick="addDigit('9')">9</div>
+                <div class="key key-delete" onclick="deleteDigit()">✕</div>
+                <div class="key" onclick="addDigit('0')">0</div>
+                <div class="key key-validate" onclick="validatePayment()">✓</div>
               </div>
+            </div>
+            
+            <!-- Action buttons -->
+            <div class="action-buttons">
+              <button class="btn-cancel" onclick="cancelPayment()">✕ Annuler</button>
+              <button class="btn-validate" onclick="processPayment()">✓ Valider</button>
             </div>
           </div>
         </div>
@@ -1082,7 +1382,7 @@ footer {
     </div>
   </section>
 
-  <!-- === COMMERCE MONDIAL (Style Stripe) === -->
+  <!-- === COMMERCE MONDIAL AVEC VIDÉO === -->
   <section id="commerce" style="padding: 140px 6%; background: #0a2540; position: relative; overflow: hidden; color: white;">
     <!-- Animated background lines -->
     <canvas id="bgCanvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.6;"></canvas>
@@ -1103,7 +1403,7 @@ footer {
           Vos paiements franchissent les frontières sans friction. Notre technologie relie les systèmes de paiement entre l'Afrique, l'Europe et le reste du monde pour offrir des transactions instantanées et transparentes.
         </p>
         
-        <!-- Stats horizontales comme Stripe -->
+        <!-- Stats horizontales -->
         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;">
           <div>
             <div style="font-size: 2.2rem; font-weight: 800; color: #63f2f2; margin-bottom: 8px;">+70</div>
@@ -1124,25 +1424,31 @@ footer {
         </div>
       </div>
       
-      <!-- Right globe -->
+      <!-- Right globe VIDEO -->
       <div style="flex: 1; display: flex; justify-content: center; align-items: center; position: relative;">
-        <div class="globe-wrapper" style="position: relative; width: 650px; height: 650px;">
+        <div style="position: relative; width: 650px; height: 650px;">
           <!-- Glow effect -->
-          <div style="position: absolute; inset: -30px; background: radial-gradient(circle, rgba(99, 242, 242, 0.25), transparent 65%); border-radius: 50%; filter: blur(50px); animation: pulse-glow 4s ease-in-out infinite;"></div>
+          <div class="globe-glow"></div>
           
-          <!-- Globe container with Three.js -->
-          <div id="globe-container" style="position: relative; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; box-shadow: 0 50px 120px rgba(0,0,0,0.7), inset 0 0 100px rgba(99, 242, 242, 0.15);"></div>
+          <!-- Globe video container -->
+          <div class="globe-video-container">
+            <video autoplay loop muted playsinline>
+              <source src="globe-paiement.mp4" type="video/mp4">
+              <!-- Fallback si la vidéo ne charge pas -->
+              Votre navigateur ne supporte pas la vidéo.
+            </video>
+          </div>
           
           <!-- Rotating ring -->
-          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 700px; height: 700px; border: 2px solid rgba(99, 242, 242, 0.3); border-radius: 50%; animation: rotate-ring 20s linear infinite; pointer-events: none;"></div>
+          <div class="globe-ring"></div>
           
-          <!-- Connection dots (plus nombreux) -->
-          <div class="connection-dot" style="position: absolute; top: 15%; left: 12%; width: 10px; height: 10px; background: #63f2f2; border-radius: 50%; box-shadow: 0 0 25px #63f2f2; animation: pulse-dot 2s ease-in-out infinite;"></div>
-          <div class="connection-dot" style="position: absolute; top: 25%; right: 18%; width: 10px; height: 10px; background: #ff7a00; border-radius: 50%; box-shadow: 0 0 25px #ff7a00; animation: pulse-dot 2s ease-in-out infinite 0.5s;"></div>
-          <div class="connection-dot" style="position: absolute; bottom: 20%; left: 20%; width: 10px; height: 10px; background: #8b5cf6; border-radius: 50%; box-shadow: 0 0 25px #8b5cf6; animation: pulse-dot 2s ease-in-out infinite 1s;"></div>
-          <div class="connection-dot" style="position: absolute; bottom: 28%; right: 12%; width: 10px; height: 10px; background: #00b87c; border-radius: 50%; box-shadow: 0 0 25px #00b87c; animation: pulse-dot 2s ease-in-out infinite 1.5s;"></div>
-          <div class="connection-dot" style="position: absolute; top: 45%; left: 8%; width: 8px; height: 8px; background: #63f2f2; border-radius: 50%; box-shadow: 0 0 20px #63f2f2; animation: pulse-dot 2.5s ease-in-out infinite 0.3s;"></div>
-          <div class="connection-dot" style="position: absolute; top: 38%; right: 10%; width: 8px; height: 8px; background: #ff7a00; border-radius: 50%; box-shadow: 0 0 20px #ff7a00; animation: pulse-dot 2.5s ease-in-out infinite 0.8s;"></div>
+          <!-- Connection dots -->
+          <div class="connection-dot" style="top: 15%; left: 12%; background: #63f2f2; box-shadow: 0 0 25px #63f2f2;"></div>
+          <div class="connection-dot" style="top: 25%; right: 18%; background: #ff7a00; box-shadow: 0 0 25px #ff7a00; animation-delay: 0.5s;"></div>
+          <div class="connection-dot" style="bottom: 20%; left: 20%; background: #8b5cf6; box-shadow: 0 0 25px #8b5cf6; animation-delay: 1s;"></div>
+          <div class="connection-dot" style="bottom: 28%; right: 12%; background: #00b87c; box-shadow: 0 0 25px #00b87c; animation-delay: 1.5s;"></div>
+          <div class="connection-dot" style="top: 45%; left: 8%; width: 8px; height: 8px; background: #63f2f2; box-shadow: 0 0 20px #63f2f2; animation-delay: 0.3s;"></div>
+          <div class="connection-dot" style="top: 38%; right: 10%; width: 8px; height: 8px; background: #ff7a00; box-shadow: 0 0 20px #ff7a00; animation-delay: 0.8s;"></div>
         </div>
       </div>
     </div>
@@ -1200,6 +1506,10 @@ footer {
   </footer>
 
   <script>
+    // Variables pour le TPE
+    let currentAmount = '12500';
+    let isProcessing = false;
+    
     // Header scroll effect
     window.addEventListener('scroll', () => {
       const header = document.getElementById('header');
@@ -1229,6 +1539,173 @@ footer {
         }
       });
     });
+
+    // TPE Functions
+    function addDigit(digit) {
+      if (isProcessing) return;
+      if (currentAmount === '0') {
+        currentAmount = digit;
+      } else if (currentAmount.length < 10) {
+        currentAmount += digit;
+      }
+      updateAmountDisplay();
+    }
+    
+    function deleteDigit() {
+      if (isProcessing) return;
+      if (currentAmount.length > 1) {
+        currentAmount = currentAmount.slice(0, -1);
+      } else {
+        currentAmount = '0';
+      }
+      updateAmountDisplay();
+    }
+    
+    function updateAmountDisplay() {
+      const amountValue = document.getElementById('amountValue');
+      const formatted = parseInt(currentAmount).toLocaleString('fr-FR');
+      amountValue.textContent = formatted;
+    }
+    
+    function cancelPayment() {
+      if (isProcessing) return;
+      currentAmount = '0';
+      updateAmountDisplay();
+    }
+    
+    function validatePayment() {
+      processPayment();
+    }
+    
+    function processPayment() {
+      if (isProcessing || currentAmount === '0') return;
+      
+      isProcessing = true;
+      const tpeContent = document.getElementById('tpeContent');
+      const amount = parseInt(currentAmount).toLocaleString('fr-FR');
+      
+      // Afficher l'écran de traitement
+      tpeContent.innerHTML = `
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 40px 20px;">
+          <div style="width: 80px; height: 80px; border: 4px solid #f1f5f9; border-top: 4px solid #00b87c; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 24px;"></div>
+          <h3 style="font-size: 1.5rem; font-weight: 700; color: #0f172a; margin-bottom: 12px;">Traitement du paiement</h3>
+          <p style="font-size: 1rem; color: #64748b; margin-bottom: 24px;">Veuillez patienter...</p>
+          <div style="background: linear-gradient(135deg, #334155 0%, #1e293b 100%); padding: 16px 32px; border-radius: 12px;">
+            <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 4px;">MONTANT</div>
+            <div style="font-size: 2rem; font-weight: 800; background: linear-gradient(90deg, #ff7a00, #00b87c); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${amount}</div>
+            <div style="font-size: 0.9rem; color: rgba(255,255,255,0.8); margin-top: 4px;">F CFA</div>
+          </div>
+        </div>
+      `;
+      
+      // Ajouter l'animation de rotation
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `;
+      document.head.appendChild(style);
+      
+      // Simuler le traitement (2 secondes)
+      setTimeout(() => {
+        // Afficher l'écran de succès
+        tpeContent.innerHTML = `
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 40px 20px;">
+            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #00b87c, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; box-shadow: 0 8px 24px rgba(0,184,124,0.3);">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 13L9 17L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 style="font-size: 1.8rem; font-weight: 800; color: #00b87c; margin-bottom: 12px;">Paiement réussi !</h3>
+            <p style="font-size: 1rem; color: #64748b; margin-bottom: 32px;">Le client a été débité avec succès</p>
+            <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 20px; border-radius: 16px; width: 100%; border: 2px solid #00b87c;">
+              <div style="font-size: 0.85rem; color: #166534; margin-bottom: 8px; font-weight: 600;">MONTANT ENCAISSÉ</div>
+              <div style="font-size: 2.5rem; font-weight: 800; color: #00b87c;">${amount}</div>
+              <div style="font-size: 1rem; color: #166534; margin-top: 8px; font-weight: 600;">F CFA</div>
+            </div>
+            <button onclick="resetTPE()" style="margin-top: 32px; padding: 14px 32px; background: linear-gradient(135deg, #00b87c, #059669); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(0,184,124,0.3);">
+              Nouveau paiement
+            </button>
+          </div>
+        `;
+        
+        isProcessing = false;
+      }, 2000);
+    }
+    
+    function resetTPE() {
+      currentAmount = '12500';
+      isProcessing = false;
+      
+      const tpeContent = document.getElementById('tpeContent');
+      tpeContent.innerHTML = `
+        <div class="active-indicator"></div>
+        
+        <div class="tpe-logo-section">
+          <div class="nfc-logo">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6C4 4.89543 4.89543 4 6 4H18C19.1046 4 20 4.89543 20 6V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V6Z" stroke="url(#paint0_linear)" stroke-width="2"/>
+              <path d="M8 8L8 16" stroke="url(#paint1_linear)" stroke-width="2" stroke-linecap="round"/>
+              <path d="M11 10C11 9.44772 11.4477 9 12 9V9C12.5523 9 13 9.44772 13 10V14C13 14.5523 12.5523 15 12 15V15C11.4477 15 11 14.5523 11 14V10Z" stroke="url(#paint2_linear)" stroke-width="2"/>
+              <path d="M15 11C15 10.4477 15.4477 10 16 10V10C16.5523 10 17 10.4477 17 11V13C17 13.5523 16.5523 14 16 14V14C15.4477 14 15 13.5523 15 13V11Z" stroke="url(#paint3_linear)" stroke-width="2"/>
+              <defs>
+                <linearGradient id="paint0_linear" x1="4" y1="4" x2="20" y2="20" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#ff7a00"/>
+                  <stop offset="0.5" stop-color="#00b87c"/>
+                  <stop offset="1" stop-color="#8b5cf6"/>
+                </linearGradient>
+                <linearGradient id="paint1_linear" x1="8" y1="8" x2="8" y2="16" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#00b87c"/>
+                  <stop offset="1" stop-color="#8b5cf6"/>
+                </linearGradient>
+                <linearGradient id="paint2_linear" x1="11" y1="9" x2="13" y2="15" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#ff7a00"/>
+                  <stop offset="1" stop-color="#00b87c"/>
+                </linearGradient>
+                <linearGradient id="paint3_linear" x1="15" y1="10" x2="17" y2="14" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#00b87c"/>
+                  <stop offset="1" stop-color="#8b5cf6"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="kwiklink-title">KwikLink</div>
+        </div>
+        
+        <div class="amount-display" id="amountDisplay">
+          <div class="amount-label">MONTANT</div>
+          <div class="amount-value" id="amountValue">12,500</div>
+          <div class="amount-currency">F CFA</div>
+        </div>
+        
+        <div class="keypad" id="keypad">
+          <div class="key" onclick="addDigit('1')">1</div>
+          <div class="key" onclick="addDigit('2')">2</div>
+          <div class="key" onclick="addDigit('3')">3</div>
+          <div class="key" onclick="addDigit('4')">4</div>
+          <div class="key" onclick="addDigit('5')">5</div>
+          <div class="key" onclick="addDigit('6')">6</div>
+          <div class="key" onclick="addDigit('7')">7</div>
+          <div class="key" onclick="addDigit('8')">8</div>
+          <div class="key" onclick="addDigit('9')">9</div>
+          <div class="key key-delete" onclick="deleteDigit()">✕</div>
+          <div class="key" onclick="addDigit('0')">0</div>
+          <div class="key key-validate" onclick="validatePayment()">✓</div>
+        </div>
+      `;
+      
+      updateAmountDisplay();
+    }
+    
+    function startPaymentSimulation() {
+      // Scroll vers le TPE et démarrer une simulation
+      document.querySelector('#showcase').scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        processPayment();
+      }, 1000);
+    }
 
     // Animation de code typing
     const codeLines = [
@@ -1264,7 +1741,6 @@ footer {
           }
           displayedLines[lineIndex] += currentLine[charIndex];
           
-          // Syntax highlighting simple
           let styledLines = displayedLines.map((line, idx) => {
             if (line.includes('//')) {
               return `<span style="color: #94a3b8">${line}</span>`;
@@ -1287,7 +1763,6 @@ footer {
           setTimeout(typeCode, 100);
         }
       } else {
-        // Restart animation after 3 seconds
         setTimeout(() => {
           lineIndex = 0;
           charIndex = 0;
@@ -1298,10 +1773,9 @@ footer {
       }
     }
 
-    // Start typing animation when page loads
     typeCode();
 
-    // Canvas background animation (Stripe-style)
+    // Canvas background animation
     const canvas = document.getElementById('bgCanvas');
     if (canvas) {
       const ctx = canvas.getContext('2d');
@@ -1313,7 +1787,6 @@ footer {
       resizeCanvas();
       window.addEventListener('resize', resizeCanvas);
       
-      // Animated lines
       const lines = [];
       const lineCount = 8;
       
@@ -1327,7 +1800,7 @@ footer {
           speedY1: (Math.random() - 0.5) * 0.5,
           speedX2: (Math.random() - 0.5) * 0.5,
           speedY2: (Math.random() - 0.5) * 0.5,
-          hue: Math.random() * 60 + 170 // Blue/cyan range
+          hue: Math.random() * 60 + 170
         });
       }
       
@@ -1335,19 +1808,16 @@ footer {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         lines.forEach(line => {
-          // Update positions
           line.x1 += line.speedX1;
           line.y1 += line.speedY1;
           line.x2 += line.speedX2;
           line.y2 += line.speedY2;
           
-          // Bounce off edges
           if (line.x1 < 0 || line.x1 > canvas.width) line.speedX1 *= -1;
           if (line.y1 < 0 || line.y1 > canvas.height) line.speedY1 *= -1;
           if (line.x2 < 0 || line.x2 > canvas.width) line.speedX2 *= -1;
           if (line.y2 < 0 || line.y2 > canvas.height) line.speedY2 *= -1;
           
-          // Draw line
           const gradient = ctx.createLinearGradient(line.x1, line.y1, line.x2, line.y2);
           gradient.addColorStop(0, `hsla(${line.hue}, 100%, 60%, 0.1)`);
           gradient.addColorStop(0.5, `hsla(${line.hue}, 100%, 60%, 0.3)`);
@@ -1365,267 +1835,6 @@ footer {
       }
       
       drawLines();
-    }
-  </script>
-
-  <!-- Three.js CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  
-  <!-- Globe 3D Script (Style Stripe avec points) -->
-  <script>
-    const globeContainer = document.getElementById('globe-container');
-    
-    if (globeContainer && typeof THREE !== 'undefined') {
-      // Scene setup
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
-      camera.position.z = 3;
-      
-      const renderer = new THREE.WebGLRenderer({ 
-        antialias: true, 
-        alpha: true 
-      });
-      renderer.setSize(650, 650);
-      renderer.setClearColor(0x0a2540, 1);
-      globeContainer.appendChild(renderer.domElement);
-      
-      // Groupe principal
-      const globeGroup = new THREE.Group();
-      scene.add(globeGroup);
-      
-      // Données des continents (coordonnées latitude/longitude approximatives)
-      const continents = {
-        africa: [
-          [-15, 20], [-10, 30], [-5, 25], [0, 35], [5, 30], [10, 25], [15, 20],
-          [-20, 15], [-25, 20], [-30, 25], [-35, 28], [-10, 40], [0, 45],
-          [10, 35], [15, 30], [20, 25], [25, 35], [30, 40]
-        ],
-        europe: [
-          [40, 0], [45, 5], [50, 10], [55, 15], [50, -5], [45, -10],
-          [60, 20], [55, 25], [50, 20], [45, 15], [40, 10]
-        ],
-        asia: [
-          [30, 60], [35, 70], [40, 80], [45, 90], [50, 100], [55, 110],
-          [40, 50], [35, 55], [30, 50], [25, 60], [20, 70], [15, 80],
-          [50, 120], [45, 130], [40, 125], [35, 120]
-        ],
-        northAmerica: [
-          [50, -100], [55, -95], [60, -90], [65, -85], [45, -110], [40, -105],
-          [35, -100], [30, -95], [40, -120], [45, -115], [50, -110],
-          [25, -80], [30, -85], [35, -90]
-        ],
-        southAmerica: [
-          [-5, -60], [-10, -55], [-15, -50], [-20, -55], [-25, -60],
-          [-30, -65], [-35, -70], [-40, -68], [-45, -65], [0, -70],
-          [5, -75], [-5, -80], [-10, -75]
-        ],
-        australia: [
-          [-20, 130], [-25, 135], [-30, 140], [-35, 145], [-30, 150],
-          [-25, 145], [-20, 140], [-15, 135]
-        ]
-      };
-      
-      // Fonction pour convertir lat/lon en coordonnées 3D
-      function latLonToVector3(lat, lon, radius) {
-        const phi = (90 - lat) * (Math.PI / 180);
-        const theta = (lon + 180) * (Math.PI / 180);
-        
-        const x = -(radius * Math.sin(phi) * Math.cos(theta));
-        const z = radius * Math.sin(phi) * Math.sin(theta);
-        const y = radius * Math.cos(phi);
-        
-        return new THREE.Vector3(x, y, z);
-      }
-      
-      // Créer les points des continents
-      const pointsGeometry = new THREE.BufferGeometry();
-      const pointsMaterial = new THREE.PointsMaterial({
-        color: 0x4fc3f7,
-        size: 0.025,
-        transparent: true,
-        opacity: 0.8,
-        sizeAttenuation: true
-      });
-      
-      const positions = [];
-      const allPoints = [];
-      
-      Object.values(continents).forEach(continent => {
-        continent.forEach(([lat, lon]) => {
-          // Ajouter des points supplémentaires pour densifier
-          for (let i = 0; i < 3; i++) {
-            const offsetLat = lat + (Math.random() - 0.5) * 3;
-            const offsetLon = lon + (Math.random() - 0.5) * 3;
-            const pos = latLonToVector3(offsetLat, offsetLon, 1);
-            positions.push(pos.x, pos.y, pos.z);
-            allPoints.push(pos);
-          }
-        });
-      });
-      
-      pointsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-      const continentPoints = new THREE.Points(pointsGeometry, pointsMaterial);
-      globeGroup.add(continentPoints);
-      
-      // Créer les lignes de connexion entre continents
-      const connectionLines = [];
-      const connectionCenters = {
-        africa: latLonToVector3(0, 25, 1),
-        europe: latLonToVector3(50, 10, 1),
-        asia: latLonToVector3(40, 90, 1),
-        northAmerica: latLonToVector3(45, -100, 1),
-        southAmerica: latLonToVector3(-20, -60, 1),
-        australia: latLonToVector3(-25, 135, 1)
-      };
-      
-      const continentKeys = Object.keys(connectionCenters);
-      
-      for (let i = 0; i < continentKeys.length; i++) {
-        for (let j = i + 1; j < continentKeys.length; j++) {
-          const start = connectionCenters[continentKeys[i]];
-          const end = connectionCenters[continentKeys[j]];
-          
-          // Créer une courbe entre les deux points
-          const curve = new THREE.QuadraticBezierCurve3(
-            start,
-            new THREE.Vector3(
-              (start.x + end.x) / 2 * 1.3,
-              (start.y + end.y) / 2 * 1.3,
-              (start.z + end.z) / 2 * 1.3
-            ),
-            end
-          );
-          
-          const points = curve.getPoints(50);
-          const geometry = new THREE.BufferGeometry().setFromPoints(points);
-          const material = new THREE.LineBasicMaterial({
-            color: 0x63f2f2,
-            transparent: true,
-            opacity: 0.3,
-            linewidth: 2
-          });
-          
-          const line = new THREE.Line(geometry, material);
-          globeGroup.add(line);
-          connectionLines.push(line);
-        }
-      }
-      
-      // Ajouter des points lumineux sur les hubs
-      const hubGeometry = new THREE.SphereGeometry(0.02, 16, 16);
-      const hubColors = [0x63f2f2, 0xff7a00, 0x8b5cf6, 0x00b87c, 0xfbbf24, 0xf472b6];
-      
-      Object.values(connectionCenters).forEach((center, index) => {
-        const hubMaterial = new THREE.MeshBasicMaterial({
-          color: hubColors[index % hubColors.length],
-          transparent: true,
-          opacity: 0.9
-        });
-        const hub = new THREE.Mesh(hubGeometry, hubMaterial);
-        hub.position.copy(center);
-        globeGroup.add(hub);
-        
-        // Ajouter un glow
-        const glowGeometry = new THREE.SphereGeometry(0.04, 16, 16);
-        const glowMaterial = new THREE.MeshBasicMaterial({
-          color: hubColors[index % hubColors.length],
-          transparent: true,
-          opacity: 0.3
-        });
-        const glow = new THREE.Mesh(glowGeometry, glowMaterial);
-        glow.position.copy(center);
-        globeGroup.add(glow);
-      });
-      
-      // Sphère de base (océan)
-      const oceanGeometry = new THREE.SphereGeometry(0.99, 64, 64);
-      const oceanMaterial = new THREE.MeshPhongMaterial({
-        color: 0x1a4d6d,
-        transparent: true,
-        opacity: 0.6,
-        shininess: 10
-      });
-      const ocean = new THREE.Mesh(oceanGeometry, oceanMaterial);
-      globeGroup.add(ocean);
-      
-      // Atmosphere
-      const atmosphereGeometry = new THREE.SphereGeometry(1.15, 64, 64);
-      const atmosphereMaterial = new THREE.ShaderMaterial({
-        transparent: true,
-        side: THREE.BackSide,
-        vertexShader: `
-          varying vec3 vNormal;
-          void main() {
-            vNormal = normalize(normalMatrix * normal);
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-          }
-        `,
-        fragmentShader: `
-          varying vec3 vNormal;
-          void main() {
-            float intensity = pow(0.5 - dot(vNormal, vec3(0, 0, 1.0)), 2.0);
-            gl_FragColor = vec4(0.39, 0.95, 0.95, 0.6) * intensity;
-          }
-        `
-      });
-      
-      const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
-      globeGroup.add(atmosphere);
-      
-      // Lumières
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-      scene.add(ambientLight);
-      
-      const pointLight1 = new THREE.PointLight(0x63f2f2, 2, 100);
-      pointLight1.position.set(3, 2, 3);
-      scene.add(pointLight1);
-      
-      const pointLight2 = new THREE.PointLight(0x4fc3f7, 1.5, 100);
-      pointLight2.position.set(-3, -2, 3);
-      scene.add(pointLight2);
-      
-      // Animation
-      let mouseX = 0;
-      let mouseY = 0;
-      let targetRotationX = 0;
-      let targetRotationY = 0;
-      
-      document.addEventListener('mousemove', (event) => {
-        mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-        mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-      });
-      
-      let time = 0;
-      
-      function animate() {
-        requestAnimationFrame(animate);
-        time += 0.01;
-        
-        // Rotation automatique douce
-        globeGroup.rotation.y += 0.001;
-        
-        // Rotation interactive avec inertie
-        targetRotationX = mouseY * 0.2;
-        targetRotationY = mouseX * 0.3;
-        
-        globeGroup.rotation.x += (targetRotationX - globeGroup.rotation.x) * 0.05;
-        globeGroup.rotation.y += (targetRotationY - globeGroup.rotation.y) * 0.05;
-        
-        // Animer l'opacité des lignes de connexion
-        connectionLines.forEach((line, index) => {
-          line.material.opacity = 0.2 + Math.sin(time + index * 0.5) * 0.15;
-        });
-        
-        renderer.render(scene, camera);
-      }
-      
-      animate();
-      
-      // Handle resize
-      window.addEventListener('resize', () => {
-        const size = Math.min(window.innerWidth * 0.4, 650);
-        renderer.setSize(size, size);
-      });
     }
   </script>
 </body>
