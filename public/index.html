@@ -1130,15 +1130,11 @@ footer {
           <!-- Glow effect -->
           <div style="position: absolute; inset: -30px; background: radial-gradient(circle, rgba(99, 242, 242, 0.25), transparent 65%); border-radius: 50%; filter: blur(50px); animation: pulse-glow 4s ease-in-out infinite;"></div>
           
-          <!-- Globe container -->
-          <div style="position: relative; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; box-shadow: 0 50px 120px rgba(0,0,0,0.7), inset 0 0 100px rgba(99, 242, 242, 0.15);">
-            <video autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: cover;">
-              <source src="https://res.cloudinary.com/dmnbn7slz/video/upload/v1761141045/globe-paiement_u881ia.mp4" type="video/mp4">
-            </video>
-          </div>
+          <!-- Globe container with Three.js -->
+          <div id="globe-container" style="position: relative; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; box-shadow: 0 50px 120px rgba(0,0,0,0.7), inset 0 0 100px rgba(99, 242, 242, 0.15);"></div>
           
           <!-- Rotating ring -->
-          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 700px; height: 700px; border: 2px solid rgba(99, 242, 242, 0.3); border-radius: 50%; animation: rotate-ring 20s linear infinite;"></div>
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 700px; height: 700px; border: 2px solid rgba(99, 242, 242, 0.3); border-radius: 50%; animation: rotate-ring 20s linear infinite; pointer-events: none;"></div>
           
           <!-- Connection dots (plus nombreux) -->
           <div class="connection-dot" style="position: absolute; top: 15%; left: 12%; width: 10px; height: 10px; background: #63f2f2; border-radius: 50%; box-shadow: 0 0 25px #63f2f2; animation: pulse-dot 2s ease-in-out infinite;"></div>
@@ -1369,6 +1365,200 @@ footer {
       }
       
       drawLines();
+    }
+  </script>
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  
+  <!-- Globe 3D Script -->
+  <script>
+    const globeContainer = document.getElementById('globe-container');
+    
+    if (globeContainer && typeof THREE !== 'undefined') {
+      // Scene setup
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+      camera.position.z = 2.5;
+      
+      const renderer = new THREE.WebGLRenderer({ 
+        antialias: true, 
+        alpha: true 
+      });
+      renderer.setSize(650, 650);
+      renderer.setClearColor(0x0a2540, 1);
+      globeContainer.appendChild(renderer.domElement);
+      
+      // Globe geometry
+      const globeGeometry = new THREE.SphereGeometry(1, 64, 64);
+      
+      // Create texture with continents
+      const canvas = document.createElement('canvas');
+      canvas.width = 2048;
+      canvas.height = 1024;
+      const ctx = canvas.getContext('2d');
+      
+      // Background (ocean)
+      ctx.fillStyle = '#1e3a5f';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw simplified continents
+      ctx.fillStyle = '#3b82f6';
+      ctx.globalAlpha = 0.6;
+      
+      // Africa
+      ctx.beginPath();
+      ctx.ellipse(1100, 550, 200, 280, 0, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Europe
+      ctx.beginPath();
+      ctx.ellipse(1050, 350, 150, 120, 0, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Asia
+      ctx.beginPath();
+      ctx.ellipse(1400, 400, 300, 250, 0, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // North America
+      ctx.beginPath();
+      ctx.ellipse(400, 350, 250, 280, 0, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // South America
+      ctx.beginPath();
+      ctx.ellipse(500, 700, 150, 250, 0, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Australia
+      ctx.beginPath();
+      ctx.ellipse(1600, 750, 130, 100, 0, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Add connection lines
+      ctx.strokeStyle = '#63f2f2';
+      ctx.lineWidth = 3;
+      ctx.globalAlpha = 0.4;
+      
+      // Draw network lines
+      const cities = [
+        {x: 1100, y: 550}, // Africa
+        {x: 1050, y: 350}, // Europe
+        {x: 1400, y: 400}, // Asia
+        {x: 400, y: 350},  // N.America
+        {x: 500, y: 700},  // S.America
+        {x: 1600, y: 750}  // Australia
+      ];
+      
+      for (let i = 0; i < cities.length; i++) {
+        for (let j = i + 1; j < cities.length; j++) {
+          ctx.beginPath();
+          ctx.moveTo(cities[i].x, cities[i].y);
+          ctx.lineTo(cities[j].x, cities[j].y);
+          ctx.stroke();
+        }
+      }
+      
+      // Add glowing dots
+      ctx.globalAlpha = 1;
+      cities.forEach((city, index) => {
+        const colors = ['#63f2f2', '#ff7a00', '#8b5cf6', '#00b87c'];
+        ctx.fillStyle = colors[index % colors.length];
+        ctx.beginPath();
+        ctx.arc(city.x, city.y, 8, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Glow
+        ctx.shadowColor = colors[index % colors.length];
+        ctx.shadowBlur = 20;
+        ctx.beginPath();
+        ctx.arc(city.x, city.y, 12, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
+      
+      const texture = new THREE.CanvasTexture(canvas);
+      
+      // Globe material
+      const globeMaterial = new THREE.MeshPhongMaterial({
+        map: texture,
+        transparent: true,
+        opacity: 0.95,
+        emissive: 0x112244,
+        emissiveIntensity: 0.3,
+        shininess: 15
+      });
+      
+      const globe = new THREE.Mesh(globeGeometry, globeMaterial);
+      scene.add(globe);
+      
+      // Atmosphere glow
+      const atmosphereGeometry = new THREE.SphereGeometry(1.05, 64, 64);
+      const atmosphereMaterial = new THREE.ShaderMaterial({
+        transparent: true,
+        side: THREE.BackSide,
+        vertexShader: `
+          varying vec3 vNormal;
+          void main() {
+            vNormal = normalize(normalMatrix * normal);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          varying vec3 vNormal;
+          void main() {
+            float intensity = pow(0.6 - dot(vNormal, vec3(0, 0, 1.0)), 2.0);
+            gl_FragColor = vec4(0.39, 0.95, 0.95, 1.0) * intensity;
+          }
+        `
+      });
+      
+      const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
+      scene.add(atmosphere);
+      
+      // Lights
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+      scene.add(ambientLight);
+      
+      const pointLight = new THREE.PointLight(0x63f2f2, 1.5, 100);
+      pointLight.position.set(5, 3, 5);
+      scene.add(pointLight);
+      
+      const pointLight2 = new THREE.PointLight(0xff7a00, 0.8, 100);
+      pointLight2.position.set(-5, -3, 5);
+      scene.add(pointLight2);
+      
+      // Animation
+      let mouseX = 0;
+      let mouseY = 0;
+      
+      document.addEventListener('mousemove', (event) => {
+        mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+        mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+      });
+      
+      function animate() {
+        requestAnimationFrame(animate);
+        
+        // Rotation automatique
+        globe.rotation.y += 0.002;
+        atmosphere.rotation.y += 0.002;
+        
+        // Rotation interactive avec la souris
+        globe.rotation.x += (mouseY * 0.1 - globe.rotation.x) * 0.05;
+        globe.rotation.y += (mouseX * 0.3 - globe.rotation.y) * 0.05;
+        
+        renderer.render(scene, camera);
+      }
+      
+      animate();
+      
+      // Handle resize
+      window.addEventListener('resize', () => {
+        const size = Math.min(window.innerWidth * 0.4, 650);
+        renderer.setSize(size, size);
+      });
     }
   </script>
 </body>
