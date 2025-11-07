@@ -576,7 +576,7 @@ header nav a:hover::after {
   flex: 1;
   background: white;
   border-radius: 30px 30px 0 0;
-  padding: 28px 20px;
+  padding: 20px 16px 16px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
@@ -605,10 +605,10 @@ header nav a:hover::after {
 .tpe-logo-section {
   text-align: center;
   background: linear-gradient(135deg, #fff 0%, #f9fafb 100%);
-  padding: 20px;
+  padding: 16px;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  margin-bottom: 18px;
+  margin-bottom: 14px;
   position: relative;
 }
 
@@ -636,8 +636,8 @@ header nav a:hover::after {
 .amount-display {
   background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
   border-radius: 14px;
-  padding: 24px 16px;
-  margin-bottom: 20px;
+  padding: 18px 16px;
+  margin-bottom: 14px;
   text-align: center;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 }
@@ -670,7 +670,7 @@ header nav a:hover::after {
 .keypad {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 8px;
   margin-top: auto;
 }
 
@@ -685,12 +685,15 @@ header nav a:hover::after {
   font-weight: 600;
   color: #0f172a;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
   cursor: pointer;
+  user-select: none;
 }
 
 .key:active {
-  transform: scale(0.95);
+  transform: scale(0.92);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  background: #e2e8f0;
 }
 
 .key-delete {
@@ -699,51 +702,77 @@ header nav a:hover::after {
   font-size: 20px;
 }
 
+.key-delete:active {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
 .key-validate {
   background: linear-gradient(135deg, #00b87c, #059669);
   color: white;
   font-size: 20px;
 }
 
+.key-validate:active {
+  background: linear-gradient(135deg, #059669, #047857);
+}
+
 /* Action buttons au bas du téléphone */
 .action-buttons {
   display: flex;
-  gap: 10px;
-  padding: 12px 20px 20px;
+  gap: 8px;
+  padding: 8px 16px 16px;
   background: white;
 }
 
 .btn-cancel {
   flex: 1;
-  padding: 14px;
+  padding: 16px;
   background: linear-gradient(135deg, #ef4444, #dc2626);
   color: white;
   border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 4px 12px rgba(239,68,68,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .btn-validate {
   flex: 1;
-  padding: 14px;
+  padding: 16px;
   background: linear-gradient(135deg, #00b87c, #059669);
   color: white;
   border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 4px 12px rgba(0,184,124,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .btn-cancel:hover, .btn-validate:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+.btn-cancel:active {
+  transform: translateY(0) scale(0.96);
+  box-shadow: 0 2px 8px rgba(239,68,68,0.3);
+}
+
+.btn-validate:active {
+  transform: translateY(0) scale(0.96);
+  box-shadow: 0 2px 8px rgba(0,184,124,0.3);
 }
 
 /* === STATS SECTION === */
@@ -1230,9 +1259,14 @@ footer {
           </div>
         </div>
         
-        <button class="btn-primary" onclick="startPaymentSimulation()">
-          Voir une simulation →
-        </button>
+        <div style="display: flex; gap: 12px; margin-top: 8px;">
+          <button class="btn-primary" onclick="startPaymentSimulation()">
+            🎬 Voir une simulation
+          </button>
+          <button class="btn-secondary" onclick="window.location.href='tpe.html'">
+            📱 Découvrir le TPE
+          </button>
+        </div>
       </div>
       
       <!-- TPE AMÉLIORÉ -->
@@ -1312,8 +1346,18 @@ footer {
             
             <!-- Action buttons -->
             <div class="action-buttons">
-              <button class="btn-cancel" onclick="cancelPayment()">✕ Annuler</button>
-              <button class="btn-validate" onclick="processPayment()">✓ Valider</button>
+              <button class="btn-cancel" onclick="cancelPayment()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                Annuler
+              </button>
+              <button class="btn-validate" onclick="processPayment()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Valider
+              </button>
             </div>
           </div>
         </div>
@@ -1612,24 +1656,43 @@ footer {
       setTimeout(() => {
         // Afficher l'écran de succès
         tpeContent.innerHTML = `
-          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 40px 20px;">
-            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #00b87c, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; box-shadow: 0 8px 24px rgba(0,184,124,0.3);">
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 30px 20px;">
+            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #00b87c, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; box-shadow: 0 8px 24px rgba(0,184,124,0.3); animation: successPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5 13L9 17L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <h3 style="font-size: 1.8rem; font-weight: 800; color: #00b87c; margin-bottom: 12px;">Paiement réussi !</h3>
-            <p style="font-size: 1rem; color: #64748b; margin-bottom: 32px;">Le client a été débité avec succès</p>
-            <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 20px; border-radius: 16px; width: 100%; border: 2px solid #00b87c;">
+            <p style="font-size: 1rem; color: #64748b; margin-bottom: 28px;">Le client a été débité avec succès</p>
+            <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 20px; border-radius: 16px; width: 100%; border: 2px solid #00b87c; margin-bottom: 24px;">
               <div style="font-size: 0.85rem; color: #166534; margin-bottom: 8px; font-weight: 600;">MONTANT ENCAISSÉ</div>
               <div style="font-size: 2.5rem; font-weight: 800; color: #00b87c;">${amount}</div>
               <div style="font-size: 1rem; color: #166534; margin-top: 8px; font-weight: 600;">F CFA</div>
             </div>
-            <button onclick="resetTPE()" style="margin-top: 32px; padding: 14px 32px; background: linear-gradient(135deg, #00b87c, #059669); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(0,184,124,0.3);">
-              Nouveau paiement
-            </button>
+            <div style="display: flex; gap: 10px; width: 100%;">
+              <button onclick="resetTPE()" style="flex: 1; padding: 14px; background: linear-gradient(135deg, #00b87c, #059669); color: white; border: none; border-radius: 12px; font-size: 0.95rem; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(0,184,124,0.3);">
+                Nouveau paiement
+              </button>
+              <button onclick="window.location.href='tpe.html'" style="flex: 1; padding: 14px; background: white; color: #0f172a; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 0.95rem; font-weight: 600; cursor: pointer;">
+                En savoir plus
+              </button>
+            </div>
           </div>
         `;
+        
+        // Ajouter l'animation
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes successPop {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+          }
+        `;
+        if (!document.querySelector('style[data-success-animation]')) {
+          style.setAttribute('data-success-animation', 'true');
+          document.head.appendChild(style);
+        }
         
         isProcessing = false;
       }, 2000);
@@ -1696,14 +1759,88 @@ footer {
         </div>
       `;
       
+      // Recréer les boutons action dans le parent
+      const phoneScreen = document.querySelector('.phone-screen');
+      let actionButtons = phoneScreen.querySelector('.action-buttons');
+      if (!actionButtons) {
+        actionButtons = document.createElement('div');
+        actionButtons.className = 'action-buttons';
+        phoneScreen.appendChild(actionButtons);
+      }
+      
+      actionButtons.innerHTML = `
+        <button class="btn-cancel" onclick="cancelPayment()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          Annuler
+        </button>
+        <button class="btn-validate" onclick="processPayment()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Valider
+        </button>
+      `;
+      
       updateAmountDisplay();
     }
     
     function startPaymentSimulation() {
-      // Scroll vers le TPE et démarrer une simulation
+      // Scroll vers le TPE
       document.querySelector('#showcase').scrollIntoView({ behavior: 'smooth' });
+      
+      // Réinitialiser d'abord
+      currentAmount = '0';
+      updateAmountDisplay();
+      
+      // Séquence de simulation
       setTimeout(() => {
-        processPayment();
+        // Animation de saisie des chiffres: 2-5-0-0-0
+        const digits = ['2', '5', '0', '0', '0'];
+        let index = 0;
+        
+        function typeNextDigit() {
+          if (index < digits.length) {
+            const digit = digits[index];
+            
+            // Trouver et animer la touche
+            const keys = document.querySelectorAll('.key');
+            keys.forEach(key => {
+              if (key.textContent === digit) {
+                // Animation visuelle de la touche
+                key.style.transform = 'scale(0.92)';
+                key.style.background = '#e2e8f0';
+                
+                setTimeout(() => {
+                  key.style.transform = '';
+                  key.style.background = '';
+                }, 150);
+                
+                // Ajouter le chiffre
+                addDigit(digit);
+              }
+            });
+            
+            index++;
+            setTimeout(typeNextDigit, 400);
+          } else {
+            // Une fois les chiffres saisis, cliquer sur valider après 800ms
+            setTimeout(() => {
+              const validateBtn = document.querySelector('.btn-validate');
+              if (validateBtn) {
+                // Animation du bouton
+                validateBtn.style.transform = 'scale(0.96)';
+                setTimeout(() => {
+                  validateBtn.style.transform = '';
+                  processPayment();
+                }, 200);
+              }
+            }, 800);
+          }
+        }
+        
+        typeNextDigit();
       }, 1000);
     }
 
